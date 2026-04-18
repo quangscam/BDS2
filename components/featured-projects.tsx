@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const projects = [
   {
@@ -79,15 +80,13 @@ export function FeaturedProjects() {
                 />
                 
                 {/* Overlay on hover */}
-                <div
-                  className={`absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 ${
+                <Link href={`/projects/${project.id}`} className={`absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 ${
                     hoveredId === project.id ? 'opacity-100' : 'opacity-0'
-                  }`}
-                >
+                  }`}>
                   <button className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90" style={{ backgroundColor: '#8B4513' }}>
                     Xem chi tiết
                   </button>
-                </div>
+                </Link>
               </div>
 
               <div className="space-y-3">
@@ -110,9 +109,9 @@ export function FeaturedProjects() {
 
                 <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                   <span className="text-xl font-bold" style={{ color: '#8B4513' }}>{project.price}</span>
-                  <button className="font-semibold transition-colors" style={{ color: '#C41E3A' }}>
+                  <Link href={`/projects/${project.id}`} className="font-semibold transition-colors" style={{ color: '#C41E3A' }}>
                     CHI TIẾT DỰ ÁN →
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

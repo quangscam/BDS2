@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 const newsArticles = [
   {
     id: 1,
@@ -52,12 +54,14 @@ export function NewsSection() {
                   </span>
                   <span className="text-sm text-gray-500">{article.date}</span>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-4 line-clamp-3 hover:text-gray-700 cursor-pointer">
-                  {article.title}
-                </h3>
-                <button className="font-semibold transition-colors" style={{ color: '#C41E3A' }}>
+                <Link href={`/news/${article.id}`} className="hover:text-gray-700">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4 line-clamp-3">
+                    {article.title}
+                  </h3>
+                </Link>
+                <Link href={`/news/${article.id}`} className="font-semibold transition-colors" style={{ color: '#C41E3A' }}>
                   Đọc thêm →
-                </button>
+                </Link>
               </div>
             </article>
           ))}

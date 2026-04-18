@@ -18,9 +18,10 @@ export function Footer() {
             <h4 className="font-bold text-white mb-4">Liên kết nhanh</h4>
             <ul className="space-y-2">
               <li><a href="/" className="text-white/70 hover:text-yellow-400 transition-colors">Trang chủ</a></li>
-              <li><a href="#projects" className="text-white/70 hover:text-yellow-400 transition-colors">Dự án</a></li>
-              <li><a href="#news" className="text-white/70 hover:text-yellow-400 transition-colors">Tin tức</a></li>
-              <li><a href="#contact" className="text-white/70 hover:text-yellow-400 transition-colors">Liên hệ</a></li>
+              <li><a href="/projects" className="text-white/70 hover:text-yellow-400 transition-colors">Dự án</a></li>
+              <li><a href="/news" className="text-white/70 hover:text-yellow-400 transition-colors">Tin tức</a></li>
+              <li><a href="/about" className="text-white/70 hover:text-yellow-400 transition-colors">Giới thiệu</a></li>
+              <li><a href="/contact" className="text-white/70 hover:text-yellow-400 transition-colors">Liên hệ</a></li>
             </ul>
           </div>
 

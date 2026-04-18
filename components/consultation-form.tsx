@@ -106,9 +106,9 @@ export function ConsultationForm() {
           <button
             type="submit"
             className="w-full text-white px-8 py-4 rounded font-bold text-lg transition-opacity hover:opacity-90"
-            style={{ backgroundColor: '#C41E3A' }}
+            style={{ backgroundColor: '#D4AF37', color: '#2D2D2D' }}
           >
-            ĐĂNG KÝ
+            ĐĂNG KÝ NGAY
           </button>
         </form>
       </div>

@@ -23,12 +23,12 @@ export function Hero() {
               Khám phá không gian sống đẳng cấp tại vị trí vàng của thành phố. Các căn hộ và shophouse thương mại được thiết kế hiện đại với tiện ích đầy đủ.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90" style={{ backgroundColor: '#8B4513' }}>
+              <a href="/projects" className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90 inline-block text-center" style={{ backgroundColor: '#8B4513' }}>
                 KHÁM PHÁ DỰ ÁN
-              </button>
-              <button className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90" style={{ backgroundColor: '#C41E3A' }}>
+              </a>
+              <a href="/contact" className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90 inline-block text-center" style={{ backgroundColor: '#C41E3A' }}>
                 ĐẶT LỊCH TOUR
-              </button>
+              </a>
             </div>
           </div>
         </div>
