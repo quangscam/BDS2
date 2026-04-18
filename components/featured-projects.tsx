@@ -120,9 +120,9 @@ export function FeaturedProjects() {
         </div>
 
         <div className="text-center mt-16">
-          <button className="px-10 py-4 rounded text-lg font-semibold transition-opacity hover:opacity-90 text-white" style={{ backgroundColor: '#8B4513' }}>
+          <a href="/projects" className="inline-block px-10 py-4 rounded text-lg font-semibold transition-opacity hover:opacity-90 text-white" style={{ backgroundColor: '#8B4513' }}>
             XEM TẤT CẢ DỰ ÁN
-          </button>
+          </a>
         </div>
       </div>
     </section>
