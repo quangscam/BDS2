@@ -1,23 +1,36 @@
 export function Hero() {
   return (
-    <section className="min-h-[600px] flex items-center justify-center bg-gradient-to-br from-background via-background to-muted py-12 md:py-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="mb-8 text-primary text-sm font-medium tracking-widest uppercase">
-          Contemporary Architectural Developments
-        </div>
-        <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight">
-          Discover Your Dream Property
-        </h1>
-        <p className="text-xl text-foreground/70 mb-12 leading-relaxed max-w-2xl mx-auto">
-          Explore curated residential developments with contemporary design, sustainable living, and investment potential.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-primary text-primary-foreground px-8 py-4 rounded-lg text-lg font-semibold hover:opacity-90 transition-opacity">
-            Explore Projects
-          </button>
-          <button className="border-2 border-primary text-primary px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary/10 transition-colors">
-            Schedule Tour
-          </button>
+    <section className="min-h-[600px] flex items-center justify-center bg-white py-12 md:py-20">
+      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="relative overflow-hidden rounded-lg h-[400px] lg:h-[500px] bg-gray-200">
+            <img 
+              src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80" 
+              alt="CENTRE POINT" 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 text-white">
+              <h2 className="text-4xl md:text-5xl font-bold text-center mb-2">ĐẲNG CẤP</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">THƯƠNG GIA</h2>
+              <p className="text-2xl" style={{ color: '#D4AF37' }}>VỊ TRÍ VÀNG</p>
+            </div>
+          </div>
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              CENTRE POINT
+            </h1>
+            <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+              Khám phá không gian sống đẳng cấp tại vị trí vàng của thành phố. Các căn hộ và shophouse thương mại được thiết kế hiện đại với tiện ích đầy đủ.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90" style={{ backgroundColor: '#8B4513' }}>
+                KHÁM PHÁ DỰ ÁN
+              </button>
+              <button className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90" style={{ backgroundColor: '#C41E3A' }}>
+                ĐẶT LỊCH TOUR
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -6,43 +6,47 @@ import Image from 'next/image'
 const projects = [
   {
     id: 1,
-    name: 'The Meridian Towers',
-    location: 'Downtown District',
-    price: '$2.5M - $8.5M',
-    image: '/project-1.jpg',
-    description: 'Luxury residential towers with panoramic city views',
-    units: '256 units',
+    name: 'CENTRE POINT',
+    location: 'Trung tâm thành phố',
+    price: '1,300,000,000 VND',
+    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80',
+    description: 'Căn hộ cao cấp tại vị trí vàng với thiết kế hiện đại',
+    units: '180 units',
     completion: '2025',
+    tag: 'Commercial Suite',
   },
   {
     id: 2,
-    name: 'Riverside Gardens',
-    location: 'Waterfront Area',
-    price: '$1.8M - $6.2M',
-    image: '/project-2.jpg',
-    description: 'Serene waterfront community with contemporary architecture',
-    units: '180 units',
-    completion: '2026',
+    name: 'CENTRE PLAZA',
+    location: 'Khu đô thị mới',
+    price: '1,100,000,000 VND',
+    image: 'https://images.unsplash.com/photo-1512207736139-c586cbf395ad?w=500&q=80',
+    description: 'Không gian shophouse thương mại hiện đại và trang bị đầy đủ',
+    units: '156 units',
+    completion: '2024',
+    tag: 'Elite Corner Suite',
   },
   {
     id: 3,
-    name: 'Urban Oasis',
-    location: 'Central Park Adjacent',
-    price: '$3.2M - $12.5M',
-    image: '/project-3.jpg',
-    description: 'Premium residential complex with integrated wellness facilities',
+    name: 'THÀNH PHÚ HOMES',
+    location: 'Khu vực phía tây',
+    price: '950,000,000 VND',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80',
+    description: 'Nhà phố thương mại tiêu chuẩn với tài chính linh hoạt',
     units: '142 units',
-    completion: '2024',
+    completion: '2025',
+    tag: 'Shophouse',
   },
   {
     id: 4,
-    name: 'Skyline Heights',
-    location: 'Business District',
-    price: '$2.1M - $9.8M',
-    image: '/project-4.jpg',
-    description: 'Modern luxury apartments with smart home technology',
+    name: 'LUXURY TOWERS',
+    location: 'Quận trung tâm',
+    price: '1,550,000,000 VND',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&q=80',
+    description: 'Tòa nhà cao cấp với các tiện ích khang hoàng và mô phỏng',
     units: '198 units',
-    completion: '2025',
+    completion: '2026',
+    tag: 'Premium Residence',
   },
 ]
 
@@ -50,12 +54,12 @@ export function FeaturedProjects() {
   const [hoveredId, setHoveredId] = useState<number | null>(null)
 
   return (
-    <section id="projects" className="py-20 bg-background">
+    <section id="projects" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Featured Projects</h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
-            Handpicked developments that combine architectural excellence with investment potential
+        <div className="mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">DỰ ÁN NỔI BẬT</h2>
+          <p className="text-lg text-gray-600">
+            Những dự án tiêu biểu với thiết kế kiến trúc vượt trội và tiềm năng đầu tư cao
           </p>
         </div>
 
@@ -67,44 +71,47 @@ export function FeaturedProjects() {
               onMouseEnter={() => setHoveredId(project.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              <div className="relative h-80 bg-muted rounded-lg overflow-hidden mb-6">
-                {/* Image Placeholder */}
-                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-primary/40 mb-2">
-                      {project.name.substring(0, 1)}
-                    </div>
-                    <p className="text-foreground/40">{project.location}</p>
-                  </div>
-                </div>
+              <div className="relative h-80 bg-gray-200 rounded-lg overflow-hidden mb-6">
+                <img 
+                  src={project.image} 
+                  alt={project.name}
+                  className="w-full h-full object-cover"
+                />
                 
                 {/* Overlay on hover */}
                 <div
-                  className={`absolute inset-0 bg-primary/20 flex items-center justify-center transition-opacity duration-300 ${
+                  className={`absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 ${
                     hoveredId === project.id ? 'opacity-100' : 'opacity-0'
                   }`}
                 >
-                  <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
-                    View Gallery
+                  <button className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90" style={{ backgroundColor: '#8B4513' }}>
+                    Xem chi tiết
                   </button>
                 </div>
               </div>
 
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-foreground">{project.name}</h3>
-                <p className="text-foreground/60">{project.location}</p>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900">{project.name}</h3>
+                    <p className="text-gray-600">{project.location}</p>
+                  </div>
+                  <span className="text-sm font-semibold px-3 py-1 rounded" style={{ backgroundColor: '#D4AF37', color: '#2D2D2D' }}>
+                    {project.tag}
+                  </span>
+                </div>
                 
-                <div className="flex items-center justify-between text-sm text-foreground/70">
+                <div className="flex items-center justify-between text-sm text-gray-600">
                   <span>{project.units}</span>
-                  <span>Completion {project.completion}</span>
+                  <span>Hoàn thành {project.completion}</span>
                 </div>
 
-                <p className="text-foreground/80 leading-relaxed">{project.description}</p>
+                <p className="text-gray-700 leading-relaxed">{project.description}</p>
 
-                <div className="flex items-center justify-between pt-4 border-t border-border">
-                  <span className="text-xl font-bold text-primary">{project.price}</span>
-                  <button className="text-primary hover:text-primary/80 font-semibold transition-colors">
-                    Learn More →
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                  <span className="text-xl font-bold" style={{ color: '#8B4513' }}>{project.price}</span>
+                  <button className="font-semibold transition-colors" style={{ color: '#C41E3A' }}>
+                    CHI TIẾT DỰ ÁN →
                   </button>
                 </div>
               </div>
@@ -113,8 +120,8 @@ export function FeaturedProjects() {
         </div>
 
         <div className="text-center mt-16">
-          <button className="border-2 border-primary text-primary px-10 py-4 rounded-lg text-lg font-semibold hover:bg-primary hover:text-primary-foreground transition-colors">
-            View All Projects
+          <button className="px-10 py-4 rounded text-lg font-semibold transition-opacity hover:opacity-90 text-white" style={{ backgroundColor: '#8B4513' }}>
+            XEM TẤT CẢ DỰ ÁN
           </button>
         </div>
       </div>

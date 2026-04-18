@@ -1,49 +1,49 @@
 export function Footer() {
   return (
-    <footer className="bg-foreground text-foreground-foreground py-16">
+    <footer className="py-16" style={{ backgroundColor: '#2D2D2D' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div>
-            <h3 className="text-2xl font-bold text-white mb-4">ARTIFACT</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">CENTRE POINT</h3>
             <p className="text-white/70 text-sm leading-relaxed">
-              Curating exceptional residential developments for discerning investors and homeowners.
+              Những dự án bất động sản tiêu chuẩn với thiết kế hiện đại và tiềm năng đầu tư cao.
             </p>
             <div className="flex gap-4 mt-6">
-              <a href="#" className="text-white/60 hover:text-white transition-colors">Instagram</a>
-              <a href="#" className="text-white/60 hover:text-white transition-colors">LinkedIn</a>
+              <a href="#" className="text-white/60 hover:text-yellow-400 transition-colors">Facebook</a>
+              <a href="#" className="text-white/60 hover:text-yellow-400 transition-colors">Instagram</a>
             </div>
           </div>
 
           <div>
-            <h4 className="font-bold text-white mb-4">Quick Links</h4>
+            <h4 className="font-bold text-white mb-4">Liên kết nhanh</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Projects</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Contact</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Blog</a></li>
+              <li><a href="/" className="text-white/70 hover:text-yellow-400 transition-colors">Trang chủ</a></li>
+              <li><a href="#projects" className="text-white/70 hover:text-yellow-400 transition-colors">Dự án</a></li>
+              <li><a href="#news" className="text-white/70 hover:text-yellow-400 transition-colors">Tin tức</a></li>
+              <li><a href="#contact" className="text-white/70 hover:text-yellow-400 transition-colors">Liên hệ</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold text-white mb-4">Information</h4>
+            <h4 className="font-bold text-white mb-4">Thông tin</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">FAQ</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Support</a></li>
+              <li><a href="#" className="text-white/70 hover:text-yellow-400 transition-colors">Chính sách bảo mật</a></li>
+              <li><a href="#" className="text-white/70 hover:text-yellow-400 transition-colors">Điều khoản dịch vụ</a></li>
+              <li><a href="#" className="text-white/70 hover:text-yellow-400 transition-colors">Câu hỏi thường gặp</a></li>
+              <li><a href="#" className="text-white/70 hover:text-yellow-400 transition-colors">Hỗ trợ</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold text-white mb-4">Contact Us</h4>
+            <h4 className="font-bold text-white mb-4">Liên hệ chúng tôi</h4>
             <p className="text-white/70 text-sm mb-3">
-              Email: <a href="mailto:contact@artifact.com" className="hover:text-white transition-colors">contact@artifact.com</a>
+              Email: <a href="mailto:contact@centrepoint.com" className="hover:text-yellow-400 transition-colors">contact@centrepoint.com</a>
             </p>
             <p className="text-white/70 text-sm mb-3">
-              Phone: <a href="tel:+1234567890" className="hover:text-white transition-colors">+1 (234) 567-890</a>
+              Điện thoại: <a href="tel:+84123456789" className="hover:text-yellow-400 transition-colors">+84 (123) 456-789</a>
             </p>
             <p className="text-white/70 text-sm">
-              Hours: Mon - Fri, 9AM - 6PM
+              Giờ làm việc: T2 - T6, 9AM - 6PM
             </p>
           </div>
         </div>
@@ -51,10 +51,10 @@ export function Footer() {
         <div className="border-t border-white/20 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <p className="text-white/60 text-sm">
-              © 2024 Artifact Properties. All rights reserved.
+              © 2024 CENTRE POINT. Bản quyền được bảo vệ.
             </p>
             <p className="text-white/60 text-sm mt-4 md:mt-0">
-              Crafting exceptional real estate experiences
+              Tạo nên những trải nghiệm bất động sản hoàn hảo
             </p>
           </div>
         </div>
