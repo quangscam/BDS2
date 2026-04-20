@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { useScrollReveal } from '@/hooks/use-scroll-reveal'
 import { Mail, Phone, MapPin, Send, Phone as PhoneIcon, MessageSquare, FileText, Building2 } from 'lucide-react'
 
 export default function ContactPage() {
@@ -14,6 +15,9 @@ export default function ContactPage() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const { ref: titleRef, isVisible: titleVisible } = useScrollReveal()
+  const { ref: officesRef, isVisible: officesVisible } = useScrollReveal()
+  const { ref: faqRef, isVisible: faqVisible } = useScrollReveal()
 
   const offices = [
     {
@@ -65,20 +69,38 @@ export default function ContactPage() {
       <Header />
 
       {/* Page Header */}
-      <div className="bg-white py-12 border-b border-gray-200">
+      <div className="bg-white py-12 border-b border-gray-200" ref={titleRef as any}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">LIÊN HỆ VỚI CHÚNG TÔI</h1>
-          <p className="text-lg text-gray-600">Chúng tôi sẵn sàng giúp đỡ và trả lời mọi câu hỏi của bạn</p>
+          <div className={`relative transition-all duration-500 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="absolute left-0 top-0 w-1 h-20 rounded" style={{ backgroundColor: '#B03A2E' }}></div>
+            <div className="pl-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">LIÊN HỆ <span style={{ color: '#B03A2E' }}>VỚI CHÚNG TÔI</span></h1>
+              <p className="text-lg text-gray-600">Chúng tôi sẵn sàng giúp đỡ và trả lời mọi câu hỏi của bạn</p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Office Information */}
-      <div className="bg-gray-50 py-20">
+      <div className="bg-gray-50 py-20" ref={officesRef as any}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">CÁC VĂN PHÒNG CỦA CHÚNG TÔI</h2>
+          <div className={`relative mb-12 transition-all duration-500 ${officesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="absolute left-0 top-0 w-1 h-12 rounded" style={{ backgroundColor: '#B03A2E' }}></div>
+            <div className="pl-6">
+              <h2 className="text-3xl font-bold text-gray-900">CÁC VĂN PHÒNG CỦA CHÚNG TÔI</h2>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {offices.map((office, idx) => (
-              <div key={idx} className="bg-white p-8 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+              <div 
+                key={idx} 
+                className={`bg-white p-8 rounded-lg shadow-sm hover:shadow-lg transition-all duration-500 card-hover ${
+                  officesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{
+                  transitionDelay: officesVisible ? `${(idx + 1) * 75}ms` : '0ms',
+                }}
+              >
                 <p className="text-5xl mb-4">{office.image}</p>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">{office.name}</h3>
                 <div className="space-y-3 text-sm text-gray-600">
@@ -273,9 +295,14 @@ export default function ContactPage() {
       </div>
 
       {/* FAQ Section */}
-      <div className="bg-gray-50 py-20">
+      <div className="bg-gray-50 py-20" ref={faqRef as any}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">CÂU HỎI THƯỜNG GẶP</h2>
+          <div className={`relative mb-12 transition-all duration-500 ${faqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="absolute left-0 top-0 w-1 h-12 rounded" style={{ backgroundColor: '#B03A2E' }}></div>
+            <div className="pl-6">
+              <h2 className="text-3xl font-bold text-gray-900">CÂU HỎI THƯỜNG GẶP</h2>
+            </div>
+          </div>
           <div className="space-y-4">
             {[
               {
@@ -295,7 +322,15 @@ export default function ContactPage() {
                 a: 'Chúng tôi có chính sách hỗ trợ linh hoạt. Vui lòng liên hệ trực tiếp để tìm hiểu thêm chi tiết.',
               },
             ].map((faq, idx) => (
-              <details key={idx} className="bg-white rounded-lg p-6 cursor-pointer hover:shadow-sm transition-shadow">
+              <details 
+                key={idx} 
+                className={`bg-white rounded-lg p-6 cursor-pointer hover:shadow-sm transition-all duration-500 ${
+                  faqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{
+                  transitionDelay: faqVisible ? `${(idx + 1) * 75}ms` : '0ms',
+                }}
+              >
                 <summary className="font-semibold text-gray-900 flex items-center justify-between">
                   {faq.q}
                   <span>+</span>

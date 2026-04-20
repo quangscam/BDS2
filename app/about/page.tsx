@@ -2,8 +2,13 @@
 
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { useScrollReveal } from '@/hooks/use-scroll-reveal'
 
 export default function AboutPage() {
+  const { ref: statsRef, isVisible: statsVisible } = useScrollReveal()
+  const { ref: valuesRef, isVisible: valuesVisible } = useScrollReveal()
+  const { ref: teamRef, isVisible: teamVisible } = useScrollReveal()
+
   const stats = [
     { number: '5000+', label: 'Khách hàng hài lòng', icon: '👥' },
     { number: '50+', label: 'Dự án thành công', icon: '🏗️' },
@@ -110,12 +115,25 @@ export default function AboutPage() {
       </div>
 
       {/* Stats */}
-      <div className="bg-white py-20">
+      <div className="bg-white py-20" ref={statsRef as any}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 text-center mb-16">CON SỐ CỐT LÕI</h2>
+          <div className={`relative mb-16 transition-all duration-500 ${statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="absolute left-0 top-0 w-1 h-16 rounded" style={{ backgroundColor: '#B03A2E' }}></div>
+            <div className="pl-6">
+              <h2 className="text-4xl font-bold text-gray-900">CON SỐ CỐT LÕI</h2>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, idx) => (
-              <div key={idx} className="text-center">
+              <div 
+                key={idx} 
+                className={`text-center transition-all duration-500 ${
+                  statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{
+                  transitionDelay: statsVisible ? `${(idx + 1) * 75}ms` : '0ms',
+                }}
+              >
                 <p className="text-5xl mb-4">{stat.icon}</p>
                 <p className="text-4xl font-bold" style={{ color: '#8B4513' }}>
                   {stat.number}
@@ -128,12 +146,25 @@ export default function AboutPage() {
       </div>
 
       {/* Core Values */}
-      <div className="bg-gray-50 py-20">
+      <div className="bg-gray-50 py-20" ref={valuesRef as any}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 text-center mb-16">GIÁ TRỊ CỐT LÕI</h2>
+          <div className={`relative mb-16 transition-all duration-500 ${valuesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="absolute left-0 top-0 w-1 h-16 rounded" style={{ backgroundColor: '#B03A2E' }}></div>
+            <div className="pl-6">
+              <h2 className="text-4xl font-bold text-gray-900">GIÁ TRỊ CỐT LÕI</h2>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {values.map((value, idx) => (
-              <div key={idx} className="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div 
+                key={idx} 
+                className={`bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-all duration-500 card-hover ${
+                  valuesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{
+                  transitionDelay: valuesVisible ? `${(idx + 1) * 75}ms` : '0ms',
+                }}
+              >
                 <div className="flex items-start gap-4">
                   <span className="text-4xl mt-1" style={{ color: '#D4AF37' }}>
                     {value.icon}
@@ -150,12 +181,25 @@ export default function AboutPage() {
       </div>
 
       {/* Team */}
-      <div className="bg-white py-20">
+      <div className="bg-white py-20" ref={teamRef as any}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 text-center mb-16">ĐỘI NGŨ CỦA CHÚNG TÔI</h2>
+          <div className={`relative mb-16 transition-all duration-500 ${teamVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="absolute left-0 top-0 w-1 h-16 rounded" style={{ backgroundColor: '#B03A2E' }}></div>
+            <div className="pl-6">
+              <h2 className="text-4xl font-bold text-gray-900">ĐỘI NGŨ CỦA CHÚNG TÔI</h2>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, idx) => (
-              <div key={idx} className="bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+              <div 
+                key={idx} 
+                className={`bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-500 card-hover ${
+                  teamVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{
+                  transitionDelay: teamVisible ? `${(idx + 1) * 75}ms` : '0ms',
+                }}
+              >
                 <div className="h-64 bg-gray-200 overflow-hidden">
                   <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
                 </div>

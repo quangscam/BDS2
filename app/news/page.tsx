@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { useScrollReveal } from '@/hooks/use-scroll-reveal'
 import Link from 'next/link'
 
 const allArticles = [
@@ -79,6 +80,7 @@ export default function NewsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
+  const { ref: titleRef, isVisible: titleVisible } = useScrollReveal()
 
   const categories = ['Tin Thị trường', 'Hướng dẫn', 'Thiết kế', 'Đầu tư', 'Tin Dự án', 'Chính sách']
 
@@ -104,10 +106,15 @@ export default function NewsPage() {
       <Header />
 
       {/* Page Header */}
-      <div className="bg-white py-12 border-b border-gray-200">
+      <div className="bg-white py-12 border-b border-gray-200" ref={titleRef as any}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">TIN TỨC & INSIGHTS</h1>
-          <p className="text-lg text-gray-600">Cập nhật thông tin thị trường bất động sản và những xu hướng mới nhất</p>
+          <div className={`relative transition-all duration-500 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="absolute left-0 top-0 w-1 h-20 rounded" style={{ backgroundColor: '#B03A2E' }}></div>
+            <div className="pl-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">TIN TỨC & <span style={{ color: '#B03A2E' }}>INSIGHTS</span></h1>
+              <p className="text-lg text-gray-600">Cập nhật thông tin thị trường bất động sản và những xu hướng mới nhất</p>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { useScrollReveal } from '@/hooks/use-scroll-reveal'
 
 const newsArticles = [
   {
@@ -28,24 +29,40 @@ const newsArticles = [
 ]
 
 export function NewsSection() {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollReveal()
+  const { ref: articlesRef, isVisible: articlesVisible } = useScrollReveal()
+
   return (
     <section id="news" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">TIN TỨC & THỊ TRƯỜNG</h2>
-          <p className="text-lg text-gray-600">
-            Cập nhật thông tin mới nhất về thị trường bất động sản và các dự án của chúng tôi
-          </p>
+        <div className="mb-16" ref={titleRef as any}>
+          <div className={`relative transition-all duration-500 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="absolute left-0 top-0 w-1 h-16 rounded" style={{ backgroundColor: '#B03A2E' }}></div>
+            <div className="pl-6">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">TIN TỨC & THỊ TRƯỜNG</h2>
+              <p className="text-lg text-gray-600">
+                Cập nhật thông tin mới nhất về thị trường bất động sản và các dự án của chúng tôi
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {newsArticles.map((article) => (
-            <article key={article.id} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-              <div className="relative h-48 bg-gray-200 overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8" ref={articlesRef as any}>
+          {newsArticles.map((article, idx) => (
+            <article 
+              key={article.id} 
+              className={`bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500 card-hover ${
+                articlesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{
+                transitionDelay: articlesVisible ? `${idx * 75}ms` : '0ms',
+              }}
+            >
+              <div className="relative h-48 bg-gray-200 overflow-hidden image-zoom">
                 <img 
                   src={article.image}
                   alt={article.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform"
+                  className="w-full h-full object-cover transition-transform duration-300"
                 />
               </div>
               <div className="p-6">
