@@ -5,15 +5,21 @@ import { Footer } from '@/components/footer'
 
 export default async function NewsDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params
-  const id = resolvedParams.id
+  // Giải mã URL và dùng nó làm Slug thay vì ID
+  const slug = decodeURIComponent(resolvedParams.id)
 
   const apiUrl = process.env.NEXT_PUBLIC_WP_URL || 'https://api.happyhousesg.com'
 
-  const res = await fetch(`${apiUrl}/wp-json/wp/v2/posts/${id}?_embed`, {
-    next: { revalidate: 60 },
+  // BÍ QUYẾT: Đổi url API thành dạng ?slug= và thêm cache: 'no-store'
+  const res = await fetch(`${apiUrl}/wp-json/wp/v2/posts?slug=${slug}&_embed`, {
+    cache: 'no-store'
   })
 
-  if (!res.ok) {
+  // Vì tìm theo slug, WordPress trả về một mảng (Array)
+  const posts = await res.json()
+
+  // Kiểm tra lỗi hoặc mảng rỗng
+  if (!res.ok || !posts || posts.length === 0) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center" style={{ backgroundColor: '#F5EDE8' }}>
         <div className="text-center max-w-md px-6">
@@ -39,7 +45,8 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ id:
     )
   }
 
-  const post = await res.json()
+  // Lấy dữ liệu từ phần tử đầu tiên của mảng
+  const post = posts[0]
 
   const title = post.title.rendered
   const content = post.content.rendered
@@ -173,7 +180,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ id:
           <div className="hero-overlay absolute inset-0" />
 
           {/* Back button on top of image */}
-          <div className="absolute top-8 left-0 right-0 max-w-5xl mx-auto px-4 sm:px-8">
+          <div className="absolute top-8 left-0 right-0 max-w-5xl mx-auto px-4 sm:px-8 mt-20">
             <Link
               href="/news"
               className="back-link inline-flex items-center gap-2 text-white/90 text-sm font-semibold tracking-wide uppercase"

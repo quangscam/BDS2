@@ -71,6 +71,7 @@ function Reveal({
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : initialTransform[direction],
         transition: `opacity 0.65s ease-out ${delay}s, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
+        // Merge styles: Reveal handled animation, pass other styles down
         ...style,
       }}
     >
@@ -93,13 +94,14 @@ function StatCard({ icon, number, suffix, label, delay = 0 }: {
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.92)',
         transition: `opacity 0.6s ease-out ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
+        // Mobile UX optimization: basis logic handled in parent loop
       }}
     >
-      <p style={{ fontSize: '48px', marginBottom: '16px' }}>{icon}</p>
-      <p style={{ fontSize: '36px', fontWeight: 800, color: '#B03A2E', letterSpacing: '-0.01em' }}>
+      <p style={{ fontSize: 'clamp(32px, 4vw, 48px)', marginBottom: '16px' }}>{icon}</p>
+      <p style={{ fontSize: 'clamp(28px, 3vw, 36px)', fontWeight: 800, color: '#B03A2E', letterSpacing: '-0.01em' }}>
         {count}{suffix}
       </p>
-      <p style={{ fontWeight: 600, marginTop: '8px', color: '#5D4E4E', fontSize: '13px', letterSpacing: '0.06em' }}>
+      <p style={{ fontWeight: 600, marginTop: '8px', color: '#5D4E4E', fontSize: '12px', letterSpacing: '0.06em' }}>
         {label}
       </p>
     </div>
@@ -181,12 +183,15 @@ export default function AboutPage() {
     <main style={{ minHeight: '100vh', backgroundColor: '#FDFAF6' }}>
       <Header />
 
-      {/* ── Hero ── */}
-      <div style={{ backgroundColor: '#FDFAF6', borderBottom: '1px solid #E8D7CF', padding: '80px 0' }}>
+      {/* ── Hero Section ── (Added pt-24 to offset Header on Mobile) */}
+      <div className="pt-24 lg:pt-32 pb-16 lg:pb-20 border-b border-[#E8D7CF]" style={{ backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
-            {/* Text bên trái */}
-            <Reveal direction="left">
+          
+          {/* TỐI ƯU UX/UI MOBILE: Xóa hoàn toàn grid-cols, dùng Flex Wrap để tự động xếp dọc khi hẹp */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: '64px', rowGap: '40px', alignItems: 'center' }}>
+            
+            {/* 1. Text bên trái: Tự động chiếm 100% trên Mobile, chia đôi trên Desktop */}
+            <Reveal direction="left" style={{ flex: '1 1 320px', minWidth: 0, maxWidth: '100%' }}>
               <div>
                 <Reveal delay={0.1}>
                   <div style={{ width: 48, height: 4, backgroundColor: '#B03A2E', marginBottom: 24, borderRadius: 2 }} />
@@ -210,8 +215,8 @@ export default function AboutPage() {
               </div>
             </Reveal>
 
-            {/* Ảnh bên phải */}
-            <Reveal direction="right" delay={0.2}>
+            {/* 2. Ảnh bên phải */}
+            <Reveal direction="right" delay={0.2} style={{ flex: '1 1 320px', minWidth: 0, maxWidth: '100%' }}>
               <div style={{ position: 'relative', height: '400px', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(176,58,46,0.15)' }}>
                 <img
                   src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80"
@@ -226,19 +231,20 @@ export default function AboutPage() {
       </div>
 
       {/* ── Sứ mệnh & Tầm nhìn ── */}
-      <div style={{ backgroundColor: '#F5EDE8', padding: '80px 0' }}>
+      <div className="py-16 lg:py-20" style={{ backgroundColor: '#F5EDE8' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-            <Reveal direction="left" delay={0}>
-              <div style={{ padding: '48px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderLeft: '4px solid #B03A2E' }}>
+          {/* TỐI ƯU UX/UI MOBILE: Xếp dọc trên mobile (flex-col), 2 cột trên Desktop (lg:grid-cols-2) */}
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12">
+            <Reveal direction="left" delay={0} style={{ display: 'flex' }}>
+              <div style={{ padding: '32px lg:48px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderLeft: '4px solid #B03A2E', flex: 1 }} className="p-8 lg:p-12">
                 <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#B03A2E', marginBottom: '20px', letterSpacing: '0.04em' }}>SỨ MỆNH</h2>
                 <p style={{ fontSize: '15px', lineHeight: 1.8, color: '#5D4E4E' }}>
                   Phát triển những dự án bất động sản chất lượng cao, tạo ra những không gian sống và làm việc lý tưởng cho mọi gia đình Việt Nam. Mỗi dự án là một cơ hội để nâng cao chất lượng cuộc sống cộng đồng.
                 </p>
               </div>
             </Reveal>
-            <Reveal direction="right" delay={0.15}>
-              <div style={{ padding: '48px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderLeft: '4px solid #C9A84C' }}>
+            <Reveal direction="right" delay={0.15} style={{ display: 'flex' }}>
+              <div style={{ padding: '32px lg:48px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderLeft: '4px solid #C9A84C', flex: 1 }} className="p-8 lg:p-12">
                 <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#C9A84C', marginBottom: '20px', letterSpacing: '0.04em' }}>TẦM NHÌN</h2>
                 <p style={{ fontSize: '15px', lineHeight: 1.8, color: '#5D4E4E' }}>
                   Trở thành nhà phát triển bất động sản được tin tưởng nhất tại Việt Nam, được công nhận vì cam kết với chất lượng, đổi mới và sự hài lòng của khách hàng. Hướng tới sự bền vững và tác động xã hội tích cực.
@@ -250,30 +256,34 @@ export default function AboutPage() {
       </div>
 
       {/* ── Thống kê ── */}
-      <div style={{ backgroundColor: '#FDFAF6', padding: '80px 0' }}>
+      <div className="py-16 lg:py-20" style={{ backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="up">
             <h2 style={{ fontSize: '36px', fontWeight: 900, textAlign: 'center', color: '#2C1A1A', marginBottom: '60px', letterSpacing: '0.02em' }}>
               CON SỐ <span style={{ color: '#B03A2E' }}>NỔI BẬT</span>
             </h2>
           </Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '32px' }}>
+          {/* TỐI ƯU UX/UI MOBILE: Dùng flex-wrap and basis logic */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center' }}>
             {stats.map((stat, idx) => (
-              <StatCard key={idx} {...stat} delay={idx * 0.12} />
+              <div key={idx} style={{ flex: '1 1 140px', maxWidth: '300px' }}>
+                 <StatCard {...stat} delay={idx * 0.12} />
+              </div>
             ))}
           </div>
         </div>
       </div>
 
       {/* ── Khách hàng nói gì ── */}
-      <div style={{ backgroundColor: '#F5EDE8', padding: '80px 0' }}>
+      <div className="py-16 lg:py-20" style={{ backgroundColor: '#F5EDE8' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="up">
             <h2 style={{ fontSize: '36px', fontWeight: 900, textAlign: 'center', color: '#2C1A1A', marginBottom: '60px', letterSpacing: '0.02em' }}>
               KHÁCH HÀNG <span style={{ color: '#B03A2E' }}>NÓI GÌ</span>
             </h2>
           </Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+          {/* TỐI ƯU UX/UI MOBILE: Xếp dọc trên mobile (flex-col), 3 cột trên Desktop (lg:grid-cols-3) */}
+          <div className="flex flex-col md:grid md:grid-cols-3 gap-8">
             {testimonials.map((t, idx) => (
               <Reveal key={idx} direction="up" delay={idx * 0.15}>
                 <div
@@ -297,18 +307,19 @@ export default function AboutPage() {
       </div>
 
       {/* ── Giá trị cốt lõi ── */}
-      <div style={{ backgroundColor: '#FDFAF6', padding: '80px 0' }}>
+      <div className="py-16 lg:py-20" style={{ backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="up">
             <h2 style={{ fontSize: '36px', fontWeight: 900, textAlign: 'center', color: '#2C1A1A', marginBottom: '60px', letterSpacing: '0.02em' }}>
               GIÁ TRỊ <span style={{ color: '#B03A2E' }}>CỐT LÕI</span>
             </h2>
           </Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          {/* TỐI ƯU UX/UI MOBILE: Dùng flex-wrap and basis logic */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {values.map((value, idx) => (
-              <Reveal key={idx} direction={idx % 2 === 0 ? 'left' : 'right'} delay={idx * 0.1}>
+              <Reveal key={idx} direction={idx % 2 === 0 ? 'left' : 'right'} delay={idx * 0.1} style={{ flex: '1 1 300px', minWidth: 0 }}>
                 <div
-                  style={{ padding: '32px', borderRadius: '12px', backgroundColor: '#F5EDE8', transition: 'transform 0.2s, box-shadow 0.2s', cursor: 'default' }}
+                  style={{ padding: '32px', borderRadius: '12px', backgroundColor: '#F5EDE8', transition: 'transform 0.2s, box-shadow 0.2s', cursor: 'default', height: '100%' }}
                   onMouseEnter={e => {
                     e.currentTarget.style.transform = 'translateY(-4px)'
                     e.currentTarget.style.boxShadow = '0 8px 24px rgba(176,58,46,0.12)'
@@ -333,18 +344,19 @@ export default function AboutPage() {
       </div>
 
       {/* ── Đội ngũ ── */}
-      <div style={{ backgroundColor: '#F5EDE8', padding: '80px 0' }}>
+      <div className="py-16 lg:py-20" style={{ backgroundColor: '#F5EDE8' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="up">
             <h2 style={{ fontSize: '36px', fontWeight: 900, textAlign: 'center', color: '#2C1A1A', marginBottom: '60px', letterSpacing: '0.02em' }}>
               ĐỘI NGŨ <span style={{ color: '#B03A2E' }}>CỦA CHÚNG TÔI</span>
             </h2>
           </Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
+          {/* TỐI ƯU UX/UI MOBILE: Dùng flex-wrap and basis logic */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
             {teamMembers.map((member, idx) => (
-              <Reveal key={idx} direction="up" delay={idx * 0.12}>
+              <Reveal key={idx} direction="up" delay={idx * 0.12} style={{ flex: '1 1 260px', maxWidth: '300px' }}>
                 <div
-                  style={{ borderRadius: '12px', overflow: 'hidden', backgroundColor: '#FDFAF6', transition: 'transform 0.2s, box-shadow 0.2s' }}
+                  style={{ borderRadius: '12px', overflow: 'hidden', backgroundColor: '#FDFAF6', transition: 'transform 0.2s, box-shadow 0.2s', height: '100%' }}
                   onMouseEnter={e => {
                     e.currentTarget.style.transform = 'translateY(-6px)'
                     e.currentTarget.style.boxShadow = '0 12px 32px rgba(176,58,46,0.15)'
@@ -354,7 +366,7 @@ export default function AboutPage() {
                     e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
-                  <div style={{ height: '220px', overflow: 'hidden' }}>
+                  <div style={{ height: '260px', overflow: 'hidden' }}>
                     <img
                       src={member.image}
                       alt={member.name}
@@ -375,40 +387,8 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* ── Hành trình ── */}
-      <div style={{ backgroundColor: '#FDFAF6', padding: '80px 0' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <Reveal direction="up">
-            <h2 style={{ fontSize: '36px', fontWeight: 900, textAlign: 'center', color: '#2C1A1A', marginBottom: '60px', letterSpacing: '0.02em' }}>
-              HÀNH TRÌNH <span style={{ color: '#B03A2E' }}>CỦA CHÚNG TÔI</span>
-            </h2>
-          </Reveal>
-          <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '1px', transform: 'translateX(-50%)', backgroundColor: '#E8D7CF' }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-              {milestones.map((milestone, idx) => (
-                <Reveal key={idx} direction={idx % 2 === 0 ? 'left' : 'right'} delay={0.1}>
-                  <div style={{ display: 'flex', alignItems: 'center', flexDirection: idx % 2 === 0 ? 'row' : 'row-reverse' }}>
-                    <div style={{ width: '50%', padding: idx % 2 === 0 ? '0 48px 0 0' : '0 0 0 48px', textAlign: idx % 2 === 0 ? 'right' : 'left' }}>
-                      <div style={{ display: 'inline-block', padding: '20px 24px', borderRadius: '10px', backgroundColor: '#F5EDE8' }}>
-                        <p style={{ fontSize: '11px', fontWeight: 700, color: '#B03A2E', letterSpacing: '0.1em' }}>{milestone.year}</p>
-                        <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#2C1A1A', marginTop: '6px', letterSpacing: '0.04em' }}>{milestone.title}</h3>
-                        <p style={{ fontSize: '13px', color: '#5D4E4E', marginTop: '6px', lineHeight: 1.6 }}>{milestone.desc}</p>
-                      </div>
-                    </div>
-                    <div style={{ position: 'relative', width: 0, display: 'flex', justifyContent: 'center' }}>
-                      <div style={{ width: '18px', height: '18px', borderRadius: '50%', backgroundColor: '#B03A2E', border: '3px solid #FDFAF6', flexShrink: 0 }} />
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* ── CTA ── */}
-      <div style={{ backgroundColor: '#B03A2E', padding: '80px 0' }}>
+      <div className="py-16 lg:py-20" style={{ backgroundColor: '#B03A2E' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
           <Reveal direction="up">
             <h2 style={{ fontSize: '36px', fontWeight: 900, color: '#FFFFFF', marginBottom: '20px', letterSpacing: '0.02em' }}>

@@ -80,6 +80,8 @@ export default function ContactPage() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const offices = [
     {
@@ -113,13 +115,33 @@ export default function ContactPage() {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok || !data.success) {
+        setError(data.error || 'Có lỗi xảy ra, vui lòng thử lại.')
+        return
+      }
+
+      setSubmitted(true)
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-      setSubmitted(false)
-    }, 3000)
+      setTimeout(() => setSubmitted(false), 4000)
+    } catch {
+      setError('Không thể kết nối đến máy chủ. Vui lòng thử lại.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   /* shared input style */
@@ -150,7 +172,7 @@ export default function ContactPage() {
       <Header />
 
       {/* ── Hero Header ── */}
-      <div style={{ backgroundColor: '#FDFAF6', borderBottom: '1px solid #E8D7CF', padding: '64px 0 48px' }}>
+      <div className="pt-24 lg:pt-32 pb-12 lg:pb-16 border-b" style={{ backgroundColor: '#FDFAF6', borderColor: '#E8D7CF' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="left" delay={0}>
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
@@ -169,14 +191,15 @@ export default function ContactPage() {
       </div>
 
       {/* ── Văn phòng ── */}
-      <div style={{ backgroundColor: '#F5EDE8', padding: '72px 0' }}>
+      <div className="py-16 lg:py-20" style={{ backgroundColor: '#F5EDE8' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="up" delay={0}>
             <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#2C1A1A', marginBottom: '48px', textAlign: 'center', letterSpacing: '0.04em' }}>
               CÁC VĂN PHÒNG CỦA <span style={{ color: '#B03A2E' }}>CHÚNG TÔI</span>
             </h2>
           </Reveal>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {offices.map((office, idx) => (
               <Reveal key={idx} direction="up" delay={idx * 0.1}>
                 <div
@@ -221,13 +244,14 @@ export default function ContactPage() {
       </div>
 
       {/* ── Form + Map ── */}
-      <div style={{ backgroundColor: '#FDFAF6', padding: '72px 0' }}>
+      <div className="py-16 lg:py-20" style={{ backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px' }}>
+
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-16">
 
             {/* Form */}
             <Reveal direction="left" delay={0.1}>
-              <div>
+              <div className="order-2 lg:order-1">
                 <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#2C1A1A', marginBottom: '36px', letterSpacing: '0.04em' }}>
                   GỬI TIN NHẮN
                 </h2>
@@ -237,7 +261,7 @@ export default function ContactPage() {
                     <input type="text" name="name" value={formData.name} onChange={handleInputChange} required placeholder="NHẬP TÊN CỦA BẠN" style={inputStyle} />
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                     <div>
                       <label style={labelStyle}>EMAIL</label>
                       <input type="email" name="email" value={formData.email} onChange={handleInputChange} required placeholder="email@example.com" style={inputStyle} />
@@ -267,6 +291,7 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
+                    disabled={isLoading}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
@@ -274,21 +299,38 @@ export default function ContactPage() {
                       gap: '8px',
                       width: '100%',
                       padding: '14px',
-                      backgroundColor: '#B03A2E',
+                      backgroundColor: isLoading ? '#8A7D7D' : '#B03A2E',
                       color: '#FFFFFF',
                       border: 'none',
                       borderRadius: '8px',
                       fontSize: '12px',
                       fontWeight: 700,
                       letterSpacing: '0.1em',
-                      cursor: 'pointer',
+                      cursor: isLoading ? 'not-allowed' : 'pointer',
                       transition: 'background 0.2s',
                     }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7B241C' }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#B03A2E' }}
+                    onMouseEnter={e => { if (!isLoading) (e.currentTarget as HTMLElement).style.backgroundColor = '#7B241C' }}
+                    onMouseLeave={e => { if (!isLoading) (e.currentTarget as HTMLElement).style.backgroundColor = '#B03A2E' }}
                   >
-                    <Send size={16} /> GỬI TIN NHẮN
+                    {isLoading ? (
+                      <>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
+                          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                        </svg>
+                        ĐANG GỬI...
+                      </>
+                    ) : (
+                      <><Send size={16} /> GỬI TIN NHẮN</>
+                    )}
                   </button>
+
+                  <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+
+                  {error && (
+                    <div style={{ padding: '14px 18px', borderRadius: '8px', backgroundColor: '#B03A2E', color: '#FFFFFF', fontSize: '13px', letterSpacing: '0.04em', textAlign: 'center' }}>
+                      {error}
+                    </div>
+                  )}
 
                   {submitted && (
                     <div style={{ padding: '14px 18px', borderRadius: '8px', backgroundColor: '#2C8A4F', color: '#FFFFFF', fontSize: '13px', letterSpacing: '0.04em', textAlign: 'center' }}>
@@ -301,7 +343,7 @@ export default function ContactPage() {
 
             {/* Map + Quick links */}
             <Reveal direction="right" delay={0.2}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <div className="flex flex-col gap-8 order-1 lg:order-2">
                 {/* Map placeholder */}
                 <div>
                   <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#2C1A1A', marginBottom: '20px', letterSpacing: '0.04em' }}>
@@ -352,7 +394,7 @@ export default function ContactPage() {
       </div>
 
       {/* ── FAQ ── */}
-      <div style={{ backgroundColor: '#F5EDE8', padding: '72px 0' }}>
+      <div className="py-16 lg:py-20" style={{ backgroundColor: '#F5EDE8' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="up" delay={0}>
             <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#2C1A1A', textAlign: 'center', marginBottom: '48px', letterSpacing: '0.04em' }}>

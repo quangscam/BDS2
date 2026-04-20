@@ -5,7 +5,7 @@ import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
 import Link from 'next/link'
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, Filter, X } from 'lucide-react'
 
 /* ─── Hook & Component Hiệu Ứng (Reveal) ───────────── */
 function useScrollReveal(threshold = 0.1) {
@@ -184,7 +184,7 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
       <Link
         href={`/projects/${project.id}`}
         style={{
-          display: 'block', // Ensure block layout inside Reveal
+          display: 'block',
           transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
           transition: 'transform 0.35s ease, box-shadow 0.35s ease',
           boxShadow: isHovered ? '0 10px 30px rgba(176,58,46,0.15)' : 'none',
@@ -266,11 +266,11 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
           >
             <span>{project.units}</span>
             <span>{project.squareMeters}</span>
-            <span>HOÀN THÀNH {project.completion}</span>
+            <span>HT: {project.completion}</span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '15px', fontWeight: 800, color: '#B03A2E', letterSpacing: '0.01em' }}>
+            <span style={{ fontSize: '14px', fontWeight: 800, color: '#B03A2E', letterSpacing: '0.01em' }}>
               {project.priceDisplay}
             </span>
             <span
@@ -300,6 +300,9 @@ export default function ProjectsPage() {
   const [selectedArea, setSelectedArea] = useState<string | null>(null)
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000000000])
   const [currentPage, setCurrentPage] = useState(1)
+  
+  // State quản lý việc hiển thị bộ lọc trên Mobile
+  const [showMobileFilters, setShowMobileFilters] = useState(false)
   const itemsPerPage = 6
 
   const types = [
@@ -350,8 +353,8 @@ export default function ProjectsPage() {
     <main style={{ minHeight: '100vh', backgroundColor: '#FDFAF6' }}>
       <Header />
 
-      {/* ── Hero Title ── */}
-      <div style={{ padding: '64px 0 40px', backgroundColor: '#FDFAF6' }}>
+      {/* ── Hero Title ── (Thêm mt-16 để không bị Header che mất trên mobile) */}
+      <div className="pt-24 lg:pt-32 pb-10" style={{ backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="left" delay={0}>
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
@@ -369,7 +372,7 @@ export default function ProjectsPage() {
                 >
                   TÌM NGÔI NHÀ <span style={{ color: '#B03A2E' }}>CỦA BẠN</span>
                 </h1>
-                <p style={{ fontSize: '15px', color: '#8A7D7D', letterSpacing: '0.05em' }}>
+                <p style={{ fontSize: '13px', md: '15px', color: '#8A7D7D', letterSpacing: '0.05em' }}>
                   TỪ CĂN HỘ HIỆN ĐẠI ĐẾN NHÀ PHỐ ẤM CÚNG — HAPPYHOUSE CÓ TẤT CẢ
                 </p>
               </div>
@@ -381,24 +384,35 @@ export default function ProjectsPage() {
       {/* ── Main Content ── */}
       <div style={{ padding: '0 0 80px', backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '40px' }}>
+          
+          {/* Tối ưu UX/UI Responsive: flex-col trên Mobile, Grid 2 cột trên Desktop */}
+          <div className="flex flex-col lg:grid lg:grid-cols-[260px_1fr] gap-8 lg:gap-10">
 
             {/* ── Sidebar ── */}
-            <div>
+            <aside className="w-full">
               <div
+                className="relative lg:sticky lg:top-[100px]"
                 style={{
-                  position: 'sticky',
-                  top: '80px',
                   backgroundColor: '#F5EDE8',
                   borderRadius: '12px',
-                  padding: '28px 22px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '24px',
+                  padding: '24px',
                 }}
               >
-                {/* Search */}
-                <Reveal direction="left" delay={0.1}>
+                {/* Nút Toggle Bộ lọc trên Mobile */}
+                <div 
+                  className="flex justify-between items-center lg:hidden cursor-pointer pb-2"
+                  onClick={() => setShowMobileFilters(!showMobileFilters)}
+                >
+                  <span style={{...labelStyle, marginBottom: 0, fontSize: '12px'}}>
+                    {showMobileFilters ? 'ĐÓNG BỘ LỌC' : 'HIỂN THỊ BỘ LỌC DỰ ÁN'}
+                  </span>
+                  {showMobileFilters ? <X size={20} color="#B03A2E" /> : <Filter size={20} color="#B03A2E" />}
+                </div>
+
+                {/* Nội dung bộ lọc: Ẩn trên Mobile nếu chưa bấm, Luôn hiện trên Desktop */}
+                <div className={`${showMobileFilters ? 'flex' : 'hidden'} lg:flex flex-col gap-6 mt-4 lg:mt-0 transition-all duration-300`}>
+                  
+                  {/* Search */}
                   <div>
                     <label style={labelStyle}>TÌM KIẾM</label>
                     <input
@@ -420,13 +434,11 @@ export default function ProjectsPage() {
                       }}
                     />
                   </div>
-                </Reveal>
 
-                {/* Divider */}
-                <div style={{ borderTop: '1px solid #E8D7CF' }} />
+                  {/* Divider */}
+                  <div style={{ borderTop: '1px solid #E8D7CF' }} />
 
-                {/* Property Type */}
-                <Reveal direction="left" delay={0.2}>
+                  {/* Property Type */}
                   <div>
                     <label style={labelStyle}>LOẠI BẤT ĐỘNG SẢN</label>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -449,13 +461,11 @@ export default function ProjectsPage() {
                       ))}
                     </div>
                   </div>
-                </Reveal>
 
-                {/* Divider */}
-                <div style={{ borderTop: '1px solid #E8D7CF' }} />
+                  {/* Divider */}
+                  <div style={{ borderTop: '1px solid #E8D7CF' }} />
 
-                {/* Area */}
-                <Reveal direction="left" delay={0.3}>
+                  {/* Area */}
                   <div>
                     <label style={labelStyle}>KHU VỰC</label>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -478,13 +488,11 @@ export default function ProjectsPage() {
                       ))}
                     </div>
                   </div>
-                </Reveal>
 
-                {/* Divider */}
-                <div style={{ borderTop: '1px solid #E8D7CF' }} />
+                  {/* Divider */}
+                  <div style={{ borderTop: '1px solid #E8D7CF' }} />
 
-                {/* Price Range */}
-                <Reveal direction="left" delay={0.4}>
+                  {/* Price Range */}
                   <div>
                     <label style={labelStyle}>GIÁ (VND)</label>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -526,10 +534,8 @@ export default function ProjectsPage() {
                       </div>
                     </div>
                   </div>
-                </Reveal>
 
-                {/* Reset */}
-                <Reveal direction="left" delay={0.5}>
+                  {/* Reset */}
                   <button
                     onClick={resetFilters}
                     style={{
@@ -550,12 +556,13 @@ export default function ProjectsPage() {
                   >
                     ĐẶT LẠI BỘ LỌC
                   </button>
-                </Reveal>
+
+                </div>
               </div>
-            </div>
+            </aside>
 
             {/* ── Projects Grid ── */}
-            <div>
+            <div className="w-full">
               {/* Result count */}
               <Reveal direction="up" delay={0.1}>
                 <div
@@ -572,14 +579,8 @@ export default function ProjectsPage() {
 
               {paginatedProjects.length > 0 ? (
                 <>
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                      gap: '24px',
-                      marginBottom: '40px',
-                    }}
-                  >
+                  {/* Thay thế Grid tĩnh bằng Grid chuẩn Responsive của Tailwind */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
                     {paginatedProjects.map((project, index) => (
                       <ProjectCard key={project.id} project={project} index={index} />
                     ))}
@@ -588,7 +589,7 @@ export default function ProjectsPage() {
                   {/* Pagination */}
                   {totalPages > 1 && (
                     <Reveal direction="up" delay={0.2}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
                         {currentPage > 1 && (
                           <button
                             onClick={() => setCurrentPage(currentPage - 1)}

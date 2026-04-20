@@ -5,7 +5,7 @@ import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, TrendingUp, Home, BarChart2, Globe, FileText } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, TrendingUp, Home, BarChart2, Globe, FileText, Scale, CalendarDays } from 'lucide-react'
 
 /* ─── Hook & Component Hiệu Ứng (Reveal) ───────────── */
 function useScrollReveal(threshold = 0.1) {
@@ -65,10 +65,12 @@ function Reveal({
 // Ánh xạ icon cho các danh mục tự động từ WordPress
 const getCategoryIcon = (categoryName: string) => {
   const name = categoryName.toUpperCase()
-  if (name.includes('THỊ TRƯỜNG')) return <TrendingUp size={14} />
+  if (name.includes('THỊ TRƯỜNG') || name.includes('ĐẦU TƯ')) return <TrendingUp size={14} />
   if (name.includes('DỰ ÁN')) return <Home size={14} />
   if (name.includes('TÀI CHÍNH')) return <BarChart2 size={14} />
   if (name.includes('PHONG CÁCH SỐNG')) return <Globe size={14} />
+  if (name.includes('PHÁP LÝ') || name.includes('QUY HOẠCH')) return <Scale size={14} />
+  if (name.includes('SỰ KIỆN')) return <CalendarDays size={14} />
   return <FileText size={14} /> // Icon mặc định cho danh mục khác
 }
 
@@ -79,7 +81,7 @@ function ArticleCard({ article, index }: { article: any; index: number }) {
   return (
     <Reveal direction="up" delay={index * 0.1}>
       <Link
-        href={`/news/${article.id}`}
+        href={`/news/${article.slug}`}
         className="block"
         style={{
           transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
@@ -216,7 +218,7 @@ function FeaturedCard({ article }: { article: any }) {
   return (
     <Reveal direction="up" delay={0.1}>
       <Link
-        href={`/news/${article.id}`}
+        href={`/news/${article.slug}`}
         style={{
           display: 'block',
           borderRadius: '14px',
@@ -371,18 +373,30 @@ function FeaturedCard({ article }: { article: any }) {
 /* ─── Page Component ────────────────────────────────── */
 export default function NewsInsightsPage() {
   const [allArticles, setAllArticles] = useState<any[]>([])
+  const [dynamicCategories, setDynamicCategories] = useState<string[]>(['TẤT CẢ'])
   const [isLoading, setIsLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState('TẤT CẢ')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
 
-  // Tự động gọi API lấy bài viết
+  // Tự động gọi API lấy dữ liệu
   useEffect(() => {
     const apiUrl = process.env.NEXT_PUBLIC_WP_URL || 'https://api.happyhousesg.com'
     
-    // Lấy 50 bài mới nhất
-    fetch(`${apiUrl}/wp-json/wp/v2/posts?_embed&per_page=50`)
+    // BƯỚC 1: Lấy Danh sách Category trực tiếp từ WordPress (bỏ qua Uncategorized)
+    fetch(`${apiUrl}/wp-json/wp/v2/categories?hide_empty=false&per_page=100`, { cache: 'no-store' })
+      .then(res => res.json())
+      .then(cats => {
+        const catNames = cats
+          .filter((c: any) => c.slug !== 'uncategorized') // Lọc bỏ thư mục mặc định
+          .map((c: any) => c.name.toUpperCase())
+        setDynamicCategories(['TẤT CẢ', ...catNames])
+      })
+      .catch(err => console.error("Lỗi tải danh mục:", err))
+
+    // BƯỚC 2: Lấy 50 bài viết mới nhất
+    fetch(`${apiUrl}/wp-json/wp/v2/posts?_embed&per_page=50`, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         const formattedPosts = data.map((post: any) => {
@@ -390,16 +404,26 @@ export default function NewsInsightsPage() {
           const rawExcerpt = post.excerpt.rendered.replace(/<[^>]*>?/gm, '').trim()
           const rawContent = post.content.rendered.replace(/<[^>]*>?/gm, '').trim()
           
-          // Tính thời gian đọc (khoảng 200 từ/phút)
+          // Tính thời gian đọc
           const words = rawContent.split(/\s+/).length
           const readTimeMinutes = Math.max(1, Math.ceil(words / 200))
 
+          // Xử lý danh mục: Lưu tất cả danh mục của bài viết để phục vụ bộ lọc
+          const termNodes = post._embedded?.['wp:term']?.[0] || []
+          const catArray = termNodes.map((t: any) => t.name.toUpperCase())
+
+          // Lấy 1 danh mục chính để in lên thẻ (Ưu tiên các danh mục bạn vừa tạo)
+          const mainCatNode = termNodes.find((t: any) => t.slug !== 'uncategorized') || termNodes[0]
+          const displayCategory = mainCatNode ? mainCatNode.name.toUpperCase() : 'TIN TỨC'
+
           return {
             id: post.id,
+            slug: post.slug,
             title: post.title.rendered,
             excerpt: rawExcerpt,
             image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
-            category: post._embedded?.['wp:term']?.[0]?.[0]?.name?.toUpperCase() || 'TIN TỨC',
+            category: displayCategory, // Hiện trên badge
+            categories: catArray,      // Dùng để filter
             date: new Date(post.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }),
             readTime: `${readTimeMinutes} PHÚT ĐỌC`,
             author: post._embedded?.author?.[0]?.name?.toUpperCase() || 'QUẢN TRỊ VIÊN',
@@ -418,16 +442,11 @@ export default function NewsInsightsPage() {
   const featuredArticle = allArticles.length > 0 ? allArticles[0] : null
   const nonFeatured = allArticles.length > 1 ? allArticles.slice(1) : []
 
-  // Tự động trích xuất các danh mục hiện có từ dữ liệu trả về
-  const dynamicCategories = useMemo(() => {
-    const uniqueCats = Array.from(new Set(allArticles.map(a => a.category)))
-    return ['TẤT CẢ', ...uniqueCats]
-  }, [allArticles])
-
   // Xử lý Lọc & Tìm kiếm
   const filteredArticles = useMemo(() => {
     return nonFeatured.filter((a) => {
-      const matchCat = selectedCategory === 'TẤT CẢ' || a.category === selectedCategory
+      // Kiểm tra xem bài viết có nằm trong danh mục đang chọn hay không
+      const matchCat = selectedCategory === 'TẤT CẢ' || a.categories.includes(selectedCategory)
       const matchSearch =
         a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         a.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
@@ -670,7 +689,7 @@ export default function NewsInsightsPage() {
                       }}
                     >
                       {paginated.map((article, i) => (
-                        <ArticleCard key={article.id} article={article} index={i} />
+                        <ArticleCard key={article.slug} article={article} index={i} />
                       ))}
                     </div>
 
