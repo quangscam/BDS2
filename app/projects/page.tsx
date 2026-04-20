@@ -3,13 +3,14 @@
 import { useState, useMemo } from 'react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { useScrollReveal } from '@/hooks/use-scroll-reveal'
 import Link from 'next/link'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const allProjects = [
   {
     id: 1,
-    name: 'CENTRE POINT',
+    name: 'Happy Plaza',
     location: 'Trung tâm thành phố',
     area: 'Quận 1',
     price: 1300000000,
@@ -23,7 +24,7 @@ const allProjects = [
   },
   {
     id: 2,
-    name: 'CENTRE PLAZA',
+    name: 'Happy Shophouse',
     location: 'Khu đô thị mới',
     area: 'Quận 2',
     price: 1100000000,
@@ -100,6 +101,7 @@ export default function ProjectsPage() {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000000000])
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollReveal()
 
   const types = ['Căn hộ', 'Shophouse', 'Nhà phố']
   const areas = ['Quận 1', 'Quận 2', 'Quận 3', 'Quận 5', 'Quận 7', 'Quận 9']
@@ -129,14 +131,19 @@ export default function ProjectsPage() {
       <Header />
 
       {/* Page Title */}
-      <div className="bg-white py-16 border-b-4" style={{ borderColor: '#B03A2E' }}>
+      <div className="bg-white py-16" style={{ borderColor: '#B03A2E' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4" style={{ lineHeight: '1.2' }}>
-            Tìm ngôi nhà <span style={{ color: '#B03A2E' }}>của bạn</span>
-          </h1>
-          <p className="text-lg" style={{ color: '#5D4E4E' }}>
-            Từ căn hộ hiện đại đến nhà phố ấm cúng — HappyHouse có tất cả
-          </p>
+          <div className="relative">
+            <div className="absolute left-0 top-0 w-1 h-16 rounded" style={{ backgroundColor: '#B03A2E' }}></div>
+            <div className="pl-6">
+              <h1 className="text-5xl md:text-7xl font-bold mb-4" style={{ lineHeight: '1.2' }}>
+                Tìm ngôi nhà <span style={{ color: '#B03A2E' }}>của bạn</span>
+              </h1>
+              <p className="text-lg" style={{ color: '#5D4E4E' }}>
+                Từ căn hộ hiện đại đến nhà phố ấm cúng — HappyHouse có tất cả
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -290,7 +297,7 @@ export default function ProjectsPage() {
                     setPriceRange([0, 2000000000])
                     setCurrentPage(1)
                   }}
-                  className="w-full py-2 rounded text-white font-semibold transition-opacity hover:opacity-90"
+                  className="w-full py-2 rounded text-white font-semibold transition-all hover:opacity-90 btn-hover"
                   style={{ backgroundColor: '#C41E3A' }}
                 >
                   ĐẶT LẠI BỘ LỌC
@@ -299,21 +306,26 @@ export default function ProjectsPage() {
             </div>
 
             {/* Projects Grid */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3" ref={cardsRef as any}>
               {paginatedProjects.length > 0 ? (
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    {paginatedProjects.map((project) => (
+                    {paginatedProjects.map((project, idx) => (
                       <Link
                         key={project.id}
                         href={`/projects/${project.id}`}
-                        className="group cursor-pointer hover:shadow-lg transition-shadow"
+                        className={`group cursor-pointer hover:shadow-lg transition-all duration-500 card-hover ${
+                          cardsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                        }`}
+                        style={{
+                          transitionDelay: cardsVisible ? `${idx * 75}ms` : '0ms',
+                        }}
                       >
-                        <div className="relative h-64 bg-gray-200 rounded-lg overflow-hidden mb-4">
+                        <div className="relative h-64 bg-gray-200 rounded-lg overflow-hidden mb-4 image-zoom">
                           <img
                             src={project.image}
                             alt={project.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover transition-transform duration-300"
                           />
                           <div className="absolute top-4 right-4">
                             <span

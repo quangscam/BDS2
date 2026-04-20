@@ -4,11 +4,12 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { useScrollReveal } from '@/hooks/use-scroll-reveal'
 
 const projects = [
   {
     id: 1,
-    name: 'CENTRE POINT',
+    name: 'Happy Plaza',
     location: 'Trung tâm thành phố',
     price: '1,300,000,000 VND',
     image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80',
@@ -19,7 +20,7 @@ const projects = [
   },
   {
     id: 2,
-    name: 'CENTRE PLAZA',
+    name: 'Happy Shophouse',
     location: 'Khu đô thị mới',
     price: '1,100,000,000 VND',
     image: 'https://images.unsplash.com/photo-1512207736139-c586cbf395ad?w=500&q=80',
@@ -54,9 +55,10 @@ const projects = [
 
 export function FeaturedProjects() {
   const [hoveredId, setHoveredId] = useState<number | null>(null)
+  const { ref, isVisible } = useScrollReveal()
 
   return (
-    <section id="projects" className="py-20 bg-white">
+    <section id="projects" className="py-20 bg-white" ref={ref as any}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">DỰ ÁN NỔI BẬT</h2>
@@ -66,25 +68,30 @@ export function FeaturedProjects() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
+          {projects.map((project, idx) => (
             <div
               key={project.id}
-              className="group cursor-pointer"
+              className={`group cursor-pointer transition-all duration-500 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{
+                transitionDelay: isVisible ? `${idx * 100}ms` : '0ms',
+              }}
               onMouseEnter={() => setHoveredId(project.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              <div className="relative h-80 bg-gray-200 rounded-lg overflow-hidden mb-6">
+              <div className="relative h-80 bg-gray-200 rounded-lg overflow-hidden mb-6 card-hover">
                 <img 
                   src={project.image} 
                   alt={project.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-300"
                 />
                 
                 {/* Overlay on hover */}
                 <Link href={`/projects/${project.id}`} className={`absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 ${
                     hoveredId === project.id ? 'opacity-100' : 'opacity-0'
                   }`}>
-                  <button className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90" style={{ backgroundColor: '#8B4513' }}>
+                  <button className="text-white px-8 py-3 rounded font-semibold transition-all hover:opacity-90 btn-hover" style={{ backgroundColor: '#8B4513' }}>
                     Xem chi tiết
                   </button>
                 </Link>
@@ -120,7 +127,7 @@ export function FeaturedProjects() {
         </div>
 
         <div className="text-center mt-16">
-          <a href="/projects" className="inline-block px-10 py-4 rounded text-lg font-semibold transition-opacity hover:opacity-90 text-white" style={{ backgroundColor: '#8B4513' }}>
+          <a href="/projects" className="inline-block px-10 py-4 rounded text-lg font-semibold transition-all hover:opacity-90 text-white btn-hover" style={{ backgroundColor: '#8B4513' }}>
             XEM TẤT CẢ DỰ ÁN
           </a>
         </div>

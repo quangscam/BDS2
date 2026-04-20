@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Artifact - Premium Real Estate',
-  description: 'Discover luxury properties and invest in your future with Artifact',
+  title: 'HappyHouse - Tìm ngôi nhà của bạn',
+  description: 'Tìm ngôi nhà của bạn cùng HappyHouse - Từ căn hộ hiện đại đến nhà phố ấm cúng',
   generator: 'v0.app',
   icons: {
     icon: [

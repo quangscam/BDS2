@@ -150,9 +150,11 @@ body {
 @keyframes cardLift {
   from {
     transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   to {
     transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(176, 58, 46, 0.15);
   }
 }
 
@@ -182,12 +184,16 @@ body {
   animation: scrollReveal 0.5s ease-out forwards;
 }
 
+.scroll-reveal.visible {
+  animation: scrollReveal 0.5s ease-out forwards;
+}
+
 .card-hover {
   transition: all 0.2s ease-out;
 }
 
 .card-hover:hover {
-  animation: cardLift 0.2s ease-out forwards;
+  transform: translateY(-6px);
   box-shadow: 0 10px 30px rgba(176, 58, 46, 0.15);
 }
 
@@ -197,10 +203,36 @@ body {
 }
 
 .image-zoom:hover img {
-  animation: imageZoom 0.3s ease-out forwards;
+  transform: scale(1.05);
+}
+
+.btn-hover {
+  transition: background-color 0.2s ease-out;
+}
+
+.btn-hover:hover {
+  background-color: #7B241C;
 }
 
 .count-up {
   animation: countUp 0.5s ease-out;
+}
+
+/* Mobile-friendly animations - reduce motion for better performance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Smooth transitions for all interactive elements on mobile */
+@media (max-width: 768px) {
+  .card-hover,
+  .btn-hover,
+  .image-zoom {
+    transition-duration: 0.15s;
+  }
 }
 }
