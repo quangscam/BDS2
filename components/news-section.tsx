@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 
 const newsArticles = [
   {
@@ -59,8 +60,8 @@ export function NewsSection() {
                     {article.title}
                   </h3>
                 </Link>
-                <Link href={`/news/${article.id}`} className="font-semibold transition-colors" style={{ color: '#C41E3A' }}>
-                  Đọc thêm →
+                <Link href={`/news/${article.id}`} className="flex items-center gap-1 font-semibold transition-colors" style={{ color: '#C41E3A' }}>
+                  Đọc thêm <ArrowRight size={18} />
                 </Link>
               </div>
             </article>

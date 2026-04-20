@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import Link from 'next/link'
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const allProjects = [
   {
@@ -335,8 +336,8 @@ export default function ProjectsPage() {
                             <span className="text-lg font-bold" style={{ color: '#8B4513' }}>
                               {project.priceDisplay}
                             </span>
-                            <span className="font-semibold" style={{ color: '#C41E3A' }}>
-                              CHI TIẾT →
+                            <span className="flex items-center gap-1 font-semibold" style={{ color: '#C41E3A' }}>
+                              CHI TIẾT <ArrowRight size={18} />
                             </span>
                           </div>
                         </div>
@@ -350,8 +351,9 @@ export default function ProjectsPage() {
                       {currentPage > 1 && (
                         <button
                           onClick={() => setCurrentPage(currentPage - 1)}
-                          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                         >
+                          <ChevronLeft size={18} />
                           Trước
                         </button>
                       )}
@@ -376,9 +378,9 @@ export default function ProjectsPage() {
                       {currentPage < totalPages && (
                         <button
                           onClick={() => setCurrentPage(currentPage + 1)}
-                          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                         >
-                          Tiếp
+                          Tiếp <ChevronRight size={18} />
                         </button>
                       )}
                     </div>

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 
 const projects = [
   {
@@ -109,8 +110,8 @@ export function FeaturedProjects() {
 
                 <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                   <span className="text-xl font-bold" style={{ color: '#8B4513' }}>{project.price}</span>
-                  <Link href={`/projects/${project.id}`} className="font-semibold transition-colors" style={{ color: '#C41E3A' }}>
-                    CHI TIẾT DỰ ÁN →
+                  <Link href={`/projects/${project.id}`} className="flex items-center gap-1 font-semibold transition-colors" style={{ color: '#C41E3A' }}>
+                    CHI TIẾT DỰ ÁN <ArrowRight size={18} />
                   </Link>
                 </div>
               </div>

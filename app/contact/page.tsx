@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { Mail, Phone, MapPin, Send, Phone as PhoneIcon, MessageSquare, FileText, Building2 } from 'lucide-react'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -189,9 +190,10 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="w-full py-3 rounded text-white font-semibold transition-opacity hover:opacity-90"
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded text-white font-semibold transition-opacity hover:opacity-90"
                   style={{ backgroundColor: '#8B4513' }}
                 >
+                  <Send size={20} />
                   GỬI TIN NHẮN
                 </button>
 
@@ -225,7 +227,7 @@ export default function ContactPage() {
                     href="tel:+84283821555"
                     className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-200 transition-colors"
                   >
-                    <span className="text-2xl">📞</span>
+                    <PhoneIcon size={24} style={{ color: '#8B4513' }} />
                     <div>
                       <p className="font-semibold text-gray-900">Gọi ngay</p>
                       <p className="text-sm text-gray-600">+84 (28) 3821-5555</p>
@@ -235,7 +237,7 @@ export default function ContactPage() {
                     href="mailto:contact@centrepoint.com"
                     className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-200 transition-colors"
                   >
-                    <span className="text-2xl">📧</span>
+                    <Mail size={24} style={{ color: '#8B4513' }} />
                     <div>
                       <p className="font-semibold text-gray-900">Gửi Email</p>
                       <p className="text-sm text-gray-600">contact@centrepoint.com</p>
@@ -247,7 +249,7 @@ export default function ContactPage() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-200 transition-colors"
                   >
-                    <span className="text-2xl">💬</span>
+                    <MessageSquare size={24} style={{ color: '#8B4513' }} />
                     <div>
                       <p className="font-semibold text-gray-900">WhatsApp</p>
                       <p className="text-sm text-gray-600">Nhắn tin trực tiếp</p>
@@ -257,7 +259,7 @@ export default function ContactPage() {
                     href="/projects"
                     className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-200 transition-colors"
                   >
-                    <span className="text-2xl">🏗️</span>
+                    <Building2 size={24} style={{ color: '#8B4513' }} />
                     <div>
                       <p className="font-semibold text-gray-900">Xem dự án</p>
                       <p className="text-sm text-gray-600">Khám phá các dự án của chúng tôi</p>

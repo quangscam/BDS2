@@ -1,3 +1,5 @@
+import { Home, Building2, Newspaper, Info, Phone, Mail, MapPin } from 'lucide-react'
+
 export function Footer() {
   return (
     <footer className="py-16" style={{ backgroundColor: '#2D2D2D' }}>
@@ -17,11 +19,11 @@ export function Footer() {
           <div>
             <h4 className="font-bold text-white mb-4">Liên kết nhanh</h4>
             <ul className="space-y-2">
-              <li><a href="/" className="text-white/70 hover:text-yellow-400 transition-colors">Trang chủ</a></li>
-              <li><a href="/projects" className="text-white/70 hover:text-yellow-400 transition-colors">Dự án</a></li>
-              <li><a href="/news" className="text-white/70 hover:text-yellow-400 transition-colors">Tin tức</a></li>
-              <li><a href="/about" className="text-white/70 hover:text-yellow-400 transition-colors">Giới thiệu</a></li>
-              <li><a href="/contact" className="text-white/70 hover:text-yellow-400 transition-colors">Liên hệ</a></li>
+              <li><a href="/" className="flex items-center gap-2 text-white/70 hover:text-yellow-400 transition-colors"><Home size={16} /> Trang chủ</a></li>
+              <li><a href="/projects" className="flex items-center gap-2 text-white/70 hover:text-yellow-400 transition-colors"><Building2 size={16} /> Dự án</a></li>
+              <li><a href="/news" className="flex items-center gap-2 text-white/70 hover:text-yellow-400 transition-colors"><Newspaper size={16} /> Tin tức</a></li>
+              <li><a href="/about" className="flex items-center gap-2 text-white/70 hover:text-yellow-400 transition-colors"><Info size={16} /> Giới thiệu</a></li>
+              <li><a href="/contact" className="flex items-center gap-2 text-white/70 hover:text-yellow-400 transition-colors"><Phone size={16} /> Liên hệ</a></li>
             </ul>
           </div>
 
@@ -37,14 +39,14 @@ export function Footer() {
 
           <div>
             <h4 className="font-bold text-white mb-4">Liên hệ chúng tôi</h4>
-            <p className="text-white/70 text-sm mb-3">
-              Email: <a href="mailto:contact@centrepoint.com" className="hover:text-yellow-400 transition-colors">contact@centrepoint.com</a>
+            <p className="flex items-center gap-2 text-white/70 text-sm mb-3">
+              <Mail size={16} /> <a href="mailto:contact@centrepoint.com" className="hover:text-yellow-400 transition-colors">contact@centrepoint.com</a>
             </p>
-            <p className="text-white/70 text-sm mb-3">
-              Điện thoại: <a href="tel:+84123456789" className="hover:text-yellow-400 transition-colors">+84 (123) 456-789</a>
+            <p className="flex items-center gap-2 text-white/70 text-sm mb-3">
+              <Phone size={16} /> <a href="tel:+84123456789" className="hover:text-yellow-400 transition-colors">+84 (123) 456-789</a>
             </p>
-            <p className="text-white/70 text-sm">
-              Giờ làm việc: T2 - T6, 9AM - 6PM
+            <p className="flex items-center gap-2 text-white/70 text-sm">
+              <MapPin size={16} /> Giờ làm việc: T2 - T6, 9AM - 6PM
             </p>
           </div>
         </div>

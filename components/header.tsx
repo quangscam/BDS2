@@ -2,16 +2,17 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { Home, Building2, Newspaper, Info, Phone } from 'lucide-react'
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const navLinks = [
-    { href: '/', label: 'TRANG CHỦ' },
-    { href: '/projects', label: 'DỰ ÁN' },
-    { href: '/news', label: 'TIN TỨC' },
-    { href: '/about', label: 'GIỚI THIỆU' },
-    { href: '/contact', label: 'LIÊN HỆ' },
+    { href: '/', label: 'TRANG CHỦ', icon: Home },
+    { href: '/projects', label: 'DỰ ÁN', icon: Building2 },
+    { href: '/news', label: 'TIN TỨC', icon: Newspaper },
+    { href: '/about', label: 'GIỚI THIỆU', icon: Info },
+    { href: '/contact', label: 'LIÊN HỆ', icon: Phone },
   ]
 
   return (
@@ -24,22 +25,26 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-gray-700 hover:transition-colors font-medium"
-                style={{ color: '#666' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#D4AF37'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#666'
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const Icon = link.icon
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center gap-2 hover:transition-colors font-medium"
+                  style={{ color: '#666' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#D4AF37'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = '#666'
+                  }}
+                >
+                  <Icon size={18} />
+                  {link.label}
+                </Link>
+              )
+            })}
           </nav>
 
           <div className="flex items-center gap-4">
@@ -86,29 +91,34 @@ export function Header() {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <nav className="md:hidden pb-4 space-y-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block px-4 py-2 text-gray-700 hover:transition-colors font-medium rounded"
-                style={{ color: '#666' }}
-                onClick={() => setMobileMenuOpen(false)}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#f5f5f5'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent'
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const Icon = link.icon
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:transition-colors font-medium rounded"
+                  style={{ color: '#666' }}
+                  onClick={() => setMobileMenuOpen(false)}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f5f5f5'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent'
+                  }}
+                >
+                  <Icon size={18} />
+                  {link.label}
+                </Link>
+              )
+            })}
             <Link
               href="/contact"
-              className="block w-full text-white px-4 py-2 rounded font-semibold text-center mt-2"
+              className="flex items-center justify-center gap-2 w-full text-white px-4 py-2 rounded font-semibold mt-2"
               style={{ backgroundColor: '#8B4513' }}
               onClick={() => setMobileMenuOpen(false)}
             >
+              <Phone size={18} />
               ĐĂNG KÝ
             </Link>
           </nav>

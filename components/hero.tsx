@@ -1,3 +1,5 @@
+import { Building2, Calendar } from 'lucide-react'
+
 export function Hero() {
   return (
     <section className="min-h-[600px] flex items-center justify-center bg-white py-12 md:py-20">
@@ -23,10 +25,12 @@ export function Hero() {
               Khám phá không gian sống đẳng cấp tại vị trí vàng của thành phố. Các căn hộ và shophouse thương mại được thiết kế hiện đại với tiện ích đầy đủ.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/projects" className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90 inline-block text-center" style={{ backgroundColor: '#8B4513' }}>
+              <a href="/projects" className="flex items-center justify-center gap-2 text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90" style={{ backgroundColor: '#8B4513' }}>
+                <Building2 size={20} />
                 KHÁM PHÁ DỰ ÁN
               </a>
-              <a href="/contact" className="text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90 inline-block text-center" style={{ backgroundColor: '#C41E3A' }}>
+              <a href="/contact" className="flex items-center justify-center gap-2 text-white px-8 py-3 rounded font-semibold transition-opacity hover:opacity-90" style={{ backgroundColor: '#C41E3A' }}>
+                <Calendar size={20} />
                 ĐẶT LỊCH TOUR
               </a>
             </div>
