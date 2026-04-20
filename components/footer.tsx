@@ -2,13 +2,13 @@ import { Home, Building2, Newspaper, Info, Phone, Mail, MapPin } from 'lucide-re
 
 export function Footer() {
   return (
-    <footer className="py-16" style={{ backgroundColor: '#2D2D2D' }}>
+    <footer className="py-16" style={{ backgroundColor: '#7B241C' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div>
-            <h3 className="text-2xl font-bold text-white mb-4">CENTRE POINT</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">HappyHouse</h3>
             <p className="text-white/70 text-sm leading-relaxed">
-              Những dự án bất động sản tiêu chuẩn với thiết kế hiện đại và tiềm năng đầu tư cao.
+              Tìm ngôi nhà của bạn với HappyHouse - nơi ước mơ nhà cửa của bạn trở thành hiện thực.
             </p>
             <div className="flex gap-4 mt-6">
               <a href="#" className="text-white/60 hover:text-yellow-400 transition-colors">Facebook</a>
@@ -40,7 +40,7 @@ export function Footer() {
           <div>
             <h4 className="font-bold text-white mb-4">Liên hệ chúng tôi</h4>
             <p className="flex items-center gap-2 text-white/70 text-sm mb-3">
-              <Mail size={16} /> <a href="mailto:contact@centrepoint.com" className="hover:text-yellow-400 transition-colors">contact@centrepoint.com</a>
+              <Mail size={16} /> <a href="mailto:contact@happyhouse.vn" className="hover:text-yellow-400 transition-colors">contact@happyhouse.vn</a>
             </p>
             <p className="flex items-center gap-2 text-white/70 text-sm mb-3">
               <Phone size={16} /> <a href="tel:+84123456789" className="hover:text-yellow-400 transition-colors">+84 (123) 456-789</a>
@@ -54,10 +54,10 @@ export function Footer() {
         <div className="border-t border-white/20 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <p className="text-white/60 text-sm">
-              © 2024 CENTRE POINT. Bản quyền được bảo vệ.
+              © 2024 HappyHouse. Bản quyền được bảo vệ.
             </p>
             <p className="text-white/60 text-sm mt-4 md:mt-0">
-              Tạo nên những trải nghiệm bất động sản hoàn hảo
+              Tìm ngôi nhà của bạn cùng HappyHouse
             </p>
           </div>
         </div>

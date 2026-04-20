@@ -4,39 +4,39 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #FAFAF9;
-  --foreground: #2D2D2D;
+  --background: #FDFAF6;
+  --foreground: #5D4E4E;
   --card: #FFFFFF;
-  --card-foreground: #2D2D2D;
+  --card-foreground: #5D4E4E;
   --popover: #FFFFFF;
-  --popover-foreground: #2D2D2D;
-  --primary: #8B4513;
+  --popover-foreground: #5D4E4E;
+  --primary: #B03A2E;
   --primary-foreground: #FFFFFF;
-  --secondary: #D4AF37;
-  --secondary-foreground: #2D2D2D;
-  --muted: #E8E8E8;
-  --muted-foreground: #666666;
-  --accent: #C41E3A;
+  --secondary: #C9A84C;
+  --secondary-foreground: #5D4E4E;
+  --muted: #F0E6E1;
+  --muted-foreground: #8A7D7D;
+  --accent: #B03A2E;
   --accent-foreground: #FFFFFF;
-  --destructive: #C41E3A;
+  --destructive: #B03A2E;
   --destructive-foreground: #FFFFFF;
-  --border: #E0E0E0;
+  --border: #E8D7CF;
   --input: #FFFFFF;
-  --ring: #8B4513;
-  --chart-1: #8B4513;
-  --chart-2: #D4AF37;
-  --chart-3: #C41E3A;
-  --chart-4: #A0826D;
-  --chart-5: #D4A574;
+  --ring: #B03A2E;
+  --chart-1: #B03A2E;
+  --chart-2: #C9A84C;
+  --chart-3: #8A7D7D;
+  --chart-4: #D4A574;
+  --chart-5: #E8D7CF;
   --radius: 0.5rem;
-  --sidebar: #FAFAF9;
-  --sidebar-foreground: #2D2D2D;
-  --sidebar-primary: #8B4513;
+  --sidebar: #FDFAF6;
+  --sidebar-foreground: #5D4E4E;
+  --sidebar-primary: #B03A2E;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #D4AF37;
-  --sidebar-accent-foreground: #2D2D2D;
-  --sidebar-border: #E0E0E0;
-  --sidebar-ring: #8B4513;
+  --sidebar-accent: #C9A84C;
+  --sidebar-accent-foreground: #5D4E4E;
+  --sidebar-border: #E8D7CF;
+  --sidebar-ring: #B03A2E;
 }
 
 .dark {
@@ -119,7 +119,88 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* Scroll reveal animation */
+@keyframes scrollReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button hover animation */
+@keyframes buttonHover {
+  from {
+    background-color: #B03A2E;
+  }
+  to {
+    background-color: #7B241C;
+  }
+}
+
+/* Card lift animation */
+@keyframes cardLift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-6px);
+  }
+}
+
+/* Image zoom animation */
+@keyframes imageZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+/* Count animation for stats */
+@keyframes countUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: scrollReveal 0.5s ease-out forwards;
+}
+
+.card-hover {
+  transition: all 0.2s ease-out;
+}
+
+.card-hover:hover {
+  animation: cardLift 0.2s ease-out forwards;
+  box-shadow: 0 10px 30px rgba(176, 58, 46, 0.15);
+}
+
+.image-zoom {
+  overflow: hidden;
+  transition: transform 0.3s ease-out;
+}
+
+.image-zoom:hover img {
+  animation: imageZoom 0.3s ease-out forwards;
+}
+
+.count-up {
+  animation: countUp 0.5s ease-out;
+}
 }
