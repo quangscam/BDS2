@@ -25,19 +25,19 @@ export function ConsultationForm() {
   }
 
   return (
-    <section className="py-20" style={{ backgroundColor: '#8B4513' }}>
+    <section className="py-20" style={{ backgroundColor: '#B03A2E' }}>
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 text-white">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">ĐĂNG KÝ TƯ VẤN</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Dang ky tu van</h2>
           <p className="text-lg opacity-90">
-            Hãy để lại thông tin của bạn, chúng tôi sẽ liên hệ trong soonest thời gian
+            Hay de lai thong tin cua ban, chung toi se lien he trong thoi gian som nhat co the
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-white font-semibold mb-2">
-              Họ và tên
+              Ho va ten
             </label>
             <input
               type="text"
@@ -45,9 +45,9 @@ export function ConsultationForm() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Nhập họ và tên của bạn"
-              className="w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 border-0 focus:outline-none focus:ring-2" 
-              style={{ '--tw-ring-color': '#D4AF37' } as any}
+              placeholder="Nhap ho va ten cua ban"
+              className="w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 border-0 focus:outline-none focus:ring-2"
+              style={{ '--tw-ring-color': '#C9A84C' } as React.CSSProperties}
               required
             />
           </div>
@@ -55,7 +55,7 @@ export function ConsultationForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="phone" className="block text-white font-semibold mb-2">
-                Số điện thoại
+                So dien thoai
               </label>
               <input
                 type="tel"
@@ -63,9 +63,9 @@ export function ConsultationForm() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="Nhập số điện thoại"
+                placeholder="Nhap so dien thoai"
                 className="w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 border-0 focus:outline-none focus:ring-2"
-                style={{ '--tw-ring-color': '#D4AF37' } as any}
+                style={{ '--tw-ring-color': '#C9A84C' } as React.CSSProperties}
                 required
               />
             </div>
@@ -79,9 +79,9 @@ export function ConsultationForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Nhập email của bạn"
+                placeholder="Nhap email cua ban"
                 className="w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 border-0 focus:outline-none focus:ring-2"
-                style={{ '--tw-ring-color': '#D4AF37' } as any}
+                style={{ '--tw-ring-color': '#C9A84C' } as React.CSSProperties}
                 required
               />
             </div>
@@ -89,26 +89,26 @@ export function ConsultationForm() {
 
           <div>
             <label htmlFor="message" className="block text-white font-semibold mb-2">
-              Lời nhắn
+              Loi nhan
             </label>
             <textarea
               id="message"
               name="message"
               value={formData.message}
               onChange={handleChange}
-              placeholder="Nhập lời nhắn của bạn"
+              placeholder="Nhap loi nhan cua ban"
               rows={5}
               className="w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 border-0 focus:outline-none focus:ring-2"
-              style={{ '--tw-ring-color': '#D4AF37' } as any}
+              style={{ '--tw-ring-color': '#C9A84C' } as React.CSSProperties}
             />
           </div>
 
           <button
             type="submit"
-            className="w-full text-white px-8 py-4 rounded font-bold text-lg transition-opacity hover:opacity-90"
-            style={{ backgroundColor: '#D4AF37', color: '#2D2D2D' }}
+            className="w-full px-8 py-4 rounded font-bold text-lg transition-colors duration-200"
+            style={{ backgroundColor: '#C9A84C', color: '#5D4E4E' }}
           >
-            ĐĂNG KÝ NGAY
+            Dang ky ngay
           </button>
         </form>
       </div>

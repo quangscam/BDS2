@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Artifact - Premium Real Estate',
-  description: 'Discover luxury properties and invest in your future with Artifact',
+  title: 'HappyHouse - Noi gia dinh ban thuoc ve',
+  description: 'Tu can ho hien dai den nha pho am cung - HappyHouse co tat ca. Tim ngoi nha cua ban cung HappyHouse.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="vi" className="bg-background">
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

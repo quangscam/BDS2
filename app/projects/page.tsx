@@ -1,97 +1,194 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { ZaloButton } from '@/components/zalo-button'
 import Link from 'next/link'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+
+const tagTranslations: { [key: string]: string } = {
+  'Commercial Suite': 'Can ho thuong mai',
+  'Shophouse': 'Nha pho thuong mai',
+  'Premium Residence': 'Can ho cao cap',
+  'Smart Home': 'Nha thong minh',
+  'Waterfront': 'Can ho ven song',
+  'Elite Corner Suite': 'Can goc cao cap',
+}
 
 const allProjects = [
   {
     id: 1,
     name: 'CENTRE POINT',
-    location: 'Trung tâm thành phố',
-    area: 'Quận 1',
+    location: 'Trung tam thanh pho',
+    area: 'Quan 1',
     price: 1300000000,
     priceDisplay: '1,300,000,000 VND',
     image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80',
-    description: 'Căn hộ cao cấp tại vị trí vàng với thiết kế hiện đại',
-    type: 'Căn hộ',
+    description: 'Can ho cao cap tai vi tri vang voi thiet ke hien dai',
+    type: 'Can ho',
     units: '180 units',
     completion: '2025',
     tag: 'Commercial Suite',
+    squareMeters: '75 - 120 m2',
   },
   {
     id: 2,
     name: 'CENTRE PLAZA',
-    location: 'Khu đô thị mới',
-    area: 'Quận 2',
+    location: 'Khu do thi moi',
+    area: 'Quan 2',
     price: 1100000000,
     priceDisplay: '1,100,000,000 VND',
     image: 'https://images.unsplash.com/photo-1512207736139-c586cbf395ad?w=500&q=80',
-    description: 'Không gian shophouse thương mại hiện đại và trang bị đầy đủ',
+    description: 'Khong gian shophouse thuong mai hien dai va trang bi day du',
     type: 'Shophouse',
     units: '156 units',
     completion: '2024',
     tag: 'Elite Corner Suite',
+    squareMeters: '85 - 150 m2',
   },
   {
     id: 3,
-    name: 'THÀNH PHÚ HOMES',
-    location: 'Khu vực phía tây',
-    area: 'Quận 5',
+    name: 'THANH PHU HOMES',
+    location: 'Khu vuc phia tay',
+    area: 'Quan 5',
     price: 950000000,
     priceDisplay: '950,000,000 VND',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80',
-    description: 'Nhà phố thương mại tiêu chuẩn với tài chính linh hoạt',
-    type: 'Nhà phố',
+    description: 'Nha pho thuong mai tieu chuan voi tai chinh linh hoat',
+    type: 'Nha pho',
     units: '142 units',
     completion: '2025',
     tag: 'Shophouse',
+    squareMeters: '100 - 180 m2',
   },
   {
     id: 4,
     name: 'LUXURY TOWERS',
-    location: 'Quận trung tâm',
-    area: 'Quận 3',
+    location: 'Quan trung tam',
+    area: 'Quan 3',
     price: 1550000000,
     priceDisplay: '1,550,000,000 VND',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&q=80',
-    description: 'Tòa nhà cao cấp với các tiện ích khang hoàng',
-    type: 'Căn hộ',
+    description: 'Toa nha cao cap voi cac tien ich khang hoang',
+    type: 'Can ho',
     units: '198 units',
     completion: '2026',
     tag: 'Premium Residence',
+    squareMeters: '90 - 200 m2',
   },
   {
     id: 5,
     name: 'RIVERSIDE ELITE',
-    location: 'Bờ sông Sài Gòn',
-    area: 'Quận 7',
+    location: 'Bo song Sai Gon',
+    area: 'Quan 7',
     price: 1450000000,
     priceDisplay: '1,450,000,000 VND',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&q=80',
-    description: 'Căn hộ hướng sông với view tuyệt đẹp',
-    type: 'Căn hộ',
+    description: 'Can ho huong song voi view tuyet dep',
+    type: 'Can ho',
     units: '220 units',
     completion: '2025',
     tag: 'Waterfront',
+    squareMeters: '80 - 160 m2',
   },
   {
     id: 6,
     name: 'TECH PARK RESIDENCES',
-    location: 'Khu công nghệ cao',
-    area: 'Quận 9',
+    location: 'Khu cong nghe cao',
+    area: 'Quan 9',
     price: 850000000,
     priceDisplay: '850,000,000 VND',
     image: 'https://images.unsplash.com/photo-1512207736139-c586cbf395ad?w=500&q=80',
-    description: 'Căn hộ thông minh với công nghệ tiên tiến',
-    type: 'Căn hộ',
+    description: 'Can ho thong minh voi cong nghe tien tien',
+    type: 'Can ho',
     units: '165 units',
     completion: '2026',
     tag: 'Smart Home',
+    squareMeters: '65 - 110 m2',
   },
 ]
+
+function ProjectCard({ project, index }: { project: typeof allProjects[0]; index: number }) {
+  const [isVisible, setIsVisible] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
+  const ref = useRef<HTMLAnchorElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), index * 100)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => observer.disconnect()
+  }, [index])
+
+  return (
+    <Link
+      ref={ref}
+      href={`/projects/${project.id}`}
+      className={`group cursor-pointer block transition-all duration-500 ease-out ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+      style={{
+        transform: isHovered ? 'translateY(-6px)' : isVisible ? 'translateY(0)' : 'translateY(30px)',
+        boxShadow: isHovered ? '0 10px 30px rgba(176, 58, 46, 0.15)' : 'none',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="relative h-64 rounded-lg overflow-hidden mb-4">
+        <img
+          src={project.image}
+          alt={project.name}
+          className="w-full h-full object-cover transition-transform duration-300"
+          style={{
+            transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+          }}
+        />
+        <div className="absolute top-4 right-4">
+          <span
+            className="text-xs font-semibold px-3 py-1 rounded"
+            style={{ backgroundColor: '#C9A84C', color: '#5D4E4E' }}
+          >
+            {tagTranslations[project.tag] || project.tag}
+          </span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <h3 className="text-xl font-bold group-hover:underline" style={{ color: '#5D4E4E' }}>{project.name}</h3>
+        <p className="text-sm" style={{ color: '#8A7D7D' }}>{project.location}</p>
+
+        <p className="text-sm leading-relaxed" style={{ color: '#5D4E4E' }}>{project.description}</p>
+
+        <div className="flex items-center justify-between text-xs pt-2" style={{ color: '#8A7D7D' }}>
+          <span>{project.units}</span>
+          <span>{project.squareMeters}</span>
+          <span>Hoan thanh {project.completion}</span>
+        </div>
+
+        <div className="flex items-center justify-between pt-4 border-t" style={{ borderColor: '#E8D7CF' }}>
+          <span className="text-lg font-bold" style={{ color: '#B03A2E' }}>
+            {project.priceDisplay}
+          </span>
+          <span className="flex items-center gap-1 font-semibold" style={{ color: '#B03A2E' }}>
+            Chi tiet <ArrowRight size={18} />
+          </span>
+        </div>
+      </div>
+    </Link>
+  )
+}
 
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -101,8 +198,8 @@ export default function ProjectsPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
 
-  const types = ['Căn hộ', 'Shophouse', 'Nhà phố']
-  const areas = ['Quận 1', 'Quận 2', 'Quận 3', 'Quận 5', 'Quận 7', 'Quận 9']
+  const types = ['Can ho', 'Shophouse', 'Nha pho']
+  const areas = ['Quan 1', 'Quan 2', 'Quan 3', 'Quan 5', 'Quan 7', 'Quan 9']
 
   const filteredProjects = useMemo(() => {
     return allProjects.filter((project) => {
@@ -125,60 +222,66 @@ export default function ProjectsPage() {
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage)
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen" style={{ backgroundColor: '#FDFAF6' }}>
       <Header />
 
       {/* Page Title */}
-      <div className="bg-white py-16 border-b-4" style={{ borderColor: '#B03A2E' }}>
+      <div className="py-16" style={{ backgroundColor: '#FDFAF6' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4" style={{ lineHeight: '1.2' }}>
-            Tìm ngôi nhà <span style={{ color: '#B03A2E' }}>của bạn</span>
-          </h1>
-          <p className="text-lg" style={{ color: '#5D4E4E' }}>
-            Từ căn hộ hiện đại đến nhà phố ấm cúng — HappyHouse có tất cả
-          </p>
+          <div className="flex items-start gap-4">
+            <div className="w-1 self-stretch" style={{ backgroundColor: '#B03A2E' }} />
+            <div>
+              <h1 className="text-5xl md:text-7xl font-bold mb-4" style={{ lineHeight: '1.2', color: '#5D4E4E' }}>
+                Tim ngoi nha <span style={{ color: '#B03A2E' }}>cua ban</span>
+              </h1>
+              <p className="text-lg" style={{ color: '#5D4E4E' }}>
+                Tu can ho hien dai den nha pho am cung — HappyHouse co tat ca
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="bg-white py-12">
+      <div className="py-12" style={{ backgroundColor: '#FDFAF6' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Sidebar Filters */}
             <div className="lg:col-span-1">
-              <div className="sticky top-20 space-y-6 bg-gray-50 p-6 rounded-lg">
+              <div className="sticky top-20 space-y-6 p-6 rounded-lg" style={{ backgroundColor: '#F5F0EB' }}>
                 {/* Search */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">Tìm kiếm</label>
+                  <label className="block text-sm font-semibold mb-2" style={{ color: '#5D4E4E' }}>Tim kiem</label>
                   <input
                     type="text"
-                    placeholder="Tên dự án, địa điểm..."
+                    placeholder="Ten du an, dia diem..."
                     value={searchQuery}
                     onChange={(e) => {
                       setSearchQuery(e.target.value)
                       setCurrentPage(1)
                     }}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                    style={{ borderColor: '#E8D7CF', '--tw-ring-color': '#C9A84C' } as React.CSSProperties}
                   />
                 </div>
 
                 {/* Property Type */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-3">Loại bất động sản</label>
+                  <label className="block text-sm font-semibold mb-3" style={{ color: '#5D4E4E' }}>Loai bat dong san</label>
                   <div className="space-y-2">
                     <label className="flex items-center">
                       <input
                         type="radio"
                         name="type"
-                        value={null}
                         checked={selectedType === null}
                         onChange={() => {
                           setSelectedType(null)
                           setCurrentPage(1)
                         }}
                         className="mr-2"
+                        style={{ accentColor: '#B03A2E' }}
                       />
-                      <span className="text-gray-700">Tất cả</span>
+                      <span style={{ color: '#5D4E4E' }}>Tat ca</span>
                     </label>
                     {types.map((type) => (
                       <label key={type} className="flex items-center">
@@ -192,8 +295,9 @@ export default function ProjectsPage() {
                             setCurrentPage(1)
                           }}
                           className="mr-2"
+                          style={{ accentColor: '#B03A2E' }}
                         />
-                        <span className="text-gray-700">{type}</span>
+                        <span style={{ color: '#5D4E4E' }}>{type}</span>
                       </label>
                     ))}
                   </div>
@@ -201,21 +305,21 @@ export default function ProjectsPage() {
 
                 {/* Area */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-3">Khu vực</label>
+                  <label className="block text-sm font-semibold mb-3" style={{ color: '#5D4E4E' }}>Khu vuc</label>
                   <div className="space-y-2">
                     <label className="flex items-center">
                       <input
                         type="radio"
                         name="area"
-                        value={null}
                         checked={selectedArea === null}
                         onChange={() => {
                           setSelectedArea(null)
                           setCurrentPage(1)
                         }}
                         className="mr-2"
+                        style={{ accentColor: '#B03A2E' }}
                       />
-                      <span className="text-gray-700">Tất cả</span>
+                      <span style={{ color: '#5D4E4E' }}>Tat ca</span>
                     </label>
                     {areas.map((area) => (
                       <label key={area} className="flex items-center">
@@ -229,8 +333,9 @@ export default function ProjectsPage() {
                             setCurrentPage(1)
                           }}
                           className="mr-2"
+                          style={{ accentColor: '#B03A2E' }}
                         />
-                        <span className="text-gray-700">{area}</span>
+                        <span style={{ color: '#5D4E4E' }}>{area}</span>
                       </label>
                     ))}
                   </div>
@@ -238,10 +343,10 @@ export default function ProjectsPage() {
 
                 {/* Price Range */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">Giá (VND)</label>
+                  <label className="block text-sm font-semibold mb-2" style={{ color: '#5D4E4E' }}>Gia (VND)</label>
                   <div className="space-y-2">
                     <div>
-                      <label className="text-xs text-gray-600">Từ:</label>
+                      <label className="text-xs" style={{ color: '#8A7D7D' }}>Tu:</label>
                       <input
                         type="range"
                         min="0"
@@ -256,11 +361,12 @@ export default function ProjectsPage() {
                           }
                         }}
                         className="w-full"
+                        style={{ accentColor: '#B03A2E' }}
                       />
-                      <span className="text-xs text-gray-600">{(priceRange[0] / 1000000000).toFixed(1)}B VND</span>
+                      <span className="text-xs" style={{ color: '#8A7D7D' }}>{(priceRange[0] / 1000000000).toFixed(1)}B VND</span>
                     </div>
                     <div>
-                      <label className="text-xs text-gray-600">Đến:</label>
+                      <label className="text-xs" style={{ color: '#8A7D7D' }}>Den:</label>
                       <input
                         type="range"
                         min="0"
@@ -275,8 +381,9 @@ export default function ProjectsPage() {
                           }
                         }}
                         className="w-full"
+                        style={{ accentColor: '#B03A2E' }}
                       />
-                      <span className="text-xs text-gray-600">{(priceRange[1] / 1000000000).toFixed(1)}B VND</span>
+                      <span className="text-xs" style={{ color: '#8A7D7D' }}>{(priceRange[1] / 1000000000).toFixed(1)}B VND</span>
                     </div>
                   </div>
                 </div>
@@ -290,10 +397,16 @@ export default function ProjectsPage() {
                     setPriceRange([0, 2000000000])
                     setCurrentPage(1)
                   }}
-                  className="w-full py-2 rounded text-white font-semibold transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: '#C41E3A' }}
+                  className="w-full py-2 rounded text-white font-semibold transition-colors duration-200"
+                  style={{ backgroundColor: '#B03A2E' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#7B241C'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#B03A2E'
+                  }}
                 >
-                  ĐẶT LẠI BỘ LỌC
+                  Dat lai bo loc
                 </button>
               </div>
             </div>
@@ -303,49 +416,8 @@ export default function ProjectsPage() {
               {paginatedProjects.length > 0 ? (
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    {paginatedProjects.map((project) => (
-                      <Link
-                        key={project.id}
-                        href={`/projects/${project.id}`}
-                        className="group cursor-pointer hover:shadow-lg transition-shadow"
-                      >
-                        <div className="relative h-64 bg-gray-200 rounded-lg overflow-hidden mb-4">
-                          <img
-                            src={project.image}
-                            alt={project.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute top-4 right-4">
-                            <span
-                              className="text-xs font-semibold px-3 py-1 rounded"
-                              style={{ backgroundColor: '#D4AF37', color: '#2D2D2D' }}
-                            >
-                              {project.tag}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="space-y-2">
-                          <h3 className="text-xl font-bold text-gray-900 group-hover:underline">{project.name}</h3>
-                          <p className="text-gray-600 text-sm">{project.location}</p>
-
-                          <p className="text-gray-700 text-sm leading-relaxed">{project.description}</p>
-
-                          <div className="flex items-center justify-between text-xs text-gray-600 pt-2">
-                            <span>{project.units}</span>
-                            <span>Hoàn thành {project.completion}</span>
-                          </div>
-
-                          <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                            <span className="text-lg font-bold" style={{ color: '#8B4513' }}>
-                              {project.priceDisplay}
-                            </span>
-                            <span className="flex items-center gap-1 font-semibold" style={{ color: '#C41E3A' }}>
-                              CHI TIẾT <ArrowRight size={18} />
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
+                    {paginatedProjects.map((project, index) => (
+                      <ProjectCard key={project.id} project={project} index={index} />
                     ))}
                   </div>
 
@@ -355,10 +427,11 @@ export default function ProjectsPage() {
                       {currentPage > 1 && (
                         <button
                           onClick={() => setCurrentPage(currentPage - 1)}
-                          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 border rounded-lg transition-colors"
+                          style={{ borderColor: '#E8D7CF', color: '#5D4E4E' }}
                         >
                           <ChevronLeft size={18} />
-                          Trước
+                          Truoc
                         </button>
                       )}
 
@@ -369,10 +442,12 @@ export default function ProjectsPage() {
                           className={`px-4 py-2 rounded-lg transition-colors ${
                             currentPage === page
                               ? 'text-white'
-                              : 'border border-gray-300 hover:bg-gray-50'
+                              : 'border hover:bg-gray-50'
                           }`}
                           style={
-                            currentPage === page ? { backgroundColor: '#8B4513' } : {}
+                            currentPage === page 
+                              ? { backgroundColor: '#B03A2E' } 
+                              : { borderColor: '#E8D7CF', color: '#5D4E4E' }
                           }
                         >
                           {page}
@@ -382,9 +457,10 @@ export default function ProjectsPage() {
                       {currentPage < totalPages && (
                         <button
                           onClick={() => setCurrentPage(currentPage + 1)}
-                          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 border rounded-lg transition-colors"
+                          style={{ borderColor: '#E8D7CF', color: '#5D4E4E' }}
                         >
-                          Tiếp <ChevronRight size={18} />
+                          Tiep <ChevronRight size={18} />
                         </button>
                       )}
                     </div>
@@ -392,7 +468,7 @@ export default function ProjectsPage() {
                 </>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-gray-600 text-lg">Không tìm thấy dự án phù hợp với bộ lọc của bạn.</p>
+                  <p className="text-lg" style={{ color: '#5D4E4E' }}>Khong tim thay du an phu hop voi bo loc cua ban.</p>
                   <button
                     onClick={() => {
                       setSearchQuery('')
@@ -401,10 +477,16 @@ export default function ProjectsPage() {
                       setPriceRange([0, 2000000000])
                       setCurrentPage(1)
                     }}
-                    className="mt-4 px-6 py-2 rounded text-white font-semibold transition-opacity hover:opacity-90"
-                    style={{ backgroundColor: '#8B4513' }}
+                    className="mt-4 px-6 py-2 rounded text-white font-semibold transition-colors duration-200"
+                    style={{ backgroundColor: '#B03A2E' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#7B241C'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#B03A2E'
+                    }}
                   >
-                    ĐẶT LẠI BỘ LỌC
+                    Dat lai bo loc
                   </button>
                 </div>
               )}
@@ -414,6 +496,7 @@ export default function ProjectsPage() {
       </div>
 
       <Footer />
+      <ZaloButton />
     </main>
   )
 }
