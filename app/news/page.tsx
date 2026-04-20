@@ -5,7 +5,7 @@ import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
 import Link from 'next/link'
-import { ArrowRight, ChevronLeft, ChevronRight, TrendingUp, Home, BarChart2, Globe } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, TrendingUp, Home, BarChart2, Globe, FileText } from 'lucide-react'
 
 /* ─── Hook & Component Hiệu Ứng (Reveal) ───────────── */
 function useScrollReveal(threshold = 0.1) {
@@ -61,109 +61,19 @@ function Reveal({
   )
 }
 
-/* ─── Brand Tokens ─────────────────────────────────── */
-// Cream bg:     #FDFAF6
-// Sidebar bg:   #F5EDE8
-// Card bg:      #FFFFFF
-// Red primary:  #B03A2E
-// Red dark:     #7B241C
-// Gold:         #C9A84C
-// Warm text:    #5D4E4E
-// Muted text:   #8A7D7D
-// Border:       #E8D7CF
-
-/* ─── Data ─────────────────────────────────────────── */
-const categories = ['TẤT CẢ', 'THỊ TRƯỜNG', 'DỰ ÁN', 'PHONG CÁCH SỐNG', 'TÀI CHÍNH']
-
-const categoryIcons: Record<string, JSX.Element> = {
-  'THỊ TRƯỜNG': <TrendingUp size={14} />,
-  'DỰ ÁN': <Home size={14} />,
-  'PHONG CÁCH SỐNG': <Globe size={14} />,
-  'TÀI CHÍNH': <BarChart2 size={14} />,
+/* ─── Utils ────────────────────────────────────────── */
+// Ánh xạ icon cho các danh mục tự động từ WordPress
+const getCategoryIcon = (categoryName: string) => {
+  const name = categoryName.toUpperCase()
+  if (name.includes('THỊ TRƯỜNG')) return <TrendingUp size={14} />
+  if (name.includes('DỰ ÁN')) return <Home size={14} />
+  if (name.includes('TÀI CHÍNH')) return <BarChart2 size={14} />
+  if (name.includes('PHONG CÁCH SỐNG')) return <Globe size={14} />
+  return <FileText size={14} /> // Icon mặc định cho danh mục khác
 }
 
-const allArticles = [
-  {
-    id: 1,
-    title: 'THỊ TRƯỜNG BẤT ĐỘNG SẢN TPHCM QUÝ II/2025: CƠ HỘI VÀ THÁCH THỨC',
-    excerpt: 'PHÂN TÍCH TOÀN CẢNH THỊ TRƯỜNG BẤT ĐỘNG SẢN TẠI THÀNH PHỐ HỒ CHÍ MINH TRONG BỐI CẢNH KINH TẾ PHỤC HỒI SAU ĐẠI DỊCH VÀ CÁC CHÍNH SÁCH MỚI CỦA CHÍNH PHỦ.',
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
-    category: 'THỊ TRƯỜNG',
-    date: '15 THÁNG 4, 2025',
-    readTime: '8 PHÚT ĐỌC',
-    author: 'NGUYỄN MINH TUẤN',
-    featured: true,
-  },
-  {
-    id: 2,
-    title: 'CENTRE POINT: KIỆT TÁC KIẾN TRÚC GIỮA LÒNG QUẬN 1',
-    excerpt: 'KHÁM PHÁ THIẾT KẾ ĐỘC ĐÁO VÀ CÁC TIỆN ÍCH CAO CẤP CỦA DỰ ÁN CENTRE POINT — BIỂU TƯỢNG MỚI CỦA THÀNH PHỐ.',
-    image: 'https://images.unsplash.com/photo-1512207736139-c586cbf395ad?w=800&q=80',
-    category: 'DỰ ÁN',
-    date: '10 THÁNG 4, 2025',
-    readTime: '5 PHÚT ĐỌC',
-    author: 'TRẦN THỊ LAN',
-    featured: false,
-  },
-  {
-    id: 3,
-    title: 'PHONG CÁCH SỐNG HIỆN ĐẠI: XU HƯỚNG NỘI THẤT 2025',
-    excerpt: 'TỪ MINIMALISM ĐẾN WABI-SABI, KHÁM PHÁ CÁC PHONG CÁCH NỘI THẤT ĐANG DẪN ĐẦU XU HƯỚNG TẠI CÁC CĂN HỘ CAO CẤP TPHCM.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-    category: 'PHONG CÁCH SỐNG',
-    date: '05 THÁNG 4, 2025',
-    readTime: '6 PHÚT ĐỌC',
-    author: 'LÊ HỒNG NHUNG',
-    featured: false,
-  },
-  {
-    id: 4,
-    title: 'HƯỚNG DẪN VAY MUA NHÀ 2025: LÃI SUẤT & ĐIỀU KIỆN MỚI NHẤT',
-    excerpt: 'CẬP NHẬT CÁC GÓI VAY ƯU ĐÃI TỪ CÁC NGÂN HÀNG LỚN VÀ CHIẾN LƯỢC TỐI ƯU HÓA TÀI CHÍNH KHI MUA BẤT ĐỘNG SẢN.',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
-    category: 'TÀI CHÍNH',
-    date: '01 THÁNG 4, 2025',
-    readTime: '10 PHÚT ĐỌC',
-    author: 'PHẠM QUỐC HÙNG',
-    featured: false,
-  },
-  {
-    id: 5,
-    title: 'RIVERSIDE ELITE: CĂN HỘ VIEW SÔNG — ĐẲNG CẤP SỐNG MỚI',
-    excerpt: 'TẠI SAO CĂN HỘ VEN SÔNG ĐANG TRỞ THÀNH LỰA CHỌN HÀNG ĐẦU CỦA GIỚI THƯỢNG LƯU TẠI THÀNH PHỐ HỒ CHÍ MINH.',
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
-    category: 'DỰ ÁN',
-    date: '28 THÁNG 3, 2025',
-    readTime: '7 PHÚT ĐỌC',
-    author: 'VÕ THỊ MAI',
-    featured: false,
-  },
-  {
-    id: 6,
-    title: 'ĐẦU TƯ BẤT ĐỘNG SẢN THÔNG MINH: 5 NGUYÊN TẮC VÀNG',
-    excerpt: 'CHUYÊN GIA HAPPYHOUSE CHIA SẺ CÁC NGUYÊN TẮC ĐẦU TƯ GIÚP BẠN TỐI ĐA HÓA LỢI NHUẬN VÀ HẠN CHẾ RỦI RO.',
-    image: 'https://images.unsplash.com/photo-1512207736139-c586cbf395ad?w=800&q=80',
-    category: 'TÀI CHÍNH',
-    date: '20 THÁNG 3, 2025',
-    readTime: '9 PHÚT ĐỌC',
-    author: 'HOÀNG VĂN BÌNH',
-    featured: false,
-  },
-  {
-    id: 7,
-    title: 'GREEN LIVING: SỰ TRỖI DẬY CỦA CĂN HỘ XANH TẠI VIỆT NAM',
-    excerpt: 'XU HƯỚNG KIẾN TRÚC BỀN VỮNG VÀ THIẾT KẾ THÂN THIỆN MÔI TRƯỜNG ĐANG ĐỊNH HÌNH LẠI TƯƠNG LAI CỦA BẤT ĐỘNG SẢN.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-    category: 'PHONG CÁCH SỐNG',
-    date: '15 THÁNG 3, 2025',
-    readTime: '6 PHÚT ĐỌC',
-    author: 'NGUYỄN THỊ HOA',
-    featured: false,
-  },
-]
-
-/* ─── Article Card ──────────────────────────────────── */
-function ArticleCard({ article, index }: { article: typeof allArticles[0]; index: number }) {
+/* ─── Components ───────────────────────────────────── */
+function ArticleCard({ article, index }: { article: any; index: number }) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -178,7 +88,7 @@ function ArticleCard({ article, index }: { article: typeof allArticles[0]; index
           borderRadius: '12px',
           backgroundColor: '#FFFFFF',
           overflow: 'hidden',
-          display: 'block', // Added to ensure Link block behaves correctly
+          display: 'block',
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -214,8 +124,8 @@ function ArticleCard({ article, index }: { article: typeof allArticles[0]; index
               borderRadius: '4px',
             }}
           >
-            {categoryIcons[article.category]}
-            {article.category}
+            {getCategoryIcon(article.category)}
+            <span dangerouslySetInnerHTML={{ __html: article.category }} />
           </div>
         </div>
 
@@ -244,10 +154,13 @@ function ArticleCard({ article, index }: { article: typeof allArticles[0]; index
               lineHeight: 1.4,
               marginBottom: '10px',
               letterSpacing: '0.02em',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
             }}
-          >
-            {article.title}
-          </h3>
+            dangerouslySetInnerHTML={{ __html: article.title }}
+          />
 
           <p
             style={{
@@ -260,9 +173,8 @@ function ArticleCard({ article, index }: { article: typeof allArticles[0]; index
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
             }}
-          >
-            {article.excerpt}
-          </p>
+            dangerouslySetInnerHTML={{ __html: article.excerpt }}
+          />
 
           <div
             style={{
@@ -296,9 +208,10 @@ function ArticleCard({ article, index }: { article: typeof allArticles[0]; index
   )
 }
 
-/* ─── Featured Card ─────────────────────────────────── */
-function FeaturedCard({ article }: { article: typeof allArticles[0] }) {
+function FeaturedCard({ article }: { article: any }) {
   const [isHovered, setIsHovered] = useState(false)
+
+  if (!article) return null;
 
   return (
     <Reveal direction="up" delay={0.1}>
@@ -319,8 +232,8 @@ function FeaturedCard({ article }: { article: typeof allArticles[0] }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-          <div style={{ position: 'relative', height: '320px', overflow: 'hidden' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div style={{ position: 'relative', height: '100%', minHeight: '320px', overflow: 'hidden' }}>
             <img
               src={article.image}
               alt={article.title}
@@ -330,6 +243,8 @@ function FeaturedCard({ article }: { article: typeof allArticles[0] }) {
                 objectFit: 'cover',
                 transform: isHovered ? 'scale(1.05)' : 'scale(1)',
                 transition: 'transform 0.4s ease',
+                position: 'absolute',
+                inset: 0
               }}
             />
             <div
@@ -384,8 +299,8 @@ function FeaturedCard({ article }: { article: typeof allArticles[0] }) {
                 width: 'fit-content',
               }}
             >
-              {categoryIcons[article.category]}
-              {article.category}
+              {getCategoryIcon(article.category)}
+              <span dangerouslySetInnerHTML={{ __html: article.category }} />
             </div>
 
             <h2
@@ -397,9 +312,8 @@ function FeaturedCard({ article }: { article: typeof allArticles[0] }) {
                 marginBottom: '14px',
                 letterSpacing: '0.01em',
               }}
-            >
-              {article.title}
-            </h2>
+              dangerouslySetInnerHTML={{ __html: article.title }}
+            />
 
             <p
               style={{
@@ -407,10 +321,13 @@ function FeaturedCard({ article }: { article: typeof allArticles[0] }) {
                 color: '#8A7D7D',
                 lineHeight: 1.7,
                 marginBottom: '24px',
+                display: '-webkit-box',
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
               }}
-            >
-              {article.excerpt}
-            </p>
+              dangerouslySetInnerHTML={{ __html: article.excerpt }}
+            />
 
             <div
               style={{
@@ -419,6 +336,7 @@ function FeaturedCard({ article }: { article: typeof allArticles[0] }) {
                 justifyContent: 'space-between',
                 paddingTop: '18px',
                 borderTop: '1px solid #E8D7CF',
+                marginTop: 'auto'
               }}
             >
               <div>
@@ -450,16 +368,63 @@ function FeaturedCard({ article }: { article: typeof allArticles[0] }) {
   )
 }
 
-/* ─── Page ──────────────────────────────────────────── */
+/* ─── Page Component ────────────────────────────────── */
 export default function NewsInsightsPage() {
+  const [allArticles, setAllArticles] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState('TẤT CẢ')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
 
-  const featuredArticle = allArticles.find((a) => a.featured)!
-  const nonFeatured = allArticles.filter((a) => !a.featured)
+  // Tự động gọi API lấy bài viết
+  useEffect(() => {
+    const apiUrl = process.env.NEXT_PUBLIC_WP_URL || 'https://api.happyhousesg.com'
+    
+    // Lấy 50 bài mới nhất
+    fetch(`${apiUrl}/wp-json/wp/v2/posts?_embed&per_page=50`)
+      .then(res => res.json())
+      .then(data => {
+        const formattedPosts = data.map((post: any) => {
+          // Xử lý loại bỏ HTML tags để làm đoạn trích (Excerpt) ngắn gọn
+          const rawExcerpt = post.excerpt.rendered.replace(/<[^>]*>?/gm, '').trim()
+          const rawContent = post.content.rendered.replace(/<[^>]*>?/gm, '').trim()
+          
+          // Tính thời gian đọc (khoảng 200 từ/phút)
+          const words = rawContent.split(/\s+/).length
+          const readTimeMinutes = Math.max(1, Math.ceil(words / 200))
 
+          return {
+            id: post.id,
+            title: post.title.rendered,
+            excerpt: rawExcerpt,
+            image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+            category: post._embedded?.['wp:term']?.[0]?.[0]?.name?.toUpperCase() || 'TIN TỨC',
+            date: new Date(post.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+            readTime: `${readTimeMinutes} PHÚT ĐỌC`,
+            author: post._embedded?.author?.[0]?.name?.toUpperCase() || 'QUẢN TRỊ VIÊN',
+          }
+        })
+        setAllArticles(formattedPosts)
+        setIsLoading(false)
+      })
+      .catch(err => {
+        console.error("Lỗi tải bài viết:", err)
+        setIsLoading(false)
+      })
+  }, [])
+
+  // Xử lý bài nổi bật (Lấy bài mới nhất làm Nổi bật)
+  const featuredArticle = allArticles.length > 0 ? allArticles[0] : null
+  const nonFeatured = allArticles.length > 1 ? allArticles.slice(1) : []
+
+  // Tự động trích xuất các danh mục hiện có từ dữ liệu trả về
+  const dynamicCategories = useMemo(() => {
+    const uniqueCats = Array.from(new Set(allArticles.map(a => a.category)))
+    return ['TẤT CẢ', ...uniqueCats]
+  }, [allArticles])
+
+  // Xử lý Lọc & Tìm kiếm
   const filteredArticles = useMemo(() => {
     return nonFeatured.filter((a) => {
       const matchCat = selectedCategory === 'TẤT CẢ' || a.category === selectedCategory
@@ -468,8 +433,9 @@ export default function NewsInsightsPage() {
         a.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
       return matchCat && matchSearch
     })
-  }, [selectedCategory, searchQuery])
+  }, [selectedCategory, searchQuery, nonFeatured])
 
+  // Xử lý Phân trang
   const paginated = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage
     return filteredArticles.slice(start, start + itemsPerPage)
@@ -482,7 +448,7 @@ export default function NewsInsightsPage() {
       <Header />
 
       {/* ── Hero Title ── */}
-      <div style={{ padding: '64px 0 40px', backgroundColor: '#FDFAF6' }}>
+      <div style={{ padding: '64px 0 40px', backgroundColor: '#FDFAF6', marginTop: '60px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="left" delay={0}>
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
@@ -492,6 +458,7 @@ export default function NewsInsightsPage() {
                   alignSelf: 'stretch',
                   backgroundColor: '#B03A2E',
                   flexShrink: 0,
+                  borderRadius: '2px'
                 }}
               />
               <div>
@@ -527,20 +494,19 @@ export default function NewsInsightsPage() {
 
       {/* ── Main Layout ── */}
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px 80px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '40px' }}>
+        <div className="flex flex-col lg:grid lg:grid-cols-[280px_1fr] gap-10">
 
           {/* ── Sidebar ── */}
-          <aside>
+          <aside className="w-full">
             <div
               style={{
                 position: 'sticky',
-                top: '80px',
+                top: '100px',
                 backgroundColor: '#F5EDE8',
                 borderRadius: '12px',
                 padding: '28px 24px',
               }}
             >
-              {/* Bọc Reveal bên trong khối Sticky để không phá vỡ layout */}
               <Reveal direction="left" delay={0.1}>
                 <div style={{ marginBottom: '28px' }}>
                   <label
@@ -596,7 +562,7 @@ export default function NewsInsightsPage() {
                     DANH MỤC
                   </label>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                    {categories.map((cat) => {
+                    {dynamicCategories.map((cat) => {
                       const isActive = selectedCategory === cat
                       return (
                         <button
@@ -622,8 +588,8 @@ export default function NewsInsightsPage() {
                             transition: 'background 0.2s, color 0.2s',
                           }}
                         >
-                          {cat !== 'TẤT CẢ' && categoryIcons[cat]}
-                          {cat}
+                          {cat !== 'TẤT CẢ' && getCategoryIcon(cat)}
+                          <span dangerouslySetInnerHTML={{ __html: cat }} />
                         </button>
                       )
                     })}
@@ -634,7 +600,7 @@ export default function NewsInsightsPage() {
               <Reveal direction="left" delay={0.3}>
                 <div style={{ borderTop: '1px solid #E8D7CF', marginBottom: '20px' }} />
                 <Link
-                  href="/news"
+                  href="/"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -659,145 +625,155 @@ export default function NewsInsightsPage() {
                     (e.currentTarget as HTMLElement).style.backgroundColor = '#5D4E4E'
                   }}
                 >
-                  XEM TẤT CẢ NỘI DUNG <ArrowRight size={14} />
+                  <ArrowLeft size={14} /> QUAY VỀ TRANG CHỦ
                 </Link>
               </Reveal>
             </div>
           </aside>
 
           {/* ── Content Area ── */}
-          <div>
-            {/* Featured */}
-            <FeaturedCard article={featuredArticle} />
-
-            <Reveal direction="up" delay={0.2}>
-              <div
-                style={{
-                  fontSize: '11px',
-                  letterSpacing: '0.08em',
-                  color: '#8A7D7D',
-                  marginBottom: '20px',
-                  textTransform: 'uppercase',
-                }}
-              >
-                HIỂN THỊ {filteredArticles.length} BÀI VIẾT
+          <div className="w-full">
+            {isLoading ? (
+              <div className="flex justify-center items-center py-32">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-700"></div>
               </div>
-            </Reveal>
-
-            {/* Grid */}
-            {paginated.length > 0 ? (
+            ) : (
               <>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                    gap: '24px',
-                    marginBottom: '40px',
-                  }}
-                >
-                  {paginated.map((article, i) => (
-                    <ArticleCard key={article.id} article={article} index={i} />
-                  ))}
-                </div>
+                {/* Featured (Bài mới nhất) */}
+                {currentPage === 1 && selectedCategory === 'TẤT CẢ' && searchQuery === '' && featuredArticle && (
+                  <FeaturedCard article={featuredArticle} />
+                )}
 
-                {/* Pagination */}
-                {totalPages > 1 && (
-                  <Reveal direction="up" delay={0.2}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                      {currentPage > 1 && (
-                        <button
-                          onClick={() => setCurrentPage(currentPage - 1)}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            padding: '8px 16px',
-                            border: '1px solid #E8D7CF',
-                            borderRadius: '8px',
-                            backgroundColor: '#FFFFFF',
-                            color: '#5D4E4E',
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            letterSpacing: '0.06em',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          <ChevronLeft size={16} /> TRƯỚC
-                        </button>
-                      )}
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                        <button
-                          key={page}
-                          onClick={() => setCurrentPage(page)}
-                          style={{
-                            padding: '8px 14px',
-                            borderRadius: '8px',
-                            border: currentPage === page ? 'none' : '1px solid #E8D7CF',
-                            backgroundColor: currentPage === page ? '#B03A2E' : '#FFFFFF',
-                            color: currentPage === page ? '#FFFFFF' : '#5D4E4E',
-                            fontSize: '12px',
-                            fontWeight: 700,
-                            cursor: 'pointer',
-                          }}
-                        >
-                          {page}
-                        </button>
+                <Reveal direction="up" delay={0.2}>
+                  <div
+                    style={{
+                      fontSize: '11px',
+                      letterSpacing: '0.08em',
+                      color: '#8A7D7D',
+                      marginBottom: '20px',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    HIỂN THỊ {filteredArticles.length} BÀI VIẾT TƯƠNG ỨNG
+                  </div>
+                </Reveal>
+
+                {/* Grid */}
+                {paginated.length > 0 ? (
+                  <>
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                        gap: '24px',
+                        marginBottom: '40px',
+                      }}
+                    >
+                      {paginated.map((article, i) => (
+                        <ArticleCard key={article.id} article={article} index={i} />
                       ))}
-                      {currentPage < totalPages && (
-                        <button
-                          onClick={() => setCurrentPage(currentPage + 1)}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            padding: '8px 16px',
-                            border: '1px solid #E8D7CF',
-                            borderRadius: '8px',
-                            backgroundColor: '#FFFFFF',
-                            color: '#5D4E4E',
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            letterSpacing: '0.06em',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          TIẾP <ChevronRight size={16} />
-                        </button>
-                      )}
+                    </div>
+
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+                      <Reveal direction="up" delay={0.2}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                          {currentPage > 1 && (
+                            <button
+                              onClick={() => setCurrentPage(currentPage - 1)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                padding: '8px 16px',
+                                border: '1px solid #E8D7CF',
+                                borderRadius: '8px',
+                                backgroundColor: '#FFFFFF',
+                                color: '#5D4E4E',
+                                fontSize: '11px',
+                                fontWeight: 600,
+                                letterSpacing: '0.06em',
+                                cursor: 'pointer',
+                              }}
+                            >
+                              <ChevronLeft size={16} /> TRƯỚC
+                            </button>
+                          )}
+                          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                            <button
+                              key={page}
+                              onClick={() => setCurrentPage(page)}
+                              style={{
+                                padding: '8px 14px',
+                                borderRadius: '8px',
+                                border: currentPage === page ? 'none' : '1px solid #E8D7CF',
+                                backgroundColor: currentPage === page ? '#B03A2E' : '#FFFFFF',
+                                color: currentPage === page ? '#FFFFFF' : '#5D4E4E',
+                                fontSize: '12px',
+                                fontWeight: 700,
+                                cursor: 'pointer',
+                              }}
+                            >
+                              {page}
+                            </button>
+                          ))}
+                          {currentPage < totalPages && (
+                            <button
+                              onClick={() => setCurrentPage(currentPage + 1)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                padding: '8px 16px',
+                                border: '1px solid #E8D7CF',
+                                borderRadius: '8px',
+                                backgroundColor: '#FFFFFF',
+                                color: '#5D4E4E',
+                                fontSize: '11px',
+                                fontWeight: 600,
+                                letterSpacing: '0.06em',
+                                cursor: 'pointer',
+                              }}
+                            >
+                              TIẾP <ChevronRight size={16} />
+                            </button>
+                          )}
+                        </div>
+                      </Reveal>
+                    )}
+                  </>
+                ) : (
+                  <Reveal direction="up" delay={0.2}>
+                    <div style={{ textAlign: 'center', padding: '60px 0' }}>
+                      <p style={{ fontSize: '15px', color: '#5D4E4E', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                        KHÔNG TÌM THẤY BÀI VIẾT PHÙ HỢP.
+                      </p>
+                      <button
+                        onClick={() => {
+                          setSelectedCategory('TẤT CẢ')
+                          setSearchQuery('')
+                          setCurrentPage(1)
+                        }}
+                        style={{
+                          marginTop: '16px',
+                          padding: '10px 24px',
+                          backgroundColor: '#B03A2E',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '8px',
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          letterSpacing: '0.1em',
+                          cursor: 'pointer',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        XÓA BỘ LỌC
+                      </button>
                     </div>
                   </Reveal>
                 )}
               </>
-            ) : (
-              <Reveal direction="up" delay={0.2}>
-                <div style={{ textAlign: 'center', padding: '60px 0' }}>
-                  <p style={{ fontSize: '15px', color: '#5D4E4E', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-                    KHÔNG TÌM THẤY BÀI VIẾT PHÙ HỢP.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSelectedCategory('TẤT CẢ')
-                      setSearchQuery('')
-                      setCurrentPage(1)
-                    }}
-                    style={{
-                      marginTop: '16px',
-                      padding: '10px 24px',
-                      backgroundColor: '#B03A2E',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      letterSpacing: '0.1em',
-                      cursor: 'pointer',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    XEM TẤT CẢ
-                  </button>
-                </div>
-              </Reveal>
             )}
           </div>
         </div>

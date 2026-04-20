@@ -58,39 +58,29 @@ function Reveal({
   )
 }
 
-/* ─── Dữ liệu Bài viết ─────────────────────────────── */
-const newsArticles = [
-  {
-    id: 1,
-    title: 'Xu hướng thị trường bất động sản 2025: Cơ hội và Thách thức',
-    category: 'THỊ TRƯỜNG',
-    date: '15/04/2025',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80',
-  },
-  {
-    id: 2,
-    title: 'Bí quyết chọn căn hộ cao cấp đầu tiên cho gia đình trẻ',
-    category: 'HƯỚNG DẪN',
-    date: '10/04/2025',
-    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=500&q=80',
-  },
-  {
-    id: 3,
-    title: 'HappyHouse ra mắt dự án Riverside Elite - Điểm nhấn ven sông',
-    category: 'DỰ ÁN',
-    date: '05/04/2025',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&q=80',
-  },
-]
-
-/* ─── Component Thẻ Bài viết ───────────────────────── */
-function NewsCard({ article, index }: { article: typeof newsArticles[0]; index: number }) {
+/* ─── Component Thẻ Bài viết (Dùng Dữ liệu Động) ───── */
+function NewsCard({ article, index }: { article: any; index: number }) {
   const [isHovered, setIsHovered] = useState(false)
+
+  // Xử lý dữ liệu từ WordPress JSON
+  const id = article.id
+  const title = article.title?.rendered || 'Bài viết chưa có tiêu đề'
+  
+  // Xử lý ảnh (nếu bài viết không có ảnh đại diện, dùng ảnh mặc định)
+  const featuredImage = article._embedded?.['wp:featuredmedia']?.[0]?.source_url 
+    || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80'
+    
+  // Xử lý danh mục (Category)
+  const categoryName = article._embedded?.['wp:term']?.[0]?.[0]?.name || 'TIN TỨC'
+  
+  // Format ngày tháng (vd: 20/04/2026)
+  const rawDate = new Date(article.date)
+  const formattedDate = rawDate.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
 
   return (
     <Reveal direction="up" delay={index * 0.15}>
       <article 
-        className="bg-white rounded-xl overflow-hidden cursor-pointer"
+        className="bg-white rounded-xl overflow-hidden cursor-pointer flex flex-col h-full"
         style={{
           transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
           boxShadow: isHovered ? '0 16px 40px rgba(176, 58, 46, 0.12)' : '0 4px 20px rgba(93, 78, 78, 0.05)',
@@ -100,12 +90,12 @@ function NewsCard({ article, index }: { article: typeof newsArticles[0]; index: 
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Link href={`/news/${article.id}`} className="block">
+        <Link href={`/news/${id}`} className="block flex-grow flex flex-col">
           {/* Khối Hình ảnh */}
-          <div className="relative h-56 overflow-hidden">
+          <div className="relative h-56 overflow-hidden flex-shrink-0">
             <img 
-              src={article.image}
-              alt={article.title}
+              src={featuredImage}
+              alt={title}
               className="w-full h-full object-cover transition-transform duration-700 ease-out"
               style={{
                 transform: isHovered ? 'scale(1.08)' : 'scale(1)',
@@ -114,28 +104,26 @@ function NewsCard({ article, index }: { article: typeof newsArticles[0]; index: 
           </div>
 
           {/* Khối Nội dung */}
-          <div className="p-6 md:p-8">
+          <div className="p-6 md:p-8 flex flex-col flex-grow">
             <div className="flex items-center justify-between mb-4 border-b pb-4" style={{ borderColor: '#E8D7CF' }}>
               <span 
-                className="text-xs font-bold px-3 py-1.5 rounded-md tracking-wider" 
+                className="text-xs font-bold px-3 py-1.5 rounded-md tracking-wider uppercase" 
                 style={{ backgroundColor: '#FFF0EE', color: '#B03A2E' }}
-              >
-                {article.category}
-              </span>
+                dangerouslySetInnerHTML={{ __html: categoryName }}
+              />
               <span className="text-xs font-medium tracking-wide" style={{ color: '#8A7D7D' }}>
-                {article.date}
+                {formattedDate}
               </span>
             </div>
             
             <h3 
-              className="text-xl font-bold mb-6 line-clamp-3 leading-snug transition-colors duration-300" 
+              className="text-xl font-bold mb-6 line-clamp-3 leading-snug transition-colors duration-300 flex-grow" 
               style={{ color: isHovered ? '#B03A2E' : '#2C1A1A' }}
-            >
-              {article.title}
-            </h3>
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
             
             <div 
-              className="flex items-center gap-2 text-xs font-bold tracking-widest transition-colors duration-300"
+              className="flex items-center gap-2 text-xs font-bold tracking-widest transition-colors duration-300 mt-auto"
               style={{ color: isHovered ? '#B03A2E' : '#5D4E4E' }}
             >
               ĐỌC THÊM <ArrowRight size={16} />
@@ -149,6 +137,24 @@ function NewsCard({ article, index }: { article: typeof newsArticles[0]; index: 
 
 /* ─── Component Chính ──────────────────────────────── */
 export function NewsSection() {
+  const [posts, setPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Gọi API từ WordPress khi Component được load
+  useEffect(() => {
+    // Thêm tham số _embed để WordPress trả về cả ảnh đại diện và thông tin danh mục
+    fetch('https://api.happyhousesg.com/wp-json/wp/v2/posts?_embed&per_page=3')
+      .then(res => res.json())
+      .then(data => {
+        setPosts(data)
+        setIsLoading(false)
+      })
+      .catch(error => {
+        console.error('Lỗi khi lấy dữ liệu bài viết:', error)
+        setIsLoading(false)
+      })
+  }, [])
+
   return (
     <section id="news" className="py-24 relative" style={{ backgroundColor: '#F5EDE8' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -165,18 +171,32 @@ export function NewsSection() {
                 TIN TỨC & <span style={{ color: '#B03A2E' }}>THỊ TRƯỜNG</span>
               </h2>
               <p className="text-sm md:text-base font-medium uppercase" style={{ color: '#8A7D7D', letterSpacing: '0.06em' }}>
-                Cập nhật thông tin mới nhất về thị trường bất động sản và các dự án của chúng tôi
+                Cập nhật thông tin mới nhất trực tiếp từ hệ thống
               </p>
             </div>
           </div>
         </Reveal>
 
-        {/* Lưới Bài viết */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newsArticles.map((article, index) => (
-            <NewsCard key={article.id} article={article} index={index} />
-          ))}
-        </div>
+        {/* Khu vực hiển thị Bài viết */}
+        {isLoading ? (
+          // Hiệu ứng Loading
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-700"></div>
+          </div>
+        ) : (
+          // Lưới Bài viết
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.length > 0 ? (
+              posts.map((article: any, index: number) => (
+                <NewsCard key={article.id} article={article} index={index} />
+              ))
+            ) : (
+              <div className="col-span-full text-center py-10" style={{ color: '#8A7D7D' }}>
+                Hiện chưa có bài viết nào.
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Nút Xem tất cả */}
         <Reveal direction="up" delay={0.4}>
