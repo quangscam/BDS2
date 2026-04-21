@@ -74,7 +74,7 @@ function CoverflowCarousel({ items, imageFit = "cover", isDark = false, showText
 
   return (
     <div className={cn("relative w-full flex flex-col items-center justify-center overflow-hidden py-10 group/carousel", 
-      showTextOutside ? "h-[400px] sm:h-[500px] md:h-[600px]" : "h-[350px] sm:h-[450px] md:h-[550px]"
+      showTextOutside ? "h-[400px] sm:h-[500px] md:h-[600px] lg:h-[650px]" : "h-[350px] sm:h-[450px] md:h-[550px] lg:h-[600px]"
     )}>
       {/* Container chứa hình ảnh */}
       <div className="relative w-full h-full flex items-center justify-center">
@@ -121,10 +121,10 @@ function CoverflowCarousel({ items, imageFit = "cover", isDark = false, showText
                 if (isRight) next()
               }}
               className={cn(
-                "absolute top-0 bottom-0 my-auto w-[80%] md:w-[70%] lg:w-[850px] rounded-xl md:rounded-2xl overflow-hidden shadow-xl transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col",
+                "absolute top-0 bottom-0 my-auto w-[85%] md:w-[70%] lg:w-[900px] rounded-xl md:rounded-2xl overflow-hidden shadow-xl transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col",
                 !isCenter && "cursor-pointer hover:opacity-100",
                 isDark ? "bg-black/20 border border-white/10" : "bg-white border border-[#E8D7CF]",
-                showTextOutside ? "h-[85%]" : "h-[100%]" // Đổi chiều cao để vừa text
+                showTextOutside ? "h-[85%]" : "h-[100%]"
               )}
               style={{ transform: transformStr, opacity, zIndex }}
             >
@@ -137,16 +137,14 @@ function CoverflowCarousel({ items, imageFit = "cover", isDark = false, showText
                   className={cn(
                     "transition-transform duration-700",
                     isCenter && "group-hover:scale-[1.02]",
-                    imageFit === "contain" ? "object-contain p-2 md:p-4 mix-blend-multiply" : "object-cover"
+                    imageFit === "contain" ? "object-contain p-4 mix-blend-multiply" : "object-cover"
                   )} 
                 />
                 
-                {/* Lớp gradient mờ đè lên nếu fit là cover và KHÔNG hiển thị text outside */}
                 {imageFit === "cover" && !showTextOutside && (
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1C0F0F]/90 via-transparent to-transparent pointer-events-none" />
                 )}
                 
-                {/* Hiện Title đè lên ảnh nếu showTextOutside = false */}
                 {!showTextOutside && (
                   <div className="absolute inset-x-0 bottom-0 p-5 md:p-8 flex justify-center pointer-events-none">
                     <p className={cn(
@@ -164,12 +162,11 @@ function CoverflowCarousel({ items, imageFit = "cover", isDark = false, showText
         })}
       </div>
 
-      {/* Hiển thị Text nằm ngoài hình ảnh (dành cho mặt bằng để không che chữ) */}
       {showTextOutside && (
-        <div className="absolute bottom-2 left-0 right-0 text-center z-40 transition-opacity duration-300">
+        <div className="absolute bottom-2 left-0 right-0 text-center z-40 transition-opacity duration-300 px-4">
           <p className={cn(
-            "inline-block font-bold text-sm md:text-base px-6 py-2.5 rounded-full shadow-md font-sans",
-            isDark ? "bg-black/50 text-white border border-white/20" : "bg-white text-[#B03A2E] border border-[#E8D7CF]"
+            "inline-block font-bold text-xs sm:text-sm md:text-base px-6 py-2.5 rounded-full shadow-md font-sans max-w-full truncate",
+            isDark ? "bg-black/60 backdrop-blur-sm text-white border border-white/20" : "bg-white text-[#B03A2E] border border-[#E8D7CF]"
           )}>
             {displayItems[currentIndex]?.title}
           </p>
@@ -177,10 +174,10 @@ function CoverflowCarousel({ items, imageFit = "cover", isDark = false, showText
       )}
 
       {/* Điều hướng */}
-      <button onClick={prev} className={cn("absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all z-40 opacity-0 group-hover/carousel:opacity-100", isDark ? "bg-black/50 border border-white/20 text-white hover:bg-[#B03A2E]" : "bg-white/90 backdrop-blur shadow-lg border border-[#E8D7CF] text-[#2C1A1A] hover:bg-[#B03A2E] hover:text-white")}>
+      <button onClick={prev} className={cn("absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all z-40 opacity-0 group-hover/carousel:opacity-100 focus:opacity-100", isDark ? "bg-black/50 border border-white/20 text-white hover:bg-[#B03A2E]" : "bg-white/90 backdrop-blur shadow-lg border border-[#E8D7CF] text-[#2C1A1A] hover:bg-[#B03A2E] hover:text-white")}>
         <ArrowLeft size={20} />
       </button>
-      <button onClick={next} className={cn("absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all z-40 opacity-0 group-hover/carousel:opacity-100", isDark ? "bg-black/50 border border-white/20 text-white hover:bg-[#B03A2E]" : "bg-white/90 backdrop-blur shadow-lg border border-[#E8D7CF] text-[#2C1A1A] hover:bg-[#B03A2E] hover:text-white")}>
+      <button onClick={next} className={cn("absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all z-40 opacity-0 group-hover/carousel:opacity-100 focus:opacity-100", isDark ? "bg-black/50 border border-white/20 text-white hover:bg-[#B03A2E]" : "bg-white/90 backdrop-blur shadow-lg border border-[#E8D7CF] text-[#2C1A1A] hover:bg-[#B03A2E] hover:text-white")}>
         <ArrowRight size={20} />
       </button>
     </div>
@@ -218,7 +215,6 @@ const nearbyPlaces = [
   { name: "KCN VSIP", time: "15 phút" },
 ]
 
-// CHỈ CHỨA ẢNH MẶT BẰNG
 const productTypes = [
   {
     id: "studio", name: "Studio", area: "~31m²", price: "Từ 1.2 tỷ",
@@ -276,7 +272,6 @@ const productTypes = [
   },
 ]
 
-// MẢNG DỮ LIỆU RIÊNG CHO CĂN HỘ MẪU
 const showroomGallery = [
   { src: "/ava-center/13.png", title: "Không gian phòng khách" },
   { src: "/ava-center/20.png", title: "Góc bếp hiện đại" },
@@ -353,12 +348,11 @@ export default function AVACenterLandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMapZoomed, setIsMapZoomed] = useState(false)
 
-  // Lắng nghe sự kiện scroll để đổi style menu
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -371,9 +365,9 @@ export default function AVACenterLandingPage() {
         if (targetId && targetId !== '#') {
           const el = document.querySelector(targetId)
           if (el) {
-            const offset = el.getBoundingClientRect().top + window.pageYOffset - 100
+            const offset = el.getBoundingClientRect().top + window.pageYOffset - 90
             window.scrollTo({ top: offset, behavior: "smooth" })
-            setMobileMenuOpen(false) // Tự động đóng menu trên mobile khi click
+            setMobileMenuOpen(false) 
           }
         }
       })
@@ -413,14 +407,13 @@ export default function AVACenterLandingPage() {
   const activeProduct = productTypes.find(p => p.id === selectedProduct) || productTypes[1]
 
   return (
-    <main className="min-h-screen bg-[#FDFAF6] overflow-x-hidden">
-      {/* CSS Ẩn thanh cuộn cho các danh sách trượt ngang */}
+    <main className="min-h-screen bg-[#FDFAF6] overflow-x-hidden selection:bg-[#B03A2E] selection:text-white">
       <style dangerouslySetInnerHTML={{__html: `
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
       `}} />
 
-      {/* ── Header & Menu (Đã update thành Sticky Menu) ── */}
+      {/* ── Header & Menu ── */}
       <div className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full",
         isScrolled ? "bg-white/95 backdrop-blur-xl shadow-md border-b border-[#E8D7CF]/60" : "bg-transparent"
@@ -428,40 +421,40 @@ export default function AVACenterLandingPage() {
         <Header />
         <div className="w-full">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-10 py-3">
+            <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-10 py-4">
               {navLinks.map((link) => (
                 <a key={link.href} href={link.href}
-                  className="text-[11px] font-bold text-[#5D4E4E] hover:text-[#B03A2E] tracking-[0.15em] uppercase transition-colors relative group font-sans">
+                  className="text-xs lg:text-sm font-bold text-[#5D4E4E] hover:text-[#B03A2E] tracking-[0.1em] uppercase transition-colors relative group font-sans">
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#B03A2E] group-hover:w-full transition-all duration-300" />
+                  <span className="absolute -bottom-1.5 left-0 w-0 h-0.5 bg-[#B03A2E] group-hover:w-full transition-all duration-300" />
                 </a>
               ))}
               <a href="#contact"
-                className="ml-2 text-[11px] font-bold bg-[#B03A2E] text-white px-6 py-2.5 rounded-full tracking-[0.15em] uppercase hover:bg-[#8B2E24] transition-all hover:shadow-lg hover:shadow-[#B03A2E]/30 hover:-translate-y-0.5 font-sans">
+                className="ml-4 text-xs font-bold bg-[#B03A2E] text-white px-6 py-3 rounded-full tracking-[0.1em] uppercase hover:bg-[#8B2E24] transition-all shadow-md hover:shadow-xl hover:shadow-[#B03A2E]/30 hover:-translate-y-0.5 font-sans">
                 Đăng Ký Ngay
               </a>
             </nav>
 
-            <div className="md:hidden flex items-center justify-between py-2.5">
-              <span className="text-[#2C1A1A] font-bold text-sm tracking-wider font-sans">AVA CENTER</span>
+            <div className="md:hidden flex items-center justify-between py-3">
+              <span className="text-[#2C1A1A] font-bold text-base tracking-wider font-sans">AVA CENTER</span>
               <div className="flex items-center gap-3">
-                <a href="#contact" className="text-[10px] font-bold bg-[#B03A2E] text-white px-4 py-2 rounded-full tracking-wider uppercase font-sans">
+                <a href="#contact" className="text-xs font-bold bg-[#B03A2E] text-white px-5 py-2.5 rounded-full tracking-wider uppercase font-sans shadow-sm">
                   Đăng Ký
                 </a>
                 <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-lg bg-[#F5EDE8]">
-                  <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all", mobileMenuOpen && "rotate-45 translate-y-2")} />
-                  <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all", mobileMenuOpen && "opacity-0")} />
-                  <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all", mobileMenuOpen && "-rotate-45 -translate-y-2")} />
+                  className="w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-xl bg-[#F5EDE8] hover:bg-[#E8D7CF] transition-colors focus:outline-none focus:ring-2 focus:ring-[#B03A2E]">
+                  <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all duration-300", mobileMenuOpen && "rotate-45 translate-y-2")} />
+                  <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all duration-300", mobileMenuOpen && "opacity-0")} />
+                  <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all duration-300", mobileMenuOpen && "-rotate-45 -translate-y-2")} />
                 </button>
               </div>
             </div>
 
             {mobileMenuOpen && (
-              <div className="md:hidden border-t border-[#E8D7CF] py-3 space-y-1">
+              <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-b border-[#E8D7CF] shadow-lg py-2 px-4 flex flex-col z-50">
                 {navLinks.map((link) => (
                   <a key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)}
-                    className="block py-2.5 px-2 text-xs font-bold text-[#5D4E4E] tracking-wider uppercase font-sans">
+                    className="block py-3.5 px-2 text-sm font-bold text-[#5D4E4E] hover:text-[#B03A2E] hover:bg-[#F5EDE8]/50 rounded-lg tracking-wider uppercase font-sans transition-colors">
                     {link.label}
                   </a>
                 ))}
@@ -474,62 +467,60 @@ export default function AVACenterLandingPage() {
       {/* ============================================ */}
       {/* HERO SECTION */}
       {/* ============================================ */}
-      <section className="relative min-h-[100svh] flex items-end pb-16 md:pb-24 justify-center overflow-hidden">
+      <section className="relative min-h-[100svh] flex items-end pb-12 md:pb-24 justify-center overflow-hidden pt-24">
         <div className="absolute inset-0 z-0">
           <Image src="/ava-center/tongquanava.png" alt="Tổng quan AVA Center" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1A0A08] via-[#1A0A08]/50 to-[#1A0A08]/20" />
-          <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjY1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==')]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A0A08] via-[#1A0A08]/60 to-[#1A0A08]/30" />
+          <div className="absolute inset-0 opacity-[0.04] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjY1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==')]" />
         </div>
 
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent z-10" />
 
-        <div className={cn("relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 transition-all duration-1200", isHeroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12")}>
-          <div className="flex justify-center mb-6">
-            <div className="flex items-center gap-2 border border-[#C9A84C]/50 rounded-full px-5 py-2 bg-[#C9A84C]/10 backdrop-blur-sm">
+        <div className={cn("relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 transition-all duration-1000", isHeroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+          <div className="flex justify-center mb-6 md:mb-8">
+            <div className="flex items-center gap-2 border border-[#C9A84C]/50 rounded-full px-5 py-2.5 bg-[#C9A84C]/10 backdrop-blur-md">
               <Star className="w-3 h-3 text-[#C9A84C] fill-[#C9A84C]" />
-              <span className="text-[#C9A84C] text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase font-sans">Touchable Home — Sống Chuẩn Gu</span>
+              <span className="text-[#C9A84C] text-[11px] md:text-xs font-bold tracking-[0.2em] uppercase font-sans">Touchable Home — Sống Chuẩn Gu</span>
               <Star className="w-3 h-3 text-[#C9A84C] fill-[#C9A84C]" />
             </div>
           </div>
-          <h1 className="text-center text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-bold text-white mb-4 tracking-tight leading-none font-sans">
+          <h1 className="text-center text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-4 md:mb-6 tracking-tight leading-none font-sans drop-shadow-lg">
             AVA<br className="sm:hidden" /> <span className="text-[#C9A84C]">CENTER</span>
           </h1>
-          <p className="text-center text-white/80 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-3 font-medium font-sans">Biểu tượng kiến trúc mới tại cửa ngõ Đông Bắc</p>
-          <div className="flex items-center justify-center gap-2 mb-10">
-            <MapPin size={14} className="text-[#B03A2E] shrink-0" />
-            <p className="text-white/60 text-xs sm:text-sm font-sans">Mặt tiền đường Thủ Khoa Huân, TP. Thuận An, Bình Dương</p>
+          <p className="text-center text-white/90 text-base sm:text-xl md:text-2xl max-w-2xl mx-auto mb-4 md:mb-5 font-medium font-sans">Biểu tượng kiến trúc mới tại cửa ngõ Đông Bắc</p>
+          <div className="flex items-center justify-center gap-2 mb-8 md:mb-12">
+            <MapPin size={16} className="text-[#B03A2E] shrink-0" />
+            <p className="text-white/70 text-sm sm:text-base font-sans">Mặt tiền đường Thủ Khoa Huân, Thuận An, Bình Dương</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto mb-10 md:mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto mb-10 md:mb-14">
             {[
               { value: "40", unit: "tầng", label: "Tháp A" },
               { value: "635+", unit: "căn", label: "Căn hộ cao cấp" },
               { value: "36", unit: "tiện ích", label: "Nội khu" },
               { value: "Q4/2027", unit: "", label: "Dự kiến bàn giao" },
             ].map((stat) => (
-              <div key={stat.label} className="relative text-center bg-white/5 backdrop-blur-md rounded-2xl p-4 md:p-5 border border-white/10 overflow-hidden group hover:border-[#C9A84C]/40 transition-colors">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#C9A84C] leading-none mb-0.5 font-sans">{stat.value}</p>
-                {stat.unit && <p className="text-white/50 text-[10px] uppercase tracking-wider font-sans">{stat.unit}</p>}
-                <p className="text-white/70 text-[11px] md:text-xs uppercase tracking-wider font-bold mt-1 font-sans">{stat.label}</p>
+              <div key={stat.label} className="relative text-center bg-white/5 backdrop-blur-md rounded-2xl p-5 md:p-6 border border-white/10 overflow-hidden group hover:bg-white/10 hover:border-[#C9A84C]/40 transition-all duration-300">
+                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#C9A84C] leading-none mb-1 font-sans drop-shadow-sm">{stat.value}</p>
+                {stat.unit && <p className="text-white/60 text-[11px] uppercase tracking-widest font-sans">{stat.unit}</p>}
+                <p className="text-white/80 text-xs md:text-sm uppercase tracking-wider font-bold mt-2 font-sans">{stat.label}</p>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <a href="#contact" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#B03A2E] hover:bg-[#8B2E24] text-white font-bold px-8 py-4 rounded-xl text-xs sm:text-sm tracking-widest uppercase transition-all hover:shadow-2xl hover:shadow-[#B03A2E]/40 hover:-translate-y-1 font-sans">
-              Đăng Ký Nhận Bảng Giá <ArrowRight size={16} />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#contact" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#B03A2E] hover:bg-[#8B2E24] text-white font-bold px-8 py-4 md:py-5 rounded-full text-sm tracking-widest uppercase transition-all hover:shadow-[0_8px_30px_rgb(176,58,46,0.4)] hover:-translate-y-1 font-sans focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A0A08] focus:ring-[#B03A2E]">
+              Đăng Ký Nhận Bảng Giá <ArrowRight size={18} />
             </a>
-            <a href="#overview" className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/30 text-white hover:bg-white/10 font-bold px-8 py-4 rounded-xl text-xs sm:text-sm tracking-widest uppercase transition-all backdrop-blur-sm font-sans">
+            <a href="#overview" className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/30 text-white hover:bg-white/10 font-bold px-8 py-4 md:py-5 rounded-full text-sm tracking-widest uppercase transition-all backdrop-blur-sm font-sans focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A0A08] focus:ring-white/50">
               Khám Phá Dự Án
             </a>
           </div>
           
-          {/* Scroll indicator */}
-          <div className="flex justify-center mt-12">
+          <div className="flex justify-center mt-12 md:mt-16">
             <div className="flex flex-col items-center gap-2 animate-bounce">
-              <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1">
-                <div className="w-1 h-2.5 bg-white/60 rounded-full" />
+              <div className="w-7 h-11 rounded-full border-2 border-white/40 flex items-start justify-center p-1.5">
+                <div className="w-1.5 h-3 bg-white/80 rounded-full" />
               </div>
             </div>
           </div>
@@ -539,68 +530,69 @@ export default function AVACenterLandingPage() {
       {/* ============================================ */}
       {/* TỔNG QUAN DỰ ÁN */}
       {/* ============================================ */}
-      <section id="overview" className="py-20 md:py-32 scroll-mt-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <section id="overview" className="py-20 md:py-32 scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal direction="up">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-3 mb-5">
-                <div className="h-px w-10 bg-[#B03A2E]" />
-                <span className="text-[#B03A2E] text-[10px] font-bold tracking-[0.3em] uppercase font-sans">Tổng Quan Dự Án</span>
-                <div className="h-px w-10 bg-[#B03A2E]" />
+            <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <div className="h-px w-12 bg-[#B03A2E]" />
+                <span className="text-[#B03A2E] text-xs font-bold tracking-[0.2em] uppercase font-sans">Tổng Quan Dự Án</span>
+                <div className="h-px w-12 bg-[#B03A2E]" />
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-5 leading-tight font-sans">Nhà Sang, Giá Xịn</h2>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans">Nhà Sang, Giá Xịn</h2>
               <p className="text-[#5D4E4E] text-base md:text-lg leading-relaxed font-sans">AVA Center là tổ hợp căn hộ cao cấp, thương mại dịch vụ và văn phòng lưu trú mang tính biểu tượng mới tại khu vực cửa ngõ Đông Bắc Bình Dương.</p>
             </div>
           </Reveal>
 
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 md:mb-20">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20 md:mb-24">
             <Reveal direction="left">
-              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-[#E8D7CF] group">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#E8D7CF] group">
                 <div className="relative aspect-[4/3]">
                   <Image 
                     src="/ava-center/tongquanava.png" 
-                    alt="Nội thất căn hộ AVA Center" 
+                    alt="Phối cảnh tổng thể AVA Center" 
                     fill 
-                    className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" 
                   />
-                  {/* Đổi dải mờ đen chỉ phủ 1/2 phần dưới cùng của ảnh để không làm tối phần trên tòa nhà */}
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#2C1A1A]/90 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#1C0F0F]/90 via-[#1C0F0F]/40 to-transparent pointer-events-none" />
                 </div>
                 
-                {/* Thu nhỏ padding xung quanh và padding trong hộp để khối chú thích mỏng gọn lại */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
+                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 pointer-events-none">
+                  <h3 className="text-white font-bold text-xl md:text-2xl mb-2 font-sans">Kiến trúc đột phá</h3>
+                  <p className="text-white/80 text-sm md:text-base font-sans">100% căn hộ thiết kế tối ưu, có Logia đón nắng gió tự nhiên.</p>
                 </div>
               </div>
             </Reveal>
 
             <Reveal direction="right">
-              <div className="space-y-6 md:space-y-8">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-8 md:space-y-10">
+                <div className="grid grid-cols-2 gap-6 md:gap-8">
                   {[
-                    { label: "Chủ đầu tư", value: "Công ty TNHH Tyson An Phú" },
+                    { label: "Chủ đầu tư", value: "Cty Tyson An Phú" },
                     { label: "Phát triển", value: "Tập đoàn AVA Corp" },
                     { label: "Tổng thầu", value: "Hòa Bình Group" },
                     { label: "Quy mô", value: "7.300m² — 9.400m²" },
                   ].map((item) => (
-                    <div key={item.label} className="border-l-[3px] border-[#B03A2E] pl-4 py-1">
-                      <p className="text-[#8A7D7D] text-[10px] font-bold uppercase tracking-widest mb-1 font-sans">{item.label}</p>
-                      <p className="text-[#2C1A1A] font-bold text-sm leading-snug font-sans">{item.value}</p>
+                    <div key={item.label} className="border-l-[3px] border-[#B03A2E] pl-5 py-1">
+                      <p className="text-[#8A7D7D] text-xs font-bold uppercase tracking-widest mb-1.5 font-sans">{item.label}</p>
+                      <p className="text-[#2C1A1A] font-bold text-base md:text-lg leading-snug font-sans">{item.value}</p>
                     </div>
                   ))}
                 </div>
-                <div className="bg-gradient-to-br from-[#F5EDE8] to-[#FAF3F0] rounded-2xl p-6 md:p-8 border border-[#E8D7CF]">
-                  <h3 className="text-lg md:text-xl font-bold text-[#B03A2E] mb-5 font-sans">Cấu Trúc Biểu Tượng</h3>
-                  <ul className="space-y-4">
+                
+                <div className="bg-gradient-to-br from-[#F5EDE8] to-[#FAF3F0] rounded-3xl p-8 md:p-10 border border-[#E8D7CF] shadow-sm">
+                  <h3 className="text-xl md:text-2xl font-bold text-[#B03A2E] mb-6 font-sans">Cấu Trúc Biểu Tượng</h3>
+                  <ul className="space-y-5">
                     {[
-                      { label: "Block A", desc: "Tháp căn hộ cao 40 tầng, cung cấp khoảng 635 căn." },
+                      { label: "Block A", desc: "Tháp căn hộ cao 40 tầng, khoảng 635 căn hộ cao cấp." },
                       { label: "Block B", desc: "Tháp thương mại - dịch vụ & tiện ích cao 6 tầng." },
-                      { label: "Sky Bridge", desc: "Cầu kính không trung kết nối 2 tháp tại tầng 21 cực kỳ đẳng cấp." },
-                      { label: "1 Tầng hầm", desc: "Rộng rãi, đáp ứng chỗ đỗ xe cho toàn bộ cư dân." },
+                      { label: "Sky Bridge", desc: "Cầu kính không trung kết nối 2 tháp tại tầng 21 đẳng cấp." },
+                      { label: "1 Tầng hầm", desc: "Không gian rộng rãi, đáp ứng đủ chỗ đỗ xe cho cư dân." },
                     ].map((item) => (
-                      <li key={item.label} className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-[#B03A2E] mt-1.5 shrink-0" />
-                        <span className="text-[#5D4E4E] text-sm leading-relaxed font-sans">
-                          <strong className="text-[#2C1A1A]">{item.label}:</strong> {item.desc}
+                      <li key={item.label} className="flex items-start gap-4">
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#B03A2E] mt-1.5 shrink-0" />
+                        <span className="text-[#5D4E4E] text-base leading-relaxed font-sans">
+                          <strong className="text-[#2C1A1A] font-bold">{item.label}:</strong> {item.desc}
                         </span>
                       </li>
                     ))}
@@ -610,15 +602,15 @@ export default function AVACenterLandingPage() {
             </Reveal>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
             {features.map((feature, idx) => (
               <Reveal key={feature.title} direction="up" delay={idx * 0.1}>
-                <div className="group bg-white rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-xl border border-[#E8D7CF] hover:border-[#B03A2E]/30 transition-all duration-300 h-full hover:-translate-y-1">
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[#FFF0EE] group-hover:bg-[#B03A2E] flex items-center justify-center mb-5 md:mb-6 transition-colors duration-300">
-                    <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-[#B03A2E] group-hover:text-white transition-colors" />
+                <div className="group bg-white rounded-3xl p-7 md:p-8 shadow-sm hover:shadow-xl border border-[#E8D7CF] hover:border-[#B03A2E]/30 transition-all duration-300 h-full hover:-translate-y-1.5">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#FFF0EE] group-hover:bg-[#B03A2E] flex items-center justify-center mb-6 md:mb-8 transition-colors duration-300">
+                    <feature.icon className="w-6 h-6 md:w-7 md:h-7 text-[#B03A2E] group-hover:text-white transition-colors" />
                   </div>
-                  <h3 className="text-base md:text-lg font-bold text-[#2C1A1A] mb-3 font-sans">{feature.title}</h3>
-                  <p className="text-[#5D4E4E] text-sm leading-relaxed font-sans">{feature.description}</p>
+                  <h3 className="text-lg md:text-xl font-bold text-[#2C1A1A] mb-3 font-sans">{feature.title}</h3>
+                  <p className="text-[#5D4E4E] text-sm md:text-base leading-relaxed font-sans">{feature.description}</p>
                 </div>
               </Reveal>
             ))}
@@ -629,68 +621,69 @@ export default function AVACenterLandingPage() {
       {/* ============================================ */}
       {/* LOCATION (ZOOMABLE MAP) */}
       {/* ============================================ */}
-      <section id="location" className="py-20 md:py-32 bg-[#1C0F0F] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[#B03A2E]/5 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
+      <section id="location" className="py-20 md:py-32 bg-[#1C0F0F] relative overflow-hidden scroll-mt-24">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-[#B03A2E]/5 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-[#C9A84C]/5 blur-[100px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Reveal direction="up">
-            <div className="text-center max-w-3xl mx-auto mb-14 md:mb-16">
-              <div className="inline-flex items-center gap-3 mb-5">
-                <div className="h-px w-10 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-[10px] font-bold tracking-[0.3em] uppercase font-sans">Vị Trí Chiến Lược</span>
-                <div className="h-px w-10 bg-[#C9A84C]" />
+            <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <div className="h-px w-12 bg-[#C9A84C]" />
+                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.2em] uppercase font-sans">Vị Trí Chiến Lược</span>
+                <div className="h-px w-12 bg-[#C9A84C]" />
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight font-sans">Tọa Độ Vàng Giao Thương</h2>
-              <p className="text-white/65 text-base md:text-lg leading-relaxed font-sans">
-                Nằm trên mặt tiền đường Thủ Khoa Huân, liền kề Quốc lộ 13 — vị trí giao thoa 3 trục giao thông huyết mạch.
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight font-sans">Tọa Độ Vàng Giao Thương</h2>
+              <p className="text-white/70 text-base md:text-lg leading-relaxed font-sans">
+                Nằm trên mặt tiền đường Thủ Khoa Huân, liền kề Quốc lộ 13 — vị trí trung tâm giao thoa 3 trục giao thông huyết mạch của khu vực.
               </p>
             </div>
           </Reveal>
 
-          <div className="grid lg:grid-cols-5 gap-6 md:gap-8 mb-10">
+          <div className="grid lg:grid-cols-5 gap-8 md:gap-12 mb-12 md:mb-16">
             {/* Map Clickable */}
             <Reveal direction="left" className="lg:col-span-3">
               <div 
                 onClick={() => setIsMapZoomed(true)}
-                className="relative rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 group cursor-pointer bg-white" 
-                style={{ minHeight: '360px' }}
+                className="relative rounded-3xl overflow-hidden border border-white/10 group cursor-pointer bg-white shadow-2xl" 
+                style={{ minHeight: '400px' }}
+                role="button"
+                aria-label="Phóng to bản đồ vị trí"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter') setIsMapZoomed(true) }}
               >
-                <Image src="/ava-center/mapsavacenter.png" alt="Bản đồ vị trí AVA Center" fill className="object-contain p-2 transition-transform duration-700 group-hover:scale-[1.02]" />
+                <Image src="/ava-center/mapsavacenter.png" alt="Bản đồ vị trí AVA Center" fill className="object-contain p-4 transition-transform duration-700 group-hover:scale-[1.02]" />
                 
-                {/* Overlay Zoom Báo Hiệu */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-[#1C0F0F]/10 transition-colors duration-300 flex items-center justify-center">
-                  <div className="bg-[#B03A2E] text-white p-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_30px_rgba(176,58,46,0.5)] scale-90 group-hover:scale-100">
-                    <Maximize2 size={28} />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-[#1C0F0F]/15 transition-colors duration-300 flex items-center justify-center">
+                  <div className="bg-[#B03A2E] text-white p-5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_40px_rgba(176,58,46,0.6)] scale-75 group-hover:scale-100">
+                    <Maximize2 size={32} />
                   </div>
                 </div>
 
-                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#1C0F0F]/80 to-transparent pointer-events-none" />
-                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl px-4 py-3 shadow-sm border border-[#E8D7CF] pointer-events-none">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 bg-[#FFF0EE] rounded-full flex items-center justify-center shrink-0">
-                      <MapPin className="w-4 h-4 text-[#B03A2E]" />
-                    </div>
-                    <div>
-                      <p className="text-[#2C1A1A] font-bold text-sm font-sans">AVA CENTER</p>
-                      <p className="text-[#5D4E4E] text-[11px] font-sans">Click ảnh để phóng to bản đồ</p>
-                    </div>
+                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#1C0F0F]/90 to-transparent pointer-events-none" />
+                <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-md rounded-2xl px-5 py-4 shadow-xl border border-[#E8D7CF] pointer-events-none flex items-center gap-4">
+                  <div className="w-12 h-12 bg-[#FFF0EE] rounded-full flex items-center justify-center shrink-0">
+                    <MapPin className="w-6 h-6 text-[#B03A2E]" />
+                  </div>
+                  <div>
+                    <p className="text-[#2C1A1A] font-bold text-base font-sans">AVA CENTER</p>
+                    <p className="text-[#5D4E4E] text-xs font-sans mt-0.5">Click để phóng to bản đồ</p>
                   </div>
                 </div>
               </div>
             </Reveal>
 
-            <div className="lg:col-span-2 space-y-4">
+            <div className="lg:col-span-2 flex flex-col justify-center space-y-5 md:space-y-6">
               {connections.map((item, idx) => (
                 <Reveal key={item.title} direction="right" delay={idx * 0.1}>
-                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-5 border border-white/8 hover:bg-white/10 hover:border-[#C9A84C]/30 transition-all duration-300 group">
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-[#C9A84C]/15 flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C]/25 transition-colors">
-                        <item.icon className="w-5 h-5 text-[#C9A84C]" />
+                  <div className="bg-white/5 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-white/10 hover:bg-white/10 hover:border-[#C9A84C]/40 transition-all duration-300 group">
+                    <div className="flex items-start gap-5">
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[#C9A84C]/15 flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] transition-colors duration-300">
+                        <item.icon className="w-6 h-6 text-[#C9A84C] group-hover:text-[#1C0F0F] transition-colors" />
                       </div>
                       <div>
-                        <h3 className="text-white font-bold text-sm md:text-base mb-1.5 font-sans leading-tight">{item.title}</h3>
-                        <p className="text-white/60 text-xs md:text-sm leading-relaxed font-sans">{item.description}</p>
+                        <h3 className="text-white font-bold text-base md:text-lg mb-2 font-sans leading-tight">{item.title}</h3>
+                        <p className="text-white/60 text-sm leading-relaxed font-sans">{item.description}</p>
                       </div>
                     </div>
                   </div>
@@ -701,14 +694,14 @@ export default function AVACenterLandingPage() {
           
           {/* Nearby grid */}
           <Reveal direction="up">
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/8">
-              <p className="text-[#C9A84C] text-xs font-bold tracking-[0.2em] uppercase text-center mb-6 font-sans">Kết Nối Hoàn Hảo — Ngàn Tiện Ích Xung Quanh</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div className="bg-gradient-to-b from-white/5 to-transparent rounded-3xl p-8 md:p-12 border border-white/10">
+              <p className="text-[#C9A84C] text-sm font-bold tracking-[0.2em] uppercase text-center mb-8 font-sans">Kết Nối Hoàn Hảo — Ngàn Tiện Ích Xung Quanh</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
                 {nearbyPlaces.map((place) => (
                   <div key={place.name}
-                    className="text-center p-4 rounded-xl bg-white/5 hover:bg-[#B03A2E] border border-white/10 hover:border-[#B03A2E] transition-all duration-300 group cursor-default">
-                    <p className="text-xl font-bold text-white mb-1.5 font-sans">{place.time}</p>
-                    <p className="text-white/60 text-[11px] font-medium group-hover:text-white/90 leading-tight font-sans">{place.name}</p>
+                    className="text-center p-5 md:p-6 rounded-2xl bg-white/5 hover:bg-[#B03A2E] border border-white/10 hover:border-[#B03A2E] transition-all duration-300 group cursor-default">
+                    <p className="text-2xl md:text-3xl font-bold text-white mb-2 font-sans">{place.time}</p>
+                    <p className="text-white/70 text-xs md:text-sm font-medium group-hover:text-white leading-snug font-sans">{place.name}</p>
                   </div>
                 ))}
               </div>
@@ -718,94 +711,92 @@ export default function AVACenterLandingPage() {
       </section>
 
       {/* ============================================ */}
-      {/* PRODUCTS & GALLERY (MẶT BẰNG & CĂN HỘ MẪU) */}
+      {/* PRODUCTS SECTION */}
       {/* ============================================ */}
-      <section id="products" className="py-20 md:py-32 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <section id="products" className="py-20 md:py-32 overflow-hidden scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal direction="up">
-            <div className="text-center max-w-3xl mx-auto mb-14 md:mb-16">
-              <div className="inline-flex items-center gap-3 mb-5">
-                <div className="h-px w-10 bg-[#B03A2E]" />
-                <span className="text-[#B03A2E] text-[10px] font-bold tracking-[0.3em] uppercase font-sans">Sản Phẩm & Thiết Kế</span>
-                <div className="h-px w-10 bg-[#B03A2E]" />
+            <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <div className="h-px w-12 bg-[#B03A2E]" />
+                <span className="text-[#B03A2E] text-xs font-bold tracking-[0.2em] uppercase font-sans">Sản Phẩm & Thiết Kế</span>
+                <div className="h-px w-12 bg-[#B03A2E]" />
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-5 leading-tight font-sans">Đa Dạng Lựa Chọn</h2>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans">Đa Dạng Lựa Chọn</h2>
             </div>
           </Reveal>
 
-          {/* Product tabs */}
+          {/* Product tabs - Scrollable on mobile */}
           <Reveal direction="up" delay={0.1}>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 md:mb-12">
+            <div className="flex overflow-x-auto hide-scroll w-full justify-start md:justify-center gap-3 px-1 mb-12 md:mb-16 snap-x pb-4">
               {productTypes.map((p) => (
                 <button key={p.id} onClick={() => setSelectedProduct(p.id)}
                   className={cn(
-                    "relative px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 font-sans",
-                    selectedProduct === p.id ? "bg-[#B03A2E] text-white shadow-lg shadow-[#B03A2E]/30 scale-105" : "bg-[#F5EDE8] text-[#5D4E4E] hover:bg-[#E8D7CF] border border-[#E8D7CF]"
+                    "relative flex-shrink-0 px-6 sm:px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 font-sans snap-center whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B03A2E]",
+                    selectedProduct === p.id ? "bg-[#B03A2E] text-white shadow-[0_8px_20px_rgba(176,58,46,0.3)] scale-105" : "bg-white text-[#5D4E4E] hover:bg-[#F5EDE8] border border-[#E8D7CF]"
                   )}>
                   {p.name}
-                  {p.popular && <span className="absolute -top-2 -right-2 text-[9px] bg-[#C9A84C] text-[#1A0A08] px-1.5 py-0.5 rounded-full font-bold font-sans">Hot</span>}
+                  {p.popular && <span className="absolute -top-1.5 -right-1.5 text-[9px] bg-[#C9A84C] text-[#1A0A08] px-2 py-0.5 rounded-full font-bold font-sans shadow-sm">Hot</span>}
                 </button>
               ))}
             </div>
           </Reveal>
 
-          {/* GALLERY MẶT BẰNG (COVERFLOW 3D) - HIỂN THỊ TEXT Ở NGOÀI */}
+          {/* GALLERY MẶT BẰNG */}
           <Reveal direction="up" delay={0.15}>
-            <div className="mb-4">
-              <p className="text-center text-[#8A7D7D] text-[10px] font-bold uppercase tracking-[0.25em] mb-2 font-sans">Mặt Bằng Căn Hộ — {activeProduct.name}</p>
-              
+            <div className="mb-8">
+              <p className="text-center text-[#8A7D7D] text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans">Mặt Bằng Chi Tiết — {activeProduct.name}</p>
               <CoverflowCarousel items={activeProduct.gallery} imageFit="contain" showTextOutside={true} />
-
             </div>
           </Reveal>
 
-          {/* CHI TIẾT CĂN HỘ (ĐÃ THIẾT KẾ LẠI) */}
+          {/* CHI TIẾT CĂN HỘ */}
           <Reveal direction="up" delay={0.2}>
-            <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] border border-[#E8D7CF]/50 relative overflow-hidden mb-12 mt-8">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#F5EDE8] rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-60" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#F5EDE8] rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 opacity-60" />
+            <div className="bg-white rounded-[2.5rem] p-8 md:p-14 lg:p-16 shadow-2xl shadow-black/5 border border-[#E8D7CF] relative overflow-hidden mb-16 mt-8">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-[#F5EDE8] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 opacity-70 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#F5EDE8] rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 opacity-70 pointer-events-none" />
 
               <div className="relative z-10 max-w-4xl mx-auto text-center">
                 {activeProduct.popular && (
-                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#B03A2E] text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-6 shadow-md font-sans">
-                    <Star className="w-3 h-3 fill-white" /> Sản phẩm được săn đón nhất
+                  <span className="inline-flex items-center gap-2 px-5 py-2 bg-[#B03A2E] text-white text-xs font-bold uppercase tracking-widest rounded-full mb-8 shadow-md font-sans">
+                    <Star className="w-4 h-4 fill-white" /> Sản phẩm được săn đón nhất
                   </span>
                 )}
 
-                <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-8 font-sans">
+                <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-10 font-sans">
                   {activeProduct.id === 'shophouse' ? '' : 'Căn hộ '}{activeProduct.name}
                 </h3>
 
-                <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 mb-8">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 mb-10">
                   <div className="flex flex-col items-center">
-                    <span className="text-[#8A7D7D] text-[10px] uppercase tracking-widest font-bold mb-1.5 font-sans">Diện tích thông thủy</span>
-                    <span className="text-[#2C1A1A] text-xl font-bold font-sans">{activeProduct.area}</span>
+                    <span className="text-[#8A7D7D] text-xs uppercase tracking-widest font-bold mb-2 font-sans">Diện tích thông thủy</span>
+                    <span className="text-[#2C1A1A] text-2xl md:text-3xl font-bold font-sans">{activeProduct.area}</span>
                   </div>
-                  <div className="w-px h-10 bg-[#E8D7CF] hidden md:block" />
+                  <div className="w-full h-px md:w-px md:h-16 bg-[#E8D7CF] max-w-[200px]" />
                   <div className="flex flex-col items-center">
-                    <span className="text-[#8A7D7D] text-[10px] uppercase tracking-widest font-bold mb-1.5 font-sans">Mức giá tham khảo</span>
-                    <span className="text-[#B03A2E] text-3xl md:text-4xl font-bold font-sans">{activeProduct.price}</span>
+                    <span className="text-[#8A7D7D] text-xs uppercase tracking-widest font-bold mb-2 font-sans">Mức giá tham khảo</span>
+                    <span className="text-[#B03A2E] text-3xl md:text-5xl font-bold font-sans">{activeProduct.price}</span>
                   </div>
                 </div>
 
-                <div className="relative py-6 mb-8">
+                <div className="relative py-8 mb-10">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-full border-t border-[#E8D7CF]" />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-white px-6 text-[#5D4E4E] italic text-base md:text-lg font-medium font-sans">
+                    <span className="bg-white px-8 text-[#5D4E4E] italic text-lg md:text-xl font-medium font-sans text-center">
                       "{activeProduct.description}"
                     </span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
                   {activeProduct.features.map((f) => (
-                    <div key={f} className="flex flex-col items-center justify-center text-center bg-[#F5EDE8]/50 p-4 md:p-5 rounded-2xl border border-[#E8D7CF]/50 hover:bg-[#F5EDE8] transition-colors">
-                      <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center mb-3 shadow-sm">
-                        <Check className="w-4 h-4 text-[#B03A2E]" />
+                    <div key={f} className="flex flex-col items-center justify-center text-center bg-[#F5EDE8]/60 p-5 md:p-6 rounded-3xl border border-[#E8D7CF]/80 hover:bg-[#F5EDE8] transition-colors">
+                      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mb-4 shadow-sm">
+                        <Check className="w-5 h-5 text-[#B03A2E]" />
                       </div>
-                      <span className="text-[#2C1A1A] text-xs md:text-sm font-bold leading-snug font-sans">{f}</span>
+                      <span className="text-[#2C1A1A] text-sm font-bold leading-snug font-sans">{f}</span>
                     </div>
                   ))}
                 </div>
@@ -813,37 +804,35 @@ export default function AVACenterLandingPage() {
                 <div className="flex justify-center">
                   <a href="#contact"
                     onClick={() => setFormData(prev => ({ ...prev, product: activeProduct.id }))}
-                    className="inline-flex items-center gap-2 bg-[#2C1A1A] text-white font-bold text-xs uppercase tracking-widest px-10 py-5 rounded-full hover:bg-[#B03A2E] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 font-sans">
-                    Đăng Ký Tư Vấn {activeProduct.id === 'shophouse' ? '' : 'Căn '} {activeProduct.name} <ArrowRight size={16} />
+                    className="inline-flex items-center gap-3 bg-[#2C1A1A] text-white font-bold text-sm uppercase tracking-widest px-10 py-5 md:py-6 rounded-full hover:bg-[#B03A2E] transition-all shadow-xl hover:shadow-[0_10px_30px_rgba(176,58,46,0.4)] hover:-translate-y-1 font-sans focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B03A2E]">
+                    Đăng Ký Tư Vấn {activeProduct.id === 'shophouse' ? '' : 'Căn '} {activeProduct.name} <ArrowRight size={18} />
                   </a>
                 </div>
               </div>
             </div>
           </Reveal>
 
-          {/* MẶT BẰNG TỔNG THỂ (COVERFLOW 3D) */}
+          {/* MẶT BẰNG TỔNG THỂ */}
           <Reveal direction="up" delay={0.25}>
-            <div className="bg-gradient-to-br from-[#F5EDE8] to-[#FAF3F0] rounded-3xl pt-10 pb-4 border border-[#E8D7CF]">
-              <h3 className="text-2xl md:text-3xl font-bold text-[#2C1A1A] mb-4 font-sans text-center">
+            <div className="bg-gradient-to-br from-[#F5EDE8] to-[#FAF3F0] rounded-[2.5rem] pt-12 pb-6 border border-[#E8D7CF] shadow-lg">
+              <h3 className="text-2xl md:text-4xl font-bold text-[#2C1A1A] mb-6 font-sans text-center px-4">
                 Mặt Bằng Tầng Tổng Thể
               </h3>
-              
               <CoverflowCarousel items={floorPlans} imageFit="contain" showTextOutside={true} />
-              
             </div>
           </Reveal>
 
           {/* ============================================ */}
-          {/* KHÔNG GIAN SỐNG / NHÀ MẪU (NEW SECTION) */}
+          {/* KHÔNG GIAN SỐNG / NHÀ MẪU */}
           {/* ============================================ */}
-          <Reveal direction="up" delay={0.3} className="mt-20 pt-20 border-t border-[#E8D7CF]" id="showroom">
-            <div className="text-center max-w-3xl mx-auto mb-10">
-              <div className="inline-flex items-center gap-3 mb-5">
-                <div className="h-px w-10 bg-[#B03A2E]" />
-                <span className="text-[#B03A2E] text-[10px] font-bold tracking-[0.3em] uppercase font-sans">Không Gian Sống Thượng Lưu</span>
-                <div className="h-px w-10 bg-[#B03A2E]" />
+          <Reveal direction="up" delay={0.3} className="mt-24 pt-24 border-t border-[#E8D7CF]" id="showroom">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <div className="h-px w-12 bg-[#B03A2E]" />
+                <span className="text-[#B03A2E] text-xs font-bold tracking-[0.2em] uppercase font-sans">Không Gian Sống</span>
+                <div className="h-px w-12 bg-[#B03A2E]" />
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-5 leading-tight font-sans">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans">
                 Hình Ảnh Nhà Mẫu
               </h2>
               <p className="text-[#5D4E4E] text-base md:text-lg leading-relaxed font-sans">
@@ -851,52 +840,7 @@ export default function AVACenterLandingPage() {
               </p>
             </div>
             
-            {/* Slider Nhà Mẫu (ảnh tràn viền, text nằm dưới) */}
             <CoverflowCarousel items={showroomGallery} imageFit="cover" showTextOutside={true} />
-            
-          </Reveal>
-
-          {/* Shophouse CTA */}
-          <Reveal direction="up" className="mt-12 md:mt-20">
-            <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl group">
-              <div className="absolute inset-0">
-                <Image src="/ava-center/shophouseavacenter.jpg" alt="Shophouse Khối Đế" fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#1C0F0F] via-[#1C0F0F]/90 to-[#1C0F0F]/40" />
-              </div>
-              <div className="relative z-10 p-8 md:p-10 lg:p-12">
-                <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                  <div>
-                    <div className="inline-flex items-center gap-2 border border-[#C9A84C]/40 rounded-full px-4 py-1.5 bg-[#C9A84C]/10 mb-4">
-                      <span className="text-[#C9A84C] text-[10px] font-bold tracking-[0.2em] uppercase font-sans">Cơ Hội Đầu Tư Đặc Biệt</span>
-                    </div>
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 font-sans leading-tight">
-                      Shophouse Khối Đế (Block B)
-                    </h3>
-                    <p className="text-white/70 leading-relaxed mb-7 text-sm md:text-base font-sans">
-                      Tọa lạc tại mặt tiền đường, phục vụ trực tiếp cộng đồng cư dân hơn 2.000 người và khách vãng lai khu vực sầm uất — "gà đẻ trứng vàng" với tiềm năng sinh lời vượt trội.
-                    </p>
-                    <a href="#contact"
-                      className="inline-flex items-center gap-2 bg-[#B03A2E] text-white font-bold text-xs uppercase tracking-widest px-7 py-4 rounded-xl hover:bg-[#8B2E24] transition-all hover:shadow-xl hover:shadow-[#B03A2E]/30 hover:-translate-y-0.5 font-sans">
-                      Tìm Hiểu Chi Tiết Shophouse <ArrowRight size={15} />
-                    </a>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 md:gap-4">
-                    {[
-                      { label: "Vị trí", value: "Mặt tiền khối đế" },
-                      { label: "Diện tích", value: "Đa dạng cấu trúc" },
-                      { label: "Công năng", value: "Tối ưu Kinh doanh" },
-                      { label: "Tiềm năng", value: "Sinh lời dài hạn" },
-                    ].map((item) => (
-                      <div key={item.label} className="bg-white/10 backdrop-blur-md rounded-xl p-4 md:p-5 border border-white/15 hover:bg-white/15 transition-colors">
-                        <p className="text-lg md:text-xl font-bold text-[#C9A84C] mb-1 font-sans">{item.value}</p>
-                        <p className="text-white/60 text-[10px] font-bold uppercase tracking-wider font-sans">{item.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
           </Reveal>
         </div>
       </section>
@@ -904,74 +848,69 @@ export default function AVACenterLandingPage() {
       {/* ============================================ */}
       {/* AMENITIES SECTION */}
       {/* ============================================ */}
-      <section id="amenities" className="py-20 md:py-32 bg-[#1C0F0F] relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-96 h-96 rounded-full bg-[#B03A2E]/10 blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-[#C9A84C]/10 blur-[100px] pointer-events-none" />
+      <section id="amenities" className="py-20 md:py-32 bg-[#1C0F0F] relative overflow-hidden scroll-mt-24">
+        <div className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full bg-[#B03A2E]/10 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[800px] h-[800px] rounded-full bg-[#C9A84C]/10 blur-[120px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Reveal direction="up">
-            <div className="text-center max-w-3xl mx-auto mb-14 md:mb-16">
-              <div className="inline-flex items-center gap-3 mb-5">
-                <div className="h-px w-10 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-[10px] font-bold tracking-[0.3em] uppercase font-sans">Hệ Thống Tiện Ích Khép Kín</span>
-                <div className="h-px w-10 bg-[#C9A84C]" />
+            <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <div className="h-px w-12 bg-[#C9A84C]" />
+                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.2em] uppercase font-sans">Tiện Ích Nội Khu</span>
+                <div className="h-px w-12 bg-[#C9A84C]" />
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight font-sans">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight font-sans">
                 Đẳng Cấp Nghỉ Dưỡng Resort
               </h2>
-              <p className="text-white/60 text-base md:text-lg leading-relaxed font-sans">
-                Hệ sinh thái 36 tiện ích nội khu được đầu tư bài bản, mang đến trải nghiệm sống trọn vẹn mỗi ngày.
+              <p className="text-white/70 text-base md:text-lg leading-relaxed font-sans">
+                Hệ sinh thái 36 tiện ích nội khu được đầu tư bài bản, mang đến trải nghiệm sống trọn vẹn và đủ đầy mỗi ngày.
               </p>
             </div>
           </Reveal>
 
-          {/* Hero amenity image (Ảnh bìa tổng) */}
           <Reveal direction="up">
-            <div className="relative rounded-2xl md:rounded-3xl overflow-hidden mb-6 shadow-2xl border border-white/10 group">
+            <div className="relative rounded-3xl overflow-hidden mb-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 group bg-[#1A0A08]">
               <Image src="/ava-center/tongtienich.png"
                 alt="Tổng quan tiện ích AVA Center" width={1400} height={700}
-                className="w-full h-auto object-contain bg-[#1C0F0F]" />
+                className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]" />
             </div>
-            <p className="text-center text-white/50 text-[10px] font-bold uppercase tracking-[0.25em] mb-16 font-sans">Sơ đồ bố trí 36 tiện ích nội khu</p>
+            <p className="text-center text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-20 font-sans">Sơ đồ bố trí tiện ích tổng thể</p>
           </Reveal>
 
-          {/* SLIDER COVERFLOW TIỆN ÍCH CHI TIẾT */}
           <Reveal direction="up" delay={0.15}>
-            <div className="mb-16">
-              <p className="text-center text-white/50 text-[10px] font-bold uppercase tracking-[0.25em] mb-2 font-sans">Khám phá từng không gian tiện ích</p>
-              {/* Truyền showTextOutside để text hiển thị dưới ảnh, không đè làm mờ ảnh */}
+            <div className="mb-20">
+              <p className="text-center text-white/60 text-xs md:text-sm font-bold uppercase tracking-[0.2em] mb-4 font-sans">Khám phá không gian tiện ích</p>
               <CoverflowCarousel items={amenitiesGallery} imageFit="cover" isDark={true} showTextOutside={true} />
             </div>
           </Reveal>
 
-          {/* Amenity icons */}
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 md:gap-4 mb-10 md:mb-12">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 md:gap-6 mb-16">
             {highlightAmenities.map((item, idx) => (
-              <Reveal key={item.label} direction="up" delay={idx * 0.04}>
-                <div className="group bg-white/5 backdrop-blur-sm rounded-xl p-4 md:p-5 text-center hover:bg-white/10 border border-white/10 hover:border-[#C9A84C]/50 transition-all duration-300 hover:-translate-y-1">
-                  <div className="w-10 h-10 md:w-12 md:h-12 mx-auto rounded-xl bg-[#C9A84C]/15 group-hover:bg-[#C9A84C] flex items-center justify-center mb-3 transition-colors duration-300">
-                    <item.icon className="w-5 h-5 text-[#C9A84C] group-hover:text-[#1C0F0F] transition-colors" />
+              <Reveal key={item.label} direction="up" delay={idx * 0.05}>
+                <div className="group bg-white/5 backdrop-blur-md rounded-2xl p-5 md:p-6 text-center hover:bg-white/10 border border-white/10 hover:border-[#C9A84C]/50 transition-all duration-300 hover:-translate-y-1.5 cursor-default">
+                  <div className="w-12 h-12 md:w-14 md:h-14 mx-auto rounded-xl bg-[#C9A84C]/10 group-hover:bg-[#C9A84C] flex items-center justify-center mb-4 transition-colors duration-300">
+                    <item.icon className="w-6 h-6 text-[#C9A84C] group-hover:text-[#1C0F0F] transition-colors" />
                   </div>
-                  <p className="text-white/80 group-hover:text-white text-[11px] md:text-xs font-bold leading-tight transition-colors font-sans">{item.label}</p>
+                  <p className="text-white/80 group-hover:text-white text-xs md:text-sm font-bold leading-snug font-sans">{item.label}</p>
                 </div>
               </Reveal>
             ))}
           </div>
 
-          {/* Category cards */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {amenityCategories.map((cat, idx) => (
               <Reveal key={cat.title} direction="up" delay={idx * 0.1}>
-                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-7 border border-white/10 h-full shadow-xl hover:bg-white/10 transition-colors group">
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[#C9A84C]/15 flex items-center justify-center mb-5 group-hover:bg-[#C9A84C] transition-colors duration-300">
-                    <cat.icon className="w-5 h-5 md:w-6 md:h-6 text-[#C9A84C] group-hover:text-[#1C0F0F] transition-colors duration-300" />
+                <div className="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 h-full shadow-2xl hover:bg-white/10 transition-colors group">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#C9A84C]/15 flex items-center justify-center mb-6 group-hover:bg-[#C9A84C] transition-colors duration-300">
+                    <cat.icon className="w-7 h-7 text-[#C9A84C] group-hover:text-[#1C0F0F] transition-colors" />
                   </div>
-                  <h3 className="text-base md:text-lg font-bold text-white mb-4 font-sans">{cat.title}</h3>
-                  <ul className="space-y-3">
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-6 font-sans">{cat.title}</h3>
+                  <ul className="space-y-4">
                     {cat.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-white/60 text-xs md:text-sm group-hover:text-white/80 transition-colors font-sans">
-                        <Check className="w-4 h-4 text-[#C9A84C] shrink-0 mt-0.5" />
-                        <span className="font-medium leading-snug">{item}</span>
+                      <li key={item} className="flex items-start gap-3 text-white/70 text-sm md:text-base group-hover:text-white/90 transition-colors font-sans">
+                        <Check className="w-5 h-5 text-[#C9A84C] shrink-0" />
+                        <span className="leading-snug">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -985,72 +924,67 @@ export default function AVACenterLandingPage() {
       {/* ============================================ */}
       {/* PROGRESS & LEGAL */}
       {/* ============================================ */}
-      <section id="progress" className="py-20 md:py-32 bg-[#F5EDE8]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <section id="progress" className="py-20 md:py-32 bg-[#F5EDE8] scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal direction="up">
-            <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-              <div className="inline-flex items-center gap-3 mb-5">
-                <div className="h-px w-10 bg-[#B03A2E]" />
-                <span className="text-[#B03A2E] text-[10px] font-bold tracking-[0.3em] uppercase font-sans">Bảo Chứng Niềm Tin</span>
-                <div className="h-px w-10 bg-[#B03A2E]" />
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <div className="h-px w-12 bg-[#B03A2E]" />
+                <span className="text-[#B03A2E] text-xs font-bold tracking-[0.2em] uppercase font-sans">Bảo Chứng Niềm Tin</span>
+                <div className="h-px w-12 bg-[#B03A2E]" />
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-5 leading-tight font-sans">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans">
                 Pháp Lý & Tiến Độ
               </h2>
               <p className="text-[#5D4E4E] text-base md:text-lg leading-relaxed font-sans">
-                Được bảo chứng bởi các thương hiệu hàng đầu và hành lang pháp lý chuẩn chỉnh, AVA Center mang đến sự an tâm tuyệt đối.
+                Được bảo chứng bởi các thương hiệu hàng đầu và hành lang pháp lý chuẩn chỉnh, AVA Center mang đến sự an tâm tuyệt đối cho khách hàng và nhà đầu tư.
               </p>
             </div>
           </Reveal>
 
-          <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
-            {/* Timeline */}
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <Reveal direction="left">
               <div>
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                    <Hammer className="text-[#B03A2E] w-5 h-5" />
+                <div className="flex items-center gap-4 mb-10">
+                  <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-md">
+                    <Hammer className="text-[#B03A2E] w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#2C1A1A] font-sans">Cam Kết Tiến Độ — Hòa Bình Group</h3>
+                  <h3 className="text-2xl font-bold text-[#2C1A1A] font-sans">Tiến Độ Xây Dựng</h3>
                 </div>
 
-                <div className="relative pl-6 md:pl-8 space-y-0">
+                <div className="relative pl-6 md:pl-10 space-y-0">
                   {milestones.map((m, idx) => (
-                    <div key={m.id} className="relative pb-8 last:pb-0">
-                      {/* Vertical line */}
+                    <div key={m.id} className="relative pb-10 last:pb-0">
                       {idx < milestones.length - 1 && (
-                        <div className="absolute left-[-23px] md:left-[-29px] top-5 bottom-0 w-0.5 bg-[#E8D7CF]" />
+                        <div className="absolute left-[-27px] md:left-[-35px] top-6 bottom-0 w-1 bg-[#E8D7CF] rounded-full" />
                       )}
-                      {/* Dot */}
                       <div className={cn(
-                        "absolute -left-[29px] md:-left-[35px] top-1 w-5 h-5 rounded-full border-4 border-[#F5EDE8] flex items-center justify-center z-10",
+                        "absolute -left-[33px] md:-left-[41px] top-1 w-7 h-7 rounded-full border-4 border-[#F5EDE8] flex items-center justify-center z-10 shadow-sm",
                         m.status === "completed" ? "bg-[#2C8A4F]"
                           : m.status === "in-progress" ? "bg-[#B03A2E] ring-4 ring-[#B03A2E]/20"
                           : "bg-[#E8D7CF]"
                       )}>
                         {m.status === "in-progress" && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+                          <div className="w-2 h-2 rounded-full bg-white animate-ping" />
                         )}
                       </div>
 
                       <div className={cn(
-                        "rounded-xl p-5 md:p-6 border transition-all",
-                        m.status === "in-progress"
-                          ? "bg-white border-[#B03A2E]/40 shadow-md"
-                          : m.status === "completed"
-                          ? "bg-[#F0FBF5] border-[#2C8A4F]/20"
-                          : "bg-white border-[#E8D7CF]"
+                        "rounded-3xl p-6 md:p-8 border transition-all duration-300",
+                        m.status === "in-progress" ? "bg-white border-[#B03A2E]/40 shadow-xl scale-[1.02]"
+                          : m.status === "completed" ? "bg-[#F0FBF5] border-[#2C8A4F]/20 shadow-sm"
+                          : "bg-white border-[#E8D7CF] shadow-sm opacity-80"
                       )}>
                         <span className={cn(
-                          "inline-block text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3 font-sans",
+                          "inline-block text-[11px] md:text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 font-sans",
                           m.status === "completed" ? "bg-[#2C8A4F]/15 text-[#2C8A4F]"
                             : m.status === "in-progress" ? "bg-[#B03A2E]/15 text-[#B03A2E]"
                             : "bg-[#F5EDE8] text-[#8A7D7D]"
                         )}>
                           {m.date}
                         </span>
-                        <h4 className="text-base font-bold text-[#2C1A1A] mb-1.5 font-sans">{m.title}</h4>
-                        <p className="text-[#5D4E4E] text-sm leading-relaxed font-sans">{m.description}</p>
+                        <h4 className="text-lg md:text-xl font-bold text-[#2C1A1A] mb-2 font-sans">{m.title}</h4>
+                        <p className="text-[#5D4E4E] text-sm md:text-base leading-relaxed font-sans">{m.description}</p>
                       </div>
                     </div>
                   ))}
@@ -1058,54 +992,51 @@ export default function AVACenterLandingPage() {
               </div>
             </Reveal>
 
-            {/* Legal + Finance */}
             <Reveal direction="right">
-              <div className="space-y-5 md:space-y-6">
-                {/* Legal */}
-                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-[#E8D7CF]">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-[#FFF0EE] rounded-xl flex items-center justify-center shrink-0">
-                      <Shield className="text-[#B03A2E] w-5 h-5" />
+              <div className="space-y-8 md:space-y-10">
+                <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-[#E8D7CF]">
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-12 h-12 bg-[#FFF0EE] rounded-2xl flex items-center justify-center shrink-0">
+                      <Shield className="text-[#B03A2E] w-6 h-6" />
                     </div>
-                    <h3 className="text-lg md:text-xl font-bold text-[#2C1A1A] font-sans">Pháp Lý Minh Bạch</h3>
+                    <h3 className="text-xl md:text-2xl font-bold text-[#2C1A1A] font-sans">Hồ Sơ Pháp Lý</h3>
                   </div>
-                  <ul className="space-y-3">
+                  <ul className="space-y-4">
                     {legalDocuments.map((doc) => (
-                      <li key={doc} className="flex items-start gap-3 p-3.5 md:p-4 rounded-xl bg-[#F5EDE8]">
-                        <div className="w-5 h-5 rounded-full bg-[#2C8A4F]/20 flex items-center justify-center shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-[#2C8A4F]" />
+                      <li key={doc} className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-[#F5EDE8] hover:bg-[#E8D7CF]/50 transition-colors">
+                        <div className="w-6 h-6 rounded-full bg-[#2C8A4F]/20 flex items-center justify-center shrink-0">
+                          <Check className="w-4 h-4 text-[#2C8A4F]" />
                         </div>
-                        <span className="text-[#2C1A1A] font-semibold text-sm leading-relaxed font-sans">{doc}</span>
+                        <span className="text-[#2C1A1A] font-semibold text-sm md:text-base leading-relaxed font-sans">{doc}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Finance */}
-                <div className="relative bg-[#1C0F0F] rounded-2xl p-6 md:p-8 shadow-xl overflow-hidden">
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#B03A2E] rounded-full blur-3xl opacity-40 pointer-events-none" />
-                  <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-[#C9A84C] rounded-full blur-3xl opacity-20 pointer-events-none" />
+                <div className="relative bg-[#1C0F0F] rounded-3xl p-8 md:p-10 shadow-2xl overflow-hidden">
+                  <div className="absolute -top-16 -right-16 w-56 h-56 bg-[#B03A2E] rounded-full blur-[80px] opacity-50 pointer-events-none" />
+                  <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-[#C9A84C] rounded-full blur-[80px] opacity-30 pointer-events-none" />
 
                   <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-                        <BarChart2 className="text-[#C9A84C] w-5 h-5" />
+                    <div className="flex items-center gap-4 mb-8">
+                      <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center shrink-0">
+                        <BarChart2 className="text-[#C9A84C] w-6 h-6" />
                       </div>
-                      <h3 className="text-lg md:text-xl font-bold text-white font-sans">Chính Sách Tài Chính</h3>
+                      <h3 className="text-xl md:text-2xl font-bold text-white font-sans">Chính Sách Tài Chính</h3>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-5">
                       {[
                         { rate: "0%", title: "Lãi suất 0% trong 24 tháng", desc: "Ân hạn nợ gốc và hỗ trợ lãi suất cho đến khi nhận nhà." },
                         { rate: "70%", title: "Ngân hàng hỗ trợ vay 70%", desc: "Bảo lãnh dự án bởi các ngân hàng uy tín hàng đầu." },
                       ].map((item) => (
-                        <div key={item.rate} className="flex items-center gap-4 bg-white/8 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                          <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
-                            <span className="text-lg md:text-xl font-bold text-[#C9A84C] font-sans">{item.rate}</span>
+                        <div key={item.rate} className="flex items-center gap-5 bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-colors">
+                          <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
+                            <span className="text-2xl md:text-3xl font-bold text-[#C9A84C] font-sans">{item.rate}</span>
                           </div>
                           <div>
-                            <p className="text-white font-bold text-sm md:text-base mb-1 font-sans">{item.title}</p>
-                            <p className="text-white/60 text-xs md:text-sm leading-relaxed font-sans">{item.desc}</p>
+                            <p className="text-white font-bold text-base md:text-lg mb-1.5 font-sans">{item.title}</p>
+                            <p className="text-white/70 text-sm leading-relaxed font-sans">{item.desc}</p>
                           </div>
                         </div>
                       ))}
@@ -1121,41 +1052,41 @@ export default function AVACenterLandingPage() {
       {/* ============================================ */}
       {/* CONTACT */}
       {/* ============================================ */}
-      <section id="contact" className="py-20 md:py-32 bg-[#F5EDE8] border-t border-[#E8D7CF] relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full bg-[#B03A2E]/5 blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <section id="contact" className="py-20 md:py-32 bg-[#F5EDE8] border-t border-[#E8D7CF] relative overflow-hidden scroll-mt-24">
+        <div className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full bg-[#B03A2E]/5 blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left */}
             <Reveal direction="left">
               <div>
-                <div className="inline-flex items-center gap-3 mb-5">
-                  <div className="h-px w-10 bg-[#B03A2E]" />
-                  <span className="text-[#B03A2E] text-[10px] font-bold tracking-[0.3em] uppercase font-sans">Liên Hệ Ngay Hôm Nay</span>
+                <div className="inline-flex items-center gap-3 mb-6">
+                  <div className="h-px w-12 bg-[#B03A2E]" />
+                  <span className="text-[#B03A2E] text-xs font-bold tracking-[0.2em] uppercase font-sans">Liên Hệ Ngay Hôm Nay</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-5 leading-tight font-sans text-center text-balance">
-  Giữ Chỗ Căn Đẹp — Nhận Chiết Khấu Khủng
-</h2>
-                <p className="text-[#5D4E4E] text-sm md:text-base leading-relaxed mb-8 md:mb-10 font-sans">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans text-balance">
+                  Giữ Chỗ Căn Đẹp Nhận Chiết Khấu.
+                </h2>
+                <p className="text-[#5D4E4E] text-base md:text-lg leading-relaxed mb-10 md:mb-12 font-sans max-w-lg">
                   Đăng ký ngay để nhận trọn bộ tài liệu dự án, mặt bằng chi tiết từng tầng và bảng tính dòng tiền ưu đãi trực tiếp từ đơn vị phát triển AVA Corp.
                 </p>
 
-                <div className="space-y-4">
+                <div className="space-y-5">
                   {[
                     { icon: Phone, label: "Hotline CSKH 24/7", value: "0901 234 567", href: "tel:0901234567", isLarge: true },
                     { icon: Mail, label: "Email Hỗ Trợ", value: "info@avacenter.vn", href: "mailto:info@avacenter.vn", isLarge: false },
                   ].map((c) => (
-                    <div key={c.label} className="flex items-center gap-4 bg-white p-5 rounded-2xl border border-[#E8D7CF] hover:border-[#B03A2E]/30 hover:shadow-md transition-all duration-300 group">
-                      <div className="w-12 h-12 bg-[#FFF0EE] group-hover:bg-[#B03A2E] rounded-xl flex items-center justify-center shrink-0 transition-colors">
-                        <c.icon className="w-5 h-5 text-[#B03A2E] group-hover:text-white transition-colors" />
+                    <a key={c.label} href={c.href} className="flex items-center gap-5 bg-white p-6 rounded-3xl border border-[#E8D7CF] hover:border-[#B03A2E]/40 hover:shadow-xl transition-all duration-300 group outline-none focus:ring-2 focus:ring-[#B03A2E]">
+                      <div className="w-14 h-14 bg-[#FFF0EE] group-hover:bg-[#B03A2E] rounded-2xl flex items-center justify-center shrink-0 transition-colors duration-300 shadow-sm">
+                        <c.icon className="w-6 h-6 text-[#B03A2E] group-hover:text-white transition-colors" />
                       </div>
                       <div>
-                        <p className="text-[#8A7D7D] text-[10px] font-bold uppercase tracking-widest mb-0.5 font-sans">{c.label}</p>
-                        <a href={c.href} className={cn("font-bold text-[#2C1A1A] hover:text-[#B03A2E] transition-colors font-sans", c.isLarge ? "text-xl md:text-2xl" : "text-base md:text-lg")}>
+                        <p className="text-[#8A7D7D] text-xs font-bold uppercase tracking-widest mb-1 font-sans">{c.label}</p>
+                        <p className={cn("font-bold text-[#2C1A1A] group-hover:text-[#B03A2E] transition-colors font-sans", c.isLarge ? "text-2xl md:text-3xl" : "text-lg md:text-xl")}>
                           {c.value}
-                        </a>
+                        </p>
                       </div>
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -1163,81 +1094,86 @@ export default function AVACenterLandingPage() {
 
             {/* Form */}
             <Reveal direction="right">
-              <div className="bg-white rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl border border-[#E8D7CF]">
-                <h3 className="text-xl md:text-2xl font-bold text-[#2C1A1A] mb-6 md:mb-8 text-center font-sans">
+              <div className="bg-white rounded-[2.5rem] p-8 sm:p-10 md:p-12 shadow-2xl border border-[#E8D7CF]">
+                <h3 className="text-2xl md:text-3xl font-bold text-[#2C1A1A] mb-8 md:mb-10 text-center font-sans">
                   Đăng Ký Tư Vấn
                 </h3>
 
                 {isSubmitted ? (
-                  <div className="text-center py-10">
-                    <div className="w-16 h-16 md:w-20 md:h-20 bg-[#2C8A4F]/10 rounded-full flex items-center justify-center mx-auto mb-5">
-                      <Check className="w-8 h-8 md:w-10 md:h-10 text-[#2C8A4F]" />
+                  <div className="text-center py-12">
+                    <div className="w-20 h-20 md:w-24 md:h-24 bg-[#2C8A4F]/10 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                      <Check className="w-10 h-10 md:w-12 md:h-12 text-[#2C8A4F]" />
                     </div>
-                    <h4 className="text-lg md:text-xl font-bold text-[#2C1A1A] mb-2 font-sans">Đăng Ký Thành Công!</h4>
-                    <p className="text-[#5D4E4E] text-sm mb-6 leading-relaxed font-sans">Chuyên viên của chúng tôi sẽ gọi lại cho quý khách trong thời gian sớm nhất.</p>
-                    <button onClick={() => setIsSubmitted(false)} className="text-[#B03A2E] font-bold text-sm underline underline-offset-4 hover:text-[#8B2E24] transition-colors font-sans">
+                    <h4 className="text-xl md:text-2xl font-bold text-[#2C1A1A] mb-3 font-sans">Đăng Ký Thành Công!</h4>
+                    <p className="text-[#5D4E4E] text-base mb-8 leading-relaxed font-sans">Chuyên viên của chúng tôi sẽ gọi lại cho quý khách trong thời gian sớm nhất.</p>
+                    <button onClick={() => setIsSubmitted(false)} className="text-[#B03A2E] font-bold text-base underline underline-offset-4 hover:text-[#8B2E24] transition-colors font-sans focus:outline-none focus:ring-2 focus:ring-[#B03A2E] rounded-md px-2 py-1">
                       Đăng ký thêm thông tin khác
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4 font-sans">
+                  <form onSubmit={handleSubmit} className="space-y-5 font-sans">
                     <div>
-                      <label className="block text-[10px] font-bold text-[#5D4E4E] uppercase tracking-widest mb-2">Họ và tên *</label>
+                      <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Họ và tên <span className="text-[#B03A2E]">*</span></label>
                       <Input required placeholder="Nhập họ và tên của bạn..."
                         value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="bg-[#F5EDE8] border-transparent py-5 focus-visible:ring-[#B03A2E] focus-visible:ring-2 placeholder:text-[#C4B5B5] text-sm rounded-xl" />
+                        className="bg-[#F5EDE8] border-transparent py-6 focus-visible:ring-[#B03A2E] focus-visible:ring-2 placeholder:text-[#C4B5B5] text-sm md:text-base rounded-xl" />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label className="block text-[10px] font-bold text-[#5D4E4E] uppercase tracking-widest mb-2">Điện thoại *</label>
+                        <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Điện thoại <span className="text-[#B03A2E]">*</span></label>
                         <Input required type="tel" placeholder="09xx..."
                           value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="bg-[#F5EDE8] border-transparent py-5 focus-visible:ring-[#B03A2E] focus-visible:ring-2 placeholder:text-[#C4B5B5] text-sm rounded-xl" />
+                          className="bg-[#F5EDE8] border-transparent py-6 focus-visible:ring-[#B03A2E] focus-visible:ring-2 placeholder:text-[#C4B5B5] text-sm md:text-base rounded-xl" />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-bold text-[#5D4E4E] uppercase tracking-widest mb-2">Sản phẩm quan tâm</label>
-                        <select value={formData.product} onChange={(e) => setFormData({ ...formData, product: e.target.value })}
-                          className="w-full h-[46px] rounded-xl bg-[#F5EDE8] border-0 px-3.5 text-sm text-[#2C1A1A] focus:outline-none focus:ring-2 focus:ring-[#B03A2E]">
-                          <option value="">Chọn loại căn...</option>
-                          <option value="Studio">Studio (~31m²)</option>
-                          <option value="1PN">1 Phòng ngủ (~45m²)</option>
-                          <option value="2PN">2 Phòng ngủ (~67m²)</option>
-                          <option value="3PN">3 Phòng ngủ (~85-95m²)</option>
-                          <option value="Officetel">Officetel</option>
-                          <option value="Shophouse">Shophouse Khối đế</option>
-                        </select>
+                        <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Sản phẩm quan tâm</label>
+                        <div className="relative">
+                          <select value={formData.product} onChange={(e) => setFormData({ ...formData, product: e.target.value })}
+                            className="w-full h-[50px] rounded-xl bg-[#F5EDE8] border-0 px-4 text-sm md:text-base text-[#2C1A1A] focus:outline-none focus:ring-2 focus:ring-[#B03A2E] appearance-none cursor-pointer">
+                            <option value="">Chọn loại căn...</option>
+                            <option value="Studio">Studio (~31m²)</option>
+                            <option value="1PN">1 Phòng ngủ (~45m²)</option>
+                            <option value="2PN">2 Phòng ngủ (~67m²)</option>
+                            <option value="3PN">3 Phòng ngủ (~85-95m²)</option>
+                            <option value="Officetel">Officetel</option>
+                            <option value="Shophouse">Shophouse Khối đế</option>
+                          </select>
+                          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A7D7D] pointer-events-none" />
+                        </div>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-bold text-[#5D4E4E] uppercase tracking-widest mb-2">Email (Tùy chọn)</label>
+                      <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Email <span className="text-[#8A7D7D] normal-case tracking-normal font-normal">(Tùy chọn)</span></label>
                       <Input type="email" placeholder="Để nhận tài liệu qua email..."
                         value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="bg-[#F5EDE8] border-transparent py-5 focus-visible:ring-[#B03A2E] focus-visible:ring-2 placeholder:text-[#C4B5B5] text-sm rounded-xl" />
+                        className="bg-[#F5EDE8] border-transparent py-6 focus-visible:ring-[#B03A2E] focus-visible:ring-2 placeholder:text-[#C4B5B5] text-sm md:text-base rounded-xl" />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-bold text-[#5D4E4E] uppercase tracking-widest mb-2">Ghi chú thêm</label>
+                      <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Ghi chú thêm</label>
                       <textarea rows={3} placeholder="Bạn cần tư vấn vấn đề gì..."
                         value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full rounded-xl border-0 bg-[#F5EDE8] px-4 py-3 text-sm text-[#2C1A1A] placeholder:text-[#C4B5B5] focus:outline-none focus:ring-2 focus:ring-[#B03A2E] resize-none" />
+                        className="w-full rounded-xl border-0 bg-[#F5EDE8] px-4 py-4 text-sm md:text-base text-[#2C1A1A] placeholder:text-[#C4B5B5] focus:outline-none focus:ring-2 focus:ring-[#B03A2E] resize-none" />
                     </div>
 
                     <button type="submit" disabled={isSubmitting}
                       className={cn(
-                        "w-full py-4 rounded-xl font-bold text-xs uppercase tracking-widest text-white transition-all flex items-center justify-center gap-2 mt-2",
+                        "w-full py-5 rounded-2xl font-bold text-sm uppercase tracking-widest text-white transition-all flex items-center justify-center gap-3 mt-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B03A2E]",
                         isSubmitting
                           ? "bg-[#B03A2E]/50 cursor-not-allowed"
-                          : "bg-[#B03A2E] hover:bg-[#8B2E24] shadow-lg hover:shadow-xl hover:shadow-[#B03A2E]/30 hover:-translate-y-0.5"
+                          : "bg-[#B03A2E] hover:bg-[#8B2E24] shadow-[0_10px_30px_rgba(176,58,46,0.3)] hover:shadow-[0_15px_40px_rgba(176,58,46,0.4)] hover:-translate-y-1"
                       )}>
                       {isSubmitting ? (
-                        <><span className="animate-spin inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full" /> Đang gửi...</>
+                        <><span className="animate-spin inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full" /> Đang gửi...</>
                       ) : (
-                        <><Send size={15} /> Nhận Báo Giá Ngay</>
+                        <><Send size={18} /> Nhận Báo Giá Ngay</>
                       )}
                     </button>
-                    <p className="text-center text-[11px] text-[#8A7D7D] mt-2 font-sans">🔒 Thông tin của bạn được bảo mật tuyệt đối.</p>
+                    <p className="text-center text-xs text-[#8A7D7D] mt-4 font-sans flex items-center justify-center gap-1.5">
+                      <Shield size={12} /> Thông tin của bạn được bảo mật tuyệt đối.
+                    </p>
                   </form>
                 )}
               </div>
@@ -1251,23 +1187,24 @@ export default function AVACenterLandingPage() {
 
       {/* Modal Phóng To Bản Đồ */}
       {isMapZoomed && (
-        <div className="fixed inset-0 z-[100] bg-[#1A0A08]/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300" 
+        <div className="fixed inset-0 z-[100] bg-[#1A0A08]/95 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300" 
              onClick={() => setIsMapZoomed(false)}>
           <button 
-            className="absolute top-4 right-4 md:top-8 md:right-8 bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors z-50"
+            className="absolute top-4 right-4 md:top-8 md:right-8 bg-white/10 hover:bg-[#B03A2E] text-white rounded-full p-3 transition-colors z-50 shadow-lg focus:outline-none focus:ring-2 focus:ring-white"
             onClick={(e) => { e.stopPropagation(); setIsMapZoomed(false); }}
+            aria-label="Đóng bản đồ"
           >
-            <X size={24} />
+            <X size={28} />
           </button>
           <div 
-            className="relative w-full max-w-6xl aspect-[4/3] md:aspect-[16/9] rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] animate-in zoom-in-95 duration-300 border border-white/20"
+            className="relative w-full max-w-6xl aspect-[4/3] md:aspect-[16/9] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] animate-in zoom-in-95 duration-300 border border-white/20 bg-white"
             onClick={(e) => e.stopPropagation()}
           >
             <Image 
               src="/ava-center/mapsavacenter.png" 
               alt="Bản đồ AVA Center phóng to" 
               fill 
-              className="object-contain bg-white" 
+              className="object-contain p-4" 
             />
           </div>
         </div>

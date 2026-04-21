@@ -63,7 +63,8 @@ function NewsCard({ article, index }: { article: any; index: number }) {
   const [isHovered, setIsHovered] = useState(false)
 
   // Xử lý dữ liệu từ WordPress JSON
-  const id = article.id
+  // ĐÃ SỬA: Lấy 'slug' (đường dẫn theo tiêu đề) thay vì 'id' (số)
+  const slug = article.slug 
   const title = article.title?.rendered || 'Bài viết chưa có tiêu đề'
   
   // Xử lý ảnh (nếu bài viết không có ảnh đại diện, dùng ảnh mặc định)
@@ -90,7 +91,8 @@ function NewsCard({ article, index }: { article: any; index: number }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Link href={`/news/${id}`} className="block flex-grow flex flex-col">
+        {/* ĐÃ SỬA: Truyền biến slug vào href */}
+        <Link href={`/news/${slug}`} className="block flex-grow flex flex-col">
           {/* Khối Hình ảnh */}
           <div className="relative h-56 overflow-hidden flex-shrink-0">
             <img 
