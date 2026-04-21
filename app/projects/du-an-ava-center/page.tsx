@@ -37,9 +37,9 @@ function useScrollReveal(threshold = 0.08) {
 
 type Direction = 'up' | 'down' | 'left' | 'right' | 'scale'
 
-function Reveal({ children, delay = 0, direction = 'up', threshold = 0.08, style = {}, className = '' }: {
+function Reveal({ children, delay = 0, direction = 'up', threshold = 0.08, style = {}, className = '', id }: {
   children: React.ReactNode; delay?: number; direction?: Direction
-  threshold?: number; style?: React.CSSProperties; className?: string
+  threshold?: number; style?: React.CSSProperties; className?: string; id?: string
 }) {
   const { ref, visible } = useScrollReveal(threshold)
   const init: Record<Direction, string> = {
@@ -47,7 +47,7 @@ function Reveal({ children, delay = 0, direction = 'up', threshold = 0.08, style
     left: 'translateX(-50px)', right: 'translateX(50px)', scale: 'scale(0.88)',
   }
   return (
-    <div ref={ref} className={className} style={{
+    <div id={id} ref={ref} className={className} style={{
       opacity: visible ? 1 : 0,
       transform: visible ? 'none' : init[direction],
       transition: `opacity 0.75s ease-out ${delay}s, transform 0.75s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
@@ -252,11 +252,27 @@ const productTypes = [
     ]
   },
   {
+    id: "3pn", name: "3 Phòng Ngủ", area: "~85-95m²", price: "Từ 3.2 tỷ",
+    description: "Không gian rộng rãi, đẳng cấp cho gia đình đa thế hệ",
+    features: ["3 phòng ngủ thoáng sáng", "Phòng khách sang trọng", "Full nội thất cao cấp", "Ban công góc panorama"],
+    popular: false,
+    gallery: [
+      { src: "/ava-center/3pn.jpg", title: "Mặt Bằng Căn 3PN (Đang cập nhật)" }
+    ]
+  },
+  {
     id: "officetel", name: "Officetel", area: "~35-50m²", price: "Từ 1.5 tỷ",
     description: "Kết hợp ở và làm việc",
     features: ["Thiết kế đa năng", "Phù hợp văn phòng nhỏ", "Sở hữu lâu dài", "Sinh lời cho thuê cao"],
     popular: false,
     gallery: [{ src: "/ava-center/3.png", title: "Mặt Bằng Officetel Đề Xuất" }]
+  },
+  {
+    id: "shophouse", name: "Shophouse", area: "~100-150m²", price: "Từ 5.5 tỷ",
+    description: "Vị trí thương mại đắc địa tại khối đế",
+    features: ["Vị trí kinh doanh sầm uất", "Thiết kế tối ưu trưng bày", "Sở hữu lâu dài", "Phục vụ hơn 2000+ cư dân"],
+    popular: false,
+    gallery: [{ src: "/ava-center/shophouseavacenter.jpg", title: "Mặt Bằng Shophouse Khối Đế" }]
   },
 ]
 
@@ -334,8 +350,17 @@ export default function AVACenterLandingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  
+  const [isScrolled, setIsScrolled] = useState(false)
   const [isMapZoomed, setIsMapZoomed] = useState(false)
+
+  // Lắng nghe sự kiện scroll để đổi style menu
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   useEffect(() => {
     setIsHeroLoaded(true)
@@ -348,6 +373,7 @@ export default function AVACenterLandingPage() {
           if (el) {
             const offset = el.getBoundingClientRect().top + window.pageYOffset - 100
             window.scrollTo({ top: offset, behavior: "smooth" })
+            setMobileMenuOpen(false) // Tự động đóng menu trên mobile khi click
           }
         }
       })
@@ -394,53 +420,54 @@ export default function AVACenterLandingPage() {
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
       `}} />
 
-      <Header />
-
-      {/* ── Sub-Nav ── */}
-      <div className="fixed top-[64px] md:top-[80px] left-0 right-0 z-40 backdrop-blur-xl bg-white/80 border-b border-[#E8D7CF]/60 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-10 py-3">
-            {navLinks.map((link) => (
-              <a key={link.href} href={link.href}
-                className="text-[11px] font-bold text-[#5D4E4E] hover:text-[#B03A2E] tracking-[0.15em] uppercase transition-colors relative group font-sans">
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#B03A2E] group-hover:w-full transition-all duration-300" />
-              </a>
-            ))}
-            <a href="#contact"
-              className="ml-2 text-[11px] font-bold bg-[#B03A2E] text-white px-6 py-2.5 rounded-full tracking-[0.15em] uppercase hover:bg-[#8B2E24] transition-all hover:shadow-lg hover:shadow-[#B03A2E]/30 hover:-translate-y-0.5 font-sans">
-              Đăng Ký Ngay
-            </a>
-          </nav>
-
-          {/* Mobile Nav Toggle */}
-          <div className="md:hidden flex items-center justify-between py-2.5">
-            <span className="text-[#2C1A1A] font-bold text-sm tracking-wider font-sans">AVA CENTER</span>
-            <div className="flex items-center gap-3">
-              <a href="#contact" className="text-[10px] font-bold bg-[#B03A2E] text-white px-4 py-2 rounded-full tracking-wider uppercase font-sans">
-                Đăng Ký
-              </a>
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-lg bg-[#F5EDE8]">
-                <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all", mobileMenuOpen && "rotate-45 translate-y-2")} />
-                <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all", mobileMenuOpen && "opacity-0")} />
-                <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all", mobileMenuOpen && "-rotate-45 -translate-y-2")} />
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Dropdown */}
-          {mobileMenuOpen && (
-            <div className="md:hidden border-t border-[#E8D7CF] py-3 space-y-1">
+      {/* ── Header & Menu (Đã update thành Sticky Menu) ── */}
+      <div className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full",
+        isScrolled ? "bg-white/95 backdrop-blur-xl shadow-md border-b border-[#E8D7CF]/60" : "bg-transparent"
+      )}>
+        <Header />
+        <div className="w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-10 py-3">
               {navLinks.map((link) => (
-                <a key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 px-2 text-xs font-bold text-[#5D4E4E] tracking-wider uppercase font-sans">
+                <a key={link.href} href={link.href}
+                  className="text-[11px] font-bold text-[#5D4E4E] hover:text-[#B03A2E] tracking-[0.15em] uppercase transition-colors relative group font-sans">
                   {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#B03A2E] group-hover:w-full transition-all duration-300" />
                 </a>
               ))}
+              <a href="#contact"
+                className="ml-2 text-[11px] font-bold bg-[#B03A2E] text-white px-6 py-2.5 rounded-full tracking-[0.15em] uppercase hover:bg-[#8B2E24] transition-all hover:shadow-lg hover:shadow-[#B03A2E]/30 hover:-translate-y-0.5 font-sans">
+                Đăng Ký Ngay
+              </a>
+            </nav>
+
+            <div className="md:hidden flex items-center justify-between py-2.5">
+              <span className="text-[#2C1A1A] font-bold text-sm tracking-wider font-sans">AVA CENTER</span>
+              <div className="flex items-center gap-3">
+                <a href="#contact" className="text-[10px] font-bold bg-[#B03A2E] text-white px-4 py-2 rounded-full tracking-wider uppercase font-sans">
+                  Đăng Ký
+                </a>
+                <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-lg bg-[#F5EDE8]">
+                  <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all", mobileMenuOpen && "rotate-45 translate-y-2")} />
+                  <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all", mobileMenuOpen && "opacity-0")} />
+                  <span className={cn("w-5 h-0.5 bg-[#2C1A1A] transition-all", mobileMenuOpen && "-rotate-45 -translate-y-2")} />
+                </button>
+              </div>
             </div>
-          )}
+
+            {mobileMenuOpen && (
+              <div className="md:hidden border-t border-[#E8D7CF] py-3 space-y-1">
+                {navLinks.map((link) => (
+                  <a key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)}
+                    className="block py-2.5 px-2 text-xs font-bold text-[#5D4E4E] tracking-wider uppercase font-sans">
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -527,24 +554,24 @@ export default function AVACenterLandingPage() {
           </Reveal>
 
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 md:mb-20">
-  <Reveal direction="left">
-    <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-[#E8D7CF] group">
-      <div className="relative aspect-[4/3]">
-        <Image 
-          src="/ava-center/tongquanava.png" 
-          alt="Nội thất căn hộ AVA Center" 
-          fill 
-          className="object-cover transition-transform duration-700 group-hover:scale-105" 
-        />
-        {/* Đổi dải mờ đen chỉ phủ 1/2 phần dưới cùng của ảnh để không làm tối phần trên tòa nhà */}
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#2C1A1A]/90 to-transparent" />
-      </div>
-      
-      {/* Thu nhỏ padding xung quanh và padding trong hộp để khối chú thích mỏng gọn lại */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-      </div>
-    </div>
-  </Reveal>
+            <Reveal direction="left">
+              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-[#E8D7CF] group">
+                <div className="relative aspect-[4/3]">
+                  <Image 
+                    src="/ava-center/tongquanava.png" 
+                    alt="Nội thất căn hộ AVA Center" 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                  />
+                  {/* Đổi dải mờ đen chỉ phủ 1/2 phần dưới cùng của ảnh để không làm tối phần trên tòa nhà */}
+                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#2C1A1A]/90 to-transparent" />
+                </div>
+                
+                {/* Thu nhỏ padding xung quanh và padding trong hộp để khối chú thích mỏng gọn lại */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
+                </div>
+              </div>
+            </Reveal>
 
             <Reveal direction="right">
               <div className="space-y-6 md:space-y-8">
@@ -746,7 +773,7 @@ export default function AVACenterLandingPage() {
                 )}
 
                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-8 font-sans">
-                  Căn hộ {activeProduct.name}
+                  {activeProduct.id === 'shophouse' ? '' : 'Căn hộ '}{activeProduct.name}
                 </h3>
 
                 <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 mb-8">
@@ -787,7 +814,7 @@ export default function AVACenterLandingPage() {
                   <a href="#contact"
                     onClick={() => setFormData(prev => ({ ...prev, product: activeProduct.id }))}
                     className="inline-flex items-center gap-2 bg-[#2C1A1A] text-white font-bold text-xs uppercase tracking-widest px-10 py-5 rounded-full hover:bg-[#B03A2E] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 font-sans">
-                    Đăng Ký Tư Vấn Căn {activeProduct.name} <ArrowRight size={16} />
+                    Đăng Ký Tư Vấn {activeProduct.id === 'shophouse' ? '' : 'Căn '} {activeProduct.name} <ArrowRight size={16} />
                   </a>
                 </div>
               </div>
@@ -1176,6 +1203,7 @@ export default function AVACenterLandingPage() {
                           <option value="Studio">Studio (~31m²)</option>
                           <option value="1PN">1 Phòng ngủ (~45m²)</option>
                           <option value="2PN">2 Phòng ngủ (~67m²)</option>
+                          <option value="3PN">3 Phòng ngủ (~85-95m²)</option>
                           <option value="Officetel">Officetel</option>
                           <option value="Shophouse">Shophouse Khối đế</option>
                         </select>
