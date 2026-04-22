@@ -74,7 +74,7 @@ const projects = [
     name: 'AVA CENTER',
     location: 'Thuận An, Bình Dương',
     price: 'Từ 1.300.000.000 VND',
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+    image: '/ava-center/tongquanava.png', // Sử dụng ảnh local theo yêu cầu
     description: 'Dự án tiên phong "Touchable Home" với hệ sinh thái tiện ích All-in-one và ba mặt hướng thủy tuyệt đẹp.',
     units: '855 căn',
     completion: '2027',
@@ -82,41 +82,41 @@ const projects = [
     area: '28 - 80 m²',
   },
   {
+    id: 'the-pearl-riverside',
+    name: 'THE PEARL RIVERSIDE',
+    location: 'Bến Lức, Long An',
+    price: 'Đang cập nhật',
+    image: '/pearlriverside.png', // Sử dụng ảnh local theo yêu cầu
+    description: 'Khu đô thị sinh thái khép kín ven sông Vàm Cỏ Đông, sở hữu bến du thuyền và công viên ven sông đẳng cấp.',
+    units: '250 căn',
+    completion: 'Đã hoàn thiện',
+    tag: 'Waterfront',
+    area: 'Nhà phố liền kề',
+  },
+  {
     id: 'arcadia-lavila',
     name: 'ARCADIA AT LAVILA',
-    location: 'Nam Sài Gòn',
-    price: 'Liên hệ tư vấn',
-    image: 'https://images.unsplash.com/photo-1512207736139-c586cbf395ad?w=800&q=80',
-    description: 'Khu shophouse và biệt thự cao cấp mang phong cách kiến trúc hiện đại, kiến tạo không gian sống xanh thanh bình.',
-    units: '156 căn',
-    completion: '2025',
-    tag: 'Shophouse',
-    area: '85 - 150 m²',
+    location: 'Phước Kiển, Nhà Bè',
+    price: 'Đang cập nhật',
+    image: 'https://pavilionhousing.vn/wp-content/uploads/2026/04/Gemini_Generated_Image_jd8fatjd8fatjd8f-scaled-e1776052179865-2048x1132.png',
+    description: 'Dự án biểu tượng mang đậm phong cách kiến trúc Pháp đương đại "La Belle Vie" tại trục xương sống Nam Sài Gòn.',
+    units: '925 căn',
+    completion: 'Đang cập nhật',
+    tag: 'Premium Residence',
+    area: 'Căn hộ cao cấp',
   },
   {
     id: 'thanh-phu-centre-point',
     name: 'THANH PHÚ CENTRE POINT',
     location: 'Bến Lức, Long An',
-    price: 'Từ 950.000.000 VND',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-    description: 'Tâm điểm đầu tư thịnh vượng tại vị trí đắc địa, mang đến cơ hội sinh lời hấp dẫn cho các nhà đầu tư chiến lược.',
-    units: '142 căn',
-    completion: '2026',
-    tag: 'Premium Residence',
-    area: '100 - 180 m²',
-  },
-  {
-    id: 'sai-gon-mia',
-    name: 'SÀI GÒN MIA',
-    location: 'Khu Trung Sơn, Bình Chánh',
-    price: 'Từ 1.550.000.000 VND',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
-    description: 'Tổ hợp căn hộ cao cấp mang phong cách kiến trúc châu Âu hiện đại, sang trọng và đầy đủ tiện nghi.',
-    units: '872 căn',
-    completion: 'Đã bàn giao',
-    tag: 'Elite Corner Suite',
-    area: '50 - 83 m²',
-  },
+    price: 'Đang cập nhật',
+    image: 'https://pavilionhousing.vn/wp-content/uploads/2026/03/z7638851530371_2ef2790509c42e42273388a3c672ea3a-2048x1862.jpg',
+    description: 'Đại đô thị tích hợp đa chức năng quy mô 200ha, nổi bật với Mega Mall 9.5ha và giao thương sầm uất.',
+    units: 'Giai đoạn 1',
+    completion: 'T4/2026',
+    tag: 'Shophouse',
+    area: 'Đa dạng',
+  }
 ]
 
 /* ─── Component Thẻ Dự Án ──────────────────────────── */
@@ -126,7 +126,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
   return (
     <Reveal direction="up" delay={index * 0.15}>
       <div
-        className="group cursor-pointer rounded-xl overflow-hidden bg-white"
+        className="group cursor-pointer rounded-xl overflow-hidden bg-white flex flex-col h-full"
         onMouseEnter={() => setHoveredId(project.id)}
         onMouseLeave={() => setHoveredId(null)}
         style={{
@@ -137,7 +137,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         }}
       >
         {/* Hình ảnh & Overlay */}
-        <div className="relative h-64 overflow-hidden">
+        <div className="relative h-64 overflow-hidden shrink-0">
           <img 
             src={project.image} 
             alt={project.name}
@@ -188,8 +188,8 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         </div>
 
         {/* Nội dung */}
-        <div className="p-6">
-          <div className="mb-4">
+        <div className="p-6 flex flex-col flex-grow">
+          <div className="mb-4 shrink-0">
             <h3 className="text-xl font-extrabold mb-2 tracking-tight" style={{ color: '#2C1A1A' }}>
               {project.name}
             </h3>
@@ -199,7 +199,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           </div>
           
           <div 
-            className="flex items-center justify-between text-xs font-bold mb-4 pb-4 border-b" 
+            className="flex items-center justify-between text-xs font-bold mb-4 pb-4 border-b shrink-0" 
             style={{ color: '#5D4E4E', borderColor: '#E8D7CF', letterSpacing: '0.04em' }}
           >
             <span>{project.units}</span>
@@ -209,11 +209,11 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             <span>BÀN GIAO {project.completion}</span>
           </div>
 
-          <p className="text-sm leading-relaxed mb-6 line-clamp-2" style={{ color: '#5D4E4E' }}>
+          <p className="text-sm leading-relaxed mb-6 flex-grow" style={{ color: '#5D4E4E' }}>
             {project.description}
           </p>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between shrink-0 mt-auto">
             <div>
               <span className="block text-xs font-bold mb-1" style={{ color: '#8A7D7D', letterSpacing: '0.06em' }}>GIÁ BÁN</span>
               <span className="text-lg font-black" style={{ color: '#B03A2E', letterSpacing: '-0.01em' }}>

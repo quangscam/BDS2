@@ -117,29 +117,11 @@ export default function AboutPage() {
   ]
 
   const teamMembers = [
-    {
-      name: 'NGUYỄN VĂN AN',
-      role: 'GIÁM ĐỐC ĐIỀU HÀNH',
-      bio: 'Hơn 20 năm kinh nghiệm trong lĩnh vực bất động sản Việt Nam.',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80',
-    },
-    {
-      name: 'TRẦN THỊ BÌNH',
-      role: 'PHÓ GIÁM ĐỐC MARKETING',
-      bio: 'Chuyên gia tiếp thị bất động sản với tầm nhìn chiến lược dài hạn.',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80',
-    },
-    {
-      name: 'LÊ VĂN CƯỜNG',
-      role: 'TRƯỞNG PHÒNG BÁN HÀNG',
-      bio: 'Chuyên gia tư vấn bất động sản với tỷ lệ chuyển đổi cao nhất.',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80',
-    },
-    {
-      name: 'PHẠM THỊ DUNG',
-      role: 'QUẢN LÝ DỰ ÁN',
-      bio: 'Quản lý dự án cao cấp với bề dày kinh nghiệm thực chiến.',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80',
+       {
+      name: 'Vũ Thị Ngọc',
+      role: 'CHUYÊN VIÊN TƯ VẤN CẤP CAO',
+      bio: 'Phân tích đầu tư dựa trên giá trị thực & an toàn pháp lý.',
+      image: '/avatarvuthingoc2.png',
     },
   ]
 
