@@ -85,94 +85,19 @@ const tagLabels: { [key: string]: string } = {
 const allProjects = [
   {
     id: 1,
-    name: 'CENTRE POINT',
-    location: 'TRUNG TÂM THÀNH PHỐ',
-    area: 'QUẬN 1',
-    price: 1300000000,
-    priceDisplay: '1.300.000.000 VND',
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80',
+    name: 'AVA CENTER',
+    location: 'THUẬN AN, HỒ CHÍ MINH',
+    area: 'THUẬN AN',
+    price: 1500000000, 
+    priceDisplay: 'ĐANG CẬP NHẬT',
+    image: '/ava-center/tongquanava.png',
     description: 'CĂN HỘ CAO CẤP TẠI VỊ TRÍ VÀNG VỚI THIẾT KẾ HIỆN ĐẠI',
     type: 'CĂN HỘ',
-    units: '180 CĂN',
-    completion: '2025',
-    tag: 'Commercial Suite',
-    squareMeters: '75 – 120 M²',
-  },
-  {
-    id: 2,
-    name: 'CENTRE PLAZA',
-    location: 'KHU ĐÔ THỊ MỚI',
-    area: 'QUẬN 2',
-    price: 1100000000,
-    priceDisplay: '1.100.000.000 VND',
-    image: 'https://images.unsplash.com/photo-1512207736139-c586cbf395ad?w=500&q=80',
-    description: 'KHÔNG GIAN SHOPHOUSE THƯƠNG MẠI HIỆN ĐẠI VÀ TRANG BỊ ĐẦY ĐỦ',
-    type: 'SHOPHOUSE',
-    units: '156 CĂN',
-    completion: '2024',
-    tag: 'Elite Corner Suite',
-    squareMeters: '85 – 150 M²',
-  },
-  {
-    id: 3,
-    name: 'THÀNH PHÚ HOMES',
-    location: 'KHU VỰC PHÍA TÂY',
-    area: 'QUẬN 5',
-    price: 950000000,
-    priceDisplay: '950.000.000 VND',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80',
-    description: 'NHÀ PHỐ THƯƠNG MẠI TIÊU CHUẨN VỚI TÀI CHÍNH LINH HOẠT',
-    type: 'NHÀ PHỐ',
-    units: '142 CĂN',
-    completion: '2025',
-    tag: 'Shophouse',
-    squareMeters: '100 – 180 M²',
-  },
-  {
-    id: 4,
-    name: 'LUXURY TOWERS',
-    location: 'QUẬN TRUNG TÂM',
-    area: 'QUẬN 3',
-    price: 1550000000,
-    priceDisplay: '1.550.000.000 VND',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&q=80',
-    description: 'TÒA NHÀ CAO CẤP VỚI CÁC TIỆN ÍCH KHANG TRANG',
-    type: 'CĂN HỘ',
-    units: '198 CĂN',
-    completion: '2026',
+    units: '628 CĂN',
+    completion: '2027',
     tag: 'Premium Residence',
-    squareMeters: '90 – 200 M²',
-  },
-  {
-    id: 5,
-    name: 'RIVERSIDE ELITE',
-    location: 'BỜ SÔNG SÀI GÒN',
-    area: 'QUẬN 7',
-    price: 1450000000,
-    priceDisplay: '1.450.000.000 VND',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&q=80',
-    description: 'CĂN HỘ HƯỚNG SÔNG VỚI VIEW TUYỆT ĐẸP',
-    type: 'CĂN HỘ',
-    units: '220 CĂN',
-    completion: '2025',
-    tag: 'Waterfront',
-    squareMeters: '80 – 160 M²',
-  },
-  {
-    id: 6,
-    name: 'TECH PARK RESIDENCES',
-    location: 'KHU CÔNG NGHỆ CAO',
-    area: 'QUẬN 9',
-    price: 850000000,
-    priceDisplay: '850.000.000 VND',
-    image: 'https://images.unsplash.com/photo-1512207736139-c586cbf395ad?w=500&q=80',
-    description: 'CĂN HỘ THÔNG MINH VỚI CÔNG NGHỆ TIÊN TIẾN',
-    type: 'CĂN HỘ',
-    units: '165 CĂN',
-    completion: '2026',
-    tag: 'Smart Home',
-    squareMeters: '65 – 110 M²',
-  },
+    squareMeters: '211 OFFICETEL • 6 TMDV',
+  }
 ]
 
 /* ─── Project Card ────────────────────────────────── */
@@ -182,7 +107,7 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
   return (
     <Reveal direction="up" delay={index * 0.1}>
       <Link
-        href={`/projects/${project.id}`}
+        href={`/projects/du-an-ava-center`} 
         style={{
           display: 'block',
           transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
@@ -216,7 +141,7 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
               top: '14px',
               right: '14px',
               backgroundColor: '#C9A84C',
-              color: '#5D4E4E',
+              color: '#FFFFFF',
               fontSize: '9px',
               fontWeight: 700,
               letterSpacing: '0.08em',
@@ -232,10 +157,10 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
         <div style={{ padding: '20px' }}>
           <h3
             style={{
-              fontSize: '16px',
+              fontSize: '18px',
               fontWeight: 800,
-              color: '#5D4E4E',
-              letterSpacing: '0.04em',
+              color: '#2C1A1A',
+              letterSpacing: '0.02em',
               marginBottom: '4px',
               textDecoration: isHovered ? 'underline' : 'none',
             }}
@@ -243,7 +168,7 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
             {project.name}
           </h3>
 
-          <p style={{ fontSize: '11px', color: '#8A7D7D', letterSpacing: '0.05em', marginBottom: '10px' }}>
+          <p style={{ fontSize: '11px', color: '#8A7D7D', letterSpacing: '0.05em', marginBottom: '10px', fontWeight: 600 }}>
             {project.location}
           </p>
 
@@ -262,11 +187,12 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
               paddingBottom: '14px',
               marginBottom: '14px',
               borderBottom: '1px solid #E8D7CF',
+              fontWeight: 700
             }}
           >
             <span>{project.units}</span>
             <span>{project.squareMeters}</span>
-            <span>HT: {project.completion}</span>
+            <span style={{ color: '#2C8A4F' }}>HT: {project.completion}</span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -298,19 +224,19 @@ export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [selectedArea, setSelectedArea] = useState<string | null>(null)
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000000000])
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000000000])
   const [currentPage, setCurrentPage] = useState(1)
   
-  // State quản lý việc hiển thị bộ lọc trên Mobile
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const itemsPerPage = 6
 
   const types = [
-    { value: 'CĂN HỘ', label: 'CĂN HỘ' },
+    { value: 'CĂN HỘ', label: 'CĂN HỘ CHUNG CƯ' },
     { value: 'SHOPHOUSE', label: 'SHOPHOUSE' },
     { value: 'NHÀ PHỐ', label: 'NHÀ PHỐ' },
   ]
-  const areas = ['QUẬN 1', 'QUẬN 2', 'QUẬN 3', 'QUẬN 5', 'QUẬN 7', 'QUẬN 9']
+  
+  const areas = ['THUẬN AN', 'DĨ AN', 'THỦ ĐỨC', 'QUẬN 1', 'QUẬN 2', 'QUẬN 9']
 
   const filteredProjects = useMemo(() => {
     return allProjects.filter((project) => {
@@ -335,11 +261,10 @@ export default function ProjectsPage() {
     setSearchQuery('')
     setSelectedType(null)
     setSelectedArea(null)
-    setPriceRange([0, 2000000000])
+    setPriceRange([0, 5000000000])
     setCurrentPage(1)
   }
 
-  /* shared label style */
   const labelStyle: React.CSSProperties = {
     display: 'block',
     fontSize: '10px',
@@ -350,10 +275,10 @@ export default function ProjectsPage() {
   }
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#FDFAF6' }}>
+    <main style={{ minHeight: '100vh', backgroundColor: '#FDFAF6', fontFamily: 'sans-serif' }}>
       <Header />
 
-      {/* ── Hero Title ── (Thêm mt-16 để không bị Header che mất trên mobile) */}
+      {/* ── Hero Title ── */}
       <div className="pt-24 lg:pt-32 pb-10" style={{ backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <Reveal direction="left" delay={0}>
@@ -364,7 +289,7 @@ export default function ProjectsPage() {
                   style={{
                     fontSize: 'clamp(36px, 7vw, 72px)',
                     fontWeight: 900,
-                    color: '#5D4E4E',
+                    color: '#2C1A1A',
                     lineHeight: 1.15,
                     letterSpacing: '-0.01em',
                     marginBottom: '12px',
@@ -372,7 +297,7 @@ export default function ProjectsPage() {
                 >
                   TÌM NGÔI NHÀ <span style={{ color: '#B03A2E' }}>CỦA BẠN</span>
                 </h1>
-                <p style={{ fontSize: '13px', md: '15px', color: '#8A7D7D', letterSpacing: '0.05em' }}>
+                <p style={{ fontSize: '13px', color: '#8A7D7D', letterSpacing: '0.05em', fontWeight: 600 }}>
                   TỪ CĂN HỘ HIỆN ĐẠI ĐẾN NHÀ PHỐ ẤM CÚNG — HAPPYHOUSE CÓ TẤT CẢ
                 </p>
               </div>
@@ -385,7 +310,6 @@ export default function ProjectsPage() {
       <div style={{ padding: '0 0 80px', backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           
-          {/* Tối ưu UX/UI Responsive: flex-col trên Mobile, Grid 2 cột trên Desktop */}
           <div className="flex flex-col lg:grid lg:grid-cols-[260px_1fr] gap-8 lg:gap-10">
 
             {/* ── Sidebar ── */}
@@ -409,7 +333,6 @@ export default function ProjectsPage() {
                   {showMobileFilters ? <X size={20} color="#B03A2E" /> : <Filter size={20} color="#B03A2E" />}
                 </div>
 
-                {/* Nội dung bộ lọc: Ẩn trên Mobile nếu chưa bấm, Luôn hiện trên Desktop */}
                 <div className={`${showMobileFilters ? 'flex' : 'hidden'} lg:flex flex-col gap-6 mt-4 lg:mt-0 transition-all duration-300`}>
                   
                   {/* Search */}
@@ -422,26 +345,26 @@ export default function ProjectsPage() {
                       onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1) }}
                       style={{
                         width: '100%',
-                        padding: '10px 14px',
+                        padding: '12px 14px',
                         border: '1px solid #E8D7CF',
                         borderRadius: '8px',
                         fontSize: '11px',
                         letterSpacing: '0.04em',
-                        color: '#5D4E4E',
+                        color: '#2C1A1A',
                         backgroundColor: '#FFFFFF',
                         outline: 'none',
                         boxSizing: 'border-box',
+                        fontWeight: 600
                       }}
                     />
                   </div>
 
-                  {/* Divider */}
                   <div style={{ borderTop: '1px solid #E8D7CF' }} />
 
                   {/* Property Type */}
                   <div>
                     <label style={labelStyle}>LOẠI BẤT ĐỘNG SẢN</label>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                       {[{ value: null, label: 'TẤT CẢ' }, ...types].map((t) => (
                         <label
                           key={t.label}
@@ -452,9 +375,9 @@ export default function ProjectsPage() {
                             name="type"
                             checked={selectedType === t.value}
                             onChange={() => { setSelectedType(t.value); setCurrentPage(1) }}
-                            style={{ accentColor: '#B03A2E', width: '14px', height: '14px' }}
+                            style={{ accentColor: '#B03A2E', width: '16px', height: '16px' }}
                           />
-                          <span style={{ fontSize: '11px', letterSpacing: '0.06em', color: '#5D4E4E', fontWeight: selectedType === t.value ? 700 : 400 }}>
+                          <span style={{ fontSize: '11px', letterSpacing: '0.06em', color: '#5D4E4E', fontWeight: selectedType === t.value ? 800 : 500 }}>
                             {t.label}
                           </span>
                         </label>
@@ -462,13 +385,12 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  {/* Divider */}
                   <div style={{ borderTop: '1px solid #E8D7CF' }} />
 
                   {/* Area */}
                   <div>
                     <label style={labelStyle}>KHU VỰC</label>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                       {[{ value: null, label: 'TẤT CẢ' }, ...areas.map(a => ({ value: a, label: a }))].map((a) => (
                         <label
                           key={a.label}
@@ -479,9 +401,10 @@ export default function ProjectsPage() {
                             name="area"
                             checked={selectedArea === a.value}
                             onChange={() => { setSelectedArea(a.value); setCurrentPage(1) }}
-                            style={{ accentColor: '#B03A2E', width: '14px', height: '14px' }}
+                            style={{ accentColor: '#B03A2E', width: '16px', height: '16px' }}
                           />
-                          <span style={{ fontSize: '11px', letterSpacing: '0.06em', color: '#5D4E4E', fontWeight: selectedArea === a.value ? 700 : 400 }}>
+                          {/* ĐÃ FIX LỖI TẠI ĐÂY: Thay {t.label} thành {a.label} */}
+                          <span style={{ fontSize: '11px', letterSpacing: '0.06em', color: '#5D4E4E', fontWeight: selectedArea === a.value ? 800 : 500 }}>
                             {a.label}
                           </span>
                         </label>
@@ -489,20 +412,19 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  {/* Divider */}
                   <div style={{ borderTop: '1px solid #E8D7CF' }} />
 
                   {/* Price Range */}
                   <div>
                     <label style={labelStyle}>GIÁ (VND)</label>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                       <div>
-                        <div style={{ fontSize: '10px', color: '#8A7D7D', letterSpacing: '0.06em', marginBottom: '4px' }}>TỪ:</div>
+                        <div style={{ fontSize: '10px', color: '#8A7D7D', letterSpacing: '0.06em', marginBottom: '6px', fontWeight: 600 }}>TỪ:</div>
                         <input
                           type="range"
                           min="0"
-                          max="2000000000"
-                          step="50000000"
+                          max="5000000000"
+                          step="100000000"
                           value={priceRange[0]}
                           onChange={(e) => {
                             const v = parseInt(e.target.value)
@@ -510,17 +432,17 @@ export default function ProjectsPage() {
                           }}
                           style={{ width: '100%', accentColor: '#B03A2E' }}
                         />
-                        <div style={{ fontSize: '11px', color: '#B03A2E', fontWeight: 700, letterSpacing: '0.04em' }}>
+                        <div style={{ fontSize: '11px', color: '#B03A2E', fontWeight: 800, letterSpacing: '0.04em', marginTop: '4px' }}>
                           {(priceRange[0] / 1_000_000_000).toFixed(1)} TỶ VND
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: '10px', color: '#8A7D7D', letterSpacing: '0.06em', marginBottom: '4px' }}>ĐẾN:</div>
+                        <div style={{ fontSize: '10px', color: '#8A7D7D', letterSpacing: '0.06em', marginBottom: '6px', fontWeight: 600 }}>ĐẾN:</div>
                         <input
                           type="range"
                           min="0"
-                          max="2000000000"
-                          step="50000000"
+                          max="5000000000"
+                          step="100000000"
                           value={priceRange[1]}
                           onChange={(e) => {
                             const v = parseInt(e.target.value)
@@ -528,7 +450,7 @@ export default function ProjectsPage() {
                           }}
                           style={{ width: '100%', accentColor: '#B03A2E' }}
                         />
-                        <div style={{ fontSize: '11px', color: '#B03A2E', fontWeight: 700, letterSpacing: '0.04em' }}>
+                        <div style={{ fontSize: '11px', color: '#B03A2E', fontWeight: 800, letterSpacing: '0.04em', marginTop: '4px' }}>
                           {(priceRange[1] / 1_000_000_000).toFixed(1)} TỶ VND
                         </div>
                       </div>
@@ -540,16 +462,17 @@ export default function ProjectsPage() {
                     onClick={resetFilters}
                     style={{
                       width: '100%',
-                      padding: '12px',
+                      padding: '14px',
                       backgroundColor: '#B03A2E',
                       color: '#FFFFFF',
                       border: 'none',
                       borderRadius: '8px',
                       fontSize: '11px',
-                      fontWeight: 700,
+                      fontWeight: 800,
                       letterSpacing: '0.1em',
                       cursor: 'pointer',
                       transition: 'background 0.2s',
+                      marginTop: '10px'
                     }}
                     onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = '#7B241C' }}
                     onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = '#B03A2E' }}
@@ -567,20 +490,22 @@ export default function ProjectsPage() {
               <Reveal direction="up" delay={0.1}>
                 <div
                   style={{
-                    fontSize: '10px',
+                    fontSize: '11px',
+                    fontWeight: 700,
                     letterSpacing: '0.1em',
                     color: '#8A7D7D',
-                    marginBottom: '20px',
+                    marginBottom: '24px',
+                    paddingBottom: '16px',
+                    borderBottom: '1px solid #E8D7CF'
                   }}
                 >
-                  HIỂN THỊ {filteredProjects.length} DỰ ÁN
+                  TÌM THẤY {filteredProjects.length} DỰ ÁN
                 </div>
               </Reveal>
 
               {paginatedProjects.length > 0 ? (
                 <>
-                  {/* Thay thế Grid tĩnh bằng Grid chuẩn Responsive của Tailwind */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
                     {paginatedProjects.map((project, index) => (
                       <ProjectCard key={project.id} project={project} index={index} />
                     ))}
@@ -597,13 +522,13 @@ export default function ProjectsPage() {
                               display: 'flex',
                               alignItems: 'center',
                               gap: '6px',
-                              padding: '8px 16px',
+                              padding: '10px 18px',
                               border: '1px solid #E8D7CF',
                               borderRadius: '8px',
                               backgroundColor: '#FFFFFF',
                               color: '#5D4E4E',
                               fontSize: '11px',
-                              fontWeight: 600,
+                              fontWeight: 700,
                               letterSpacing: '0.06em',
                               cursor: 'pointer',
                             }}
@@ -617,13 +542,13 @@ export default function ProjectsPage() {
                             key={page}
                             onClick={() => setCurrentPage(page)}
                             style={{
-                              padding: '8px 14px',
+                              padding: '10px 16px',
                               borderRadius: '8px',
                               border: currentPage === page ? 'none' : '1px solid #E8D7CF',
                               backgroundColor: currentPage === page ? '#B03A2E' : '#FFFFFF',
                               color: currentPage === page ? '#FFFFFF' : '#5D4E4E',
                               fontSize: '12px',
-                              fontWeight: 700,
+                              fontWeight: 800,
                               cursor: 'pointer',
                             }}
                           >
@@ -638,13 +563,13 @@ export default function ProjectsPage() {
                               display: 'flex',
                               alignItems: 'center',
                               gap: '6px',
-                              padding: '8px 16px',
+                              padding: '10px 18px',
                               border: '1px solid #E8D7CF',
                               borderRadius: '8px',
                               backgroundColor: '#FFFFFF',
                               color: '#5D4E4E',
                               fontSize: '11px',
-                              fontWeight: 600,
+                              fontWeight: 700,
                               letterSpacing: '0.06em',
                               cursor: 'pointer',
                             }}
@@ -658,9 +583,9 @@ export default function ProjectsPage() {
                 </>
               ) : (
                 <Reveal direction="up" delay={0.2}>
-                  <div style={{ textAlign: 'center', padding: '80px 0' }}>
-                    <p style={{ fontSize: '15px', color: '#5D4E4E', letterSpacing: '0.05em', marginBottom: '20px' }}>
-                      KHÔNG TÌM THẤY DỰ ÁN PHÙ HỢP VỚI BỘ LỌC CỦA BẠN.
+                  <div style={{ textAlign: 'center', padding: '80px 0', backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px dashed #E8D7CF' }}>
+                    <p style={{ fontSize: '15px', color: '#5D4E4E', letterSpacing: '0.05em', marginBottom: '20px', fontWeight: 600 }}>
+                      KHÔNG TÌM THẤY DỰ ÁN PHÙ HỢP VỚI BỘ LỌC.
                     </p>
                     <button
                       onClick={resetFilters}
@@ -671,7 +596,7 @@ export default function ProjectsPage() {
                         border: 'none',
                         borderRadius: '8px',
                         fontSize: '11px',
-                        fontWeight: 700,
+                        fontWeight: 800,
                         letterSpacing: '0.1em',
                         cursor: 'pointer',
                       }}

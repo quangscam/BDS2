@@ -187,6 +187,7 @@ function CoverflowCarousel({ items, imageFit = "cover", isDark = false, showText
 /* ─── Data ─── */
 const navLinks = [
   { href: "#overview", label: "Tổng Quan" },
+  { href: "#cta", label: "Đặc Quyền Sở Hữu" },
   { href: "#location", label: "Vị Trí" },
   { href: "#products", label: "Sản Phẩm" },
   { href: "#showroom", label: "Nhà Mẫu" },
@@ -617,6 +618,189 @@ export default function AVACenterLandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ============================================ */}
+{/* PROMOTIONAL CTA SECTION - AVA CENTER */}
+{/* ============================================ */}
+<section className="relative py-16 md:py-24 overflow-hidden bg-white">
+
+  {/* Blob nền */}
+  <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="absolute -top-32 -left-32 w-[480px] h-[480px] rounded-full bg-[#B03A2E]/5 blur-[100px]" />
+    <div className="absolute -bottom-32 -right-32 w-[480px] h-[480px] rounded-full bg-[#C9A84C]/6 blur-[100px]" />
+  </div>
+
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+    {/* Badge */}
+    <Reveal direction="up" className="flex justify-center mb-12">
+      <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-[#B03A2E]/20 bg-[#FFF0EE]">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#B03A2E] animate-pulse" />
+        <span className="text-[#B03A2E] text-[11px] font-bold uppercase tracking-[0.22em] font-sans">Cơ hội đầu tư hiếm có</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
+      </div>
+    </Reveal>
+
+    {/* Grid 2 cột cân bằng 50/50 */}
+    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      {/* ══ CỘT TRÁI: ẢNH ══ */}
+      <Reveal direction="left" className="relative">
+        {/* Padding tạo khoảng cho floating cards không bị clip */}
+        <div className="relative mx-auto max-w-[460px] lg:max-w-none pt-10 pb-10 px-8 lg:pl-4 lg:pr-10">
+
+          {/* Ảnh chính */}
+          <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden shadow-[0_32px_64px_rgba(44,26,26,0.18)] border border-[#E8D7CF] group">
+            <Image
+              src="/ava-center/artavacenter.png"
+              alt="AVA Center – Căn hộ đẳng cấp"
+              fill
+              className="object-cover transition-transform duration-1000 group-hover:scale-[1.04]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1C0F0F]/75 via-[#1C0F0F]/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#B03A2E]/15 to-transparent mix-blend-overlay" />
+
+            {/* Badge Resort trong ảnh */}
+            <div className="absolute top-5 left-5 flex items-center gap-1.5 bg-white/15 backdrop-blur-md rounded-full px-3.5 py-1.5 border border-white/25">
+              <Star className="w-3 h-3 text-[#C9A84C] fill-[#C9A84C]" />
+              <span className="text-white text-[10px] font-bold tracking-widest uppercase font-sans">Resort 5 Sao</span>
+            </div>
+
+            {/* Địa chỉ dưới ảnh */}
+            <div className="absolute bottom-0 inset-x-0 p-6">
+              <p className="text-white/55 text-[10px] uppercase tracking-widest font-bold mb-0.5 font-sans">Mặt tiền đường Thủ Khoa Huân</p>
+              <p className="text-white font-bold text-base font-sans">Thuận An, Bình Dương</p>
+            </div>
+          </div>
+
+          {/* Floating: Social proof — trên phải */}
+          <div className="absolute top-0 right-0 bg-white rounded-2xl px-4 py-3 shadow-xl border border-[#E8D7CF] z-20 flex items-center gap-3">
+            <div className="flex -space-x-2">
+              {[21, 22, 23, 24].map((u) => (
+                <div key={u} className="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-gray-100 shrink-0">
+                  <img src={`https://i.pravatar.cc/80?u=${u}`} alt="" />
+                </div>
+              ))}
+            </div>
+            <div>
+              <p className="text-[#2C1A1A] text-xs font-bold font-sans leading-tight">+120 đăng ký</p>
+              <p className="text-[#8A7D7D] text-[10px] font-sans">tuần này</p>
+            </div>
+          </div>
+
+          {/* Floating: Giá — dưới trái */}
+          <div className="absolute bottom-0 left-0 bg-[#1C0F0F] rounded-2xl px-5 py-4 shadow-[0_16px_40px_rgba(28,15,15,0.3)] border border-white/10 z-20">
+            <p className="text-white/45 text-[10px] uppercase tracking-widest mb-0.5 font-sans">Chỉ từ</p>
+            <p className="text-[#C9A84C] text-2xl font-bold leading-none font-sans">5 triệu</p>
+            <p className="text-white/55 text-[11px] mt-0.5 font-sans">/ tháng</p>
+            <div className="absolute -top-2.5 -right-2.5 w-6 h-6 rounded-full bg-[#B03A2E] flex items-center justify-center shadow-md">
+              <Sparkles className="w-3 h-3 text-white" />
+            </div>
+          </div>
+
+          {/* Decor blobs */}
+          <div className="absolute -bottom-8 -left-8 w-44 h-44 rounded-full bg-[#C9A84C]/12 blur-3xl -z-10" />
+          <div className="absolute -top-8 -right-8 w-52 h-52 rounded-full bg-[#B03A2E]/6 blur-3xl -z-10" />
+        </div>
+      </Reveal>
+
+      {/* ══ CỘT PHẢI: NỘI DUNG ══ */}
+      <Reveal direction="right" className="flex flex-col gap-6">
+
+        {/* Tiêu đề */}
+        <div className="space-y-3">
+            <section id="cta" className="relative py-16 md:py-24 overflow-hidden bg-white scroll-mt-24"></section>
+          <h2 className="text-3xl md:text-4xl lg:text-[2.5rem] font-bold text-[#2C1A1A] leading-[1.15] font-sans tracking-tight">
+            Đừng mua căn hộ tại Bình Dương khi chưa xem{" "}
+            <span className="relative inline-block">
+              <span className="relative z-10 text-[#B03A2E] italic">siêu phẩm</span>
+              <span className="absolute left-0 -bottom-0.5 w-full h-[3px] bg-[#C9A84C] rounded-full" />
+            </span>{" "}này!
+          </h2>
+          <p className="text-[#5D4E4E] text-sm md:text-[15px] leading-relaxed font-sans">
+            Sở hữu ngay căn hộ <strong className="text-[#2C1A1A]">đẳng cấp Resort 5 sao</strong> với mức giá{" "}
+            <span className="text-[#B03A2E] font-bold">không tưởng</span> – Chỉ từ <strong className="text-[#2C1A1A]">5 triệu/tháng</strong>.
+          </p>
+        </div>
+
+        {/* Divider */}
+        <div className="flex items-center gap-3">
+          <div className="flex-1 h-px bg-gradient-to-r from-[#C9A84C]/40 to-transparent" />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
+          <div className="flex-1 h-px bg-gradient-to-l from-[#C9A84C]/40 to-transparent" />
+        </div>
+
+        {/* USP Cards — clickable, smooth scroll */}
+        <div className="space-y-2.5">
+          {[
+            { icon: MapPin, title: "Vị trí Tam Giác Vàng",  desc: "Aeon Mall – Mega Market – Vincom ngay trước thềm nhà.",                                tag: "Vị trí đắc địa", target: "location" },
+            { icon: Home,   title: "Bàn giao Full nội thất", desc: "Chỉ cần xách vali vào ở ngay, tiết kiệm hàng trăm triệu đồng.",                         tag: "Sẵn ở ngay",    target: "showroom" },
+            { icon: Leaf,   title: "Gỗ chuẩn E0 an toàn",   desc: "Bảo vệ sức khỏe tuyệt đối theo tiêu chuẩn Châu Âu – Formaldehyde gần bằng 0.",  tag: "Sức khoẻ",       target: "showroom" },
+          ].map((item, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => {
+                const el = document.getElementById(item.target)
+                if (!el) return
+                const top = el.getBoundingClientRect().top + window.pageYOffset - 90
+                window.scrollTo({ top, behavior: "smooth" })
+              }}
+              className="relative w-full text-left flex items-center gap-4 bg-[#FDFAF6] rounded-xl p-4 border border-[#E8D7CF] hover:border-[#B03A2E]/30 hover:bg-white hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group overflow-hidden"
+            >
+              <div className="absolute left-0 inset-y-0 w-[3px] bg-[#B03A2E] rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="w-10 h-10 rounded-xl bg-[#FFF0EE] group-hover:bg-[#B03A2E] flex items-center justify-center shrink-0 transition-colors duration-300">
+                <item.icon className="w-5 h-5 text-[#B03A2E] group-hover:text-white transition-colors" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                  <span className="text-[#2C1A1A] font-bold text-sm font-sans uppercase tracking-tight">{item.title}</span>
+                  <span className="text-[9px] bg-[#FFF0EE] text-[#B03A2E] border border-[#B03A2E]/15 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider font-sans shrink-0 group-hover:bg-[#B03A2E]/10">
+                    {item.tag}
+                  </span>
+                </div>
+                <p className="text-[#8A7D7D] text-xs leading-relaxed font-sans">{item.desc}</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-[#C4B5B5] group-hover:text-[#B03A2E] group-hover:translate-x-0.5 transition-all shrink-0" />
+            </button>
+          ))}
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { value: "0%",      label: "Lãi suất 24 tháng" },
+            { value: "70%",     label: "Ngân hàng hỗ trợ vay" },
+            { value: "Q4/2027", label: "Dự kiến bàn giao" },
+          ].map((s) => (
+            <div key={s.label} className="text-center bg-[#FFF0EE] rounded-xl py-3.5 px-2 border border-[#E8D7CF]/80">
+              <p className="text-[#B03A2E] text-xl md:text-2xl font-bold leading-none font-sans">{s.value}</p>
+              <p className="text-[#8A7D7D] text-[10px] font-bold uppercase tracking-wider mt-1 font-sans leading-snug">{s.label}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <a
+            href="#contact"
+            className="flex-1 flex items-center justify-center gap-2.5 px-7 py-4 bg-[#B03A2E] text-white font-bold rounded-xl shadow-[0_10px_24px_rgba(176,58,46,0.3)] hover:bg-[#2C1A1A] hover:shadow-[0_14px_32px_rgba(44,26,26,0.32)] hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest text-sm font-sans"
+          >
+            Nhận ưu đãi độc quyền <ArrowRight className="w-4 h-4" />
+          </a>
+          <a
+            href="tel:0901234567"
+            className="flex items-center justify-center gap-2 px-6 py-4 bg-white border border-[#E8D7CF] hover:border-[#B03A2E]/30 text-[#2C1A1A] font-bold rounded-xl hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-sans shrink-0"
+          >
+            <Phone className="w-4 h-4 text-[#B03A2E]" />
+            Gọi Ngay
+          </a>
+        </div>
+
+      </Reveal>
+    </div>
+  </div>
+</section>
 
       {/* ============================================ */}
       {/* LOCATION (ZOOMABLE MAP) */}

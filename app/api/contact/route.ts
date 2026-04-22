@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     const data = await resend.emails.send({
       from: 'HappyHouse <onboarding@resend.dev>',
-      to: ['ithutech87@gmail.com'],
+      to: ['ngocdiachinh34@gmail.com'],
       subject: `[Web HappyHouse] ${subject || 'Liên hệ mới'} - từ ${name}`,
       html: `
         <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto;">

@@ -86,27 +86,27 @@ export default function ContactPage() {
   const offices = [
     {
       name: 'VĂN PHÒNG CHÍNH — TP.HCM',
-      address: '123 Đường Nguyễn Huệ, Quận 1, TP.HCM',
-      phone: '+84 (28) 3821-5555',
-      email: 'contact@happyhouse.com.vn',
+      address: 'C26, đường D8, KDC Caric, An Khánh, TP HCM',
+      phone: '+84 0986 51 4242',
+      email: 'ngocdiachinh34@gmail.com',
       hours: 'T2–T6: 9:00–18:00 | T7–CN: 10:00–17:00',
       icon: '🏢',
     },
     {
-      name: 'VĂN PHÒNG CHI NHÁNH — QUẬN 2',
-      address: '456 Đường Tạ Uy Bằng, Quận 2, TP.HCM',
-      phone: '+84 (28) 5555-2222',
-      email: 'quan2@happyhouse.com.vn',
+      name: 'VĂN PHÒNG CHI NHÁNH — QUẬN PHÚ NHUẬN',
+      address: '117-119-121 Hoàng Văn Thụ, Phú Nhuận, TP.HCM',
+      phone: '+84 0909 423 328',
+      email: 'info@pavilionhousing.vn',
       hours: 'T2–T6: 9:00–18:00 | T7: 10:00–16:00',
       icon: '🏬',
     },
     {
-      name: 'TRUNG TÂM TƯ VẤN — QUẬN 3',
-      address: '321 Đường Pasteur, Quận 3, TP.HCM',
-      phone: '+84 (28) 3827-1111',
-      email: 'quan3@happyhouse.com.vn',
+      name: 'TRUNG TÂM TƯ VẤN — QUẬN 2',
+      address: '45 đường R, Lakeview City, An Phú, Tp HCM',
+      phone: '+84 0986 51 4242',
+      email: 'ngocdiachinh34@gmail.com',
       hours: 'T2–T6: 9:00–18:00 | T7–CN: 10:00–17:00',
-      icon: '🏛️',
+      icon: '🏢',
     },
   ]
 
@@ -363,8 +363,8 @@ export default function ContactPage() {
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     {[
-                      { href: 'tel:+84283821555', icon: <Phone size={20} />, label: 'GỌI NGAY', sub: '+84 (28) 3821-5555' },
-                      { href: 'mailto:contact@happyhouse.com.vn', icon: <Mail size={20} />, label: 'GỬI EMAIL', sub: 'contact@happyhouse.com.vn' },
+                      { href: 'tel:+0986514242', icon: <Phone size={20} />, label: 'GỌI NGAY', sub: '+84 0986 51 4242' },
+                      { href: 'mailto:contact@happyhouse.com.vn', icon: <Mail size={20} />, label: 'GỬI EMAIL', sub: 'ngocdiachinh34@gmail.com' },
                       { href: 'https://wa.me/84283821555', icon: <MessageSquare size={20} />, label: 'WHATSAPP', sub: 'NHẮN TIN TRỰC TIẾP' },
                       { href: '/projects', icon: <Building2 size={20} />, label: 'XEM DỰ ÁN', sub: 'KHÁM PHÁ CÁC DỰ ÁN CỦA CHÚNG TÔI' },
                     ].map(({ href, icon, label, sub }) => (

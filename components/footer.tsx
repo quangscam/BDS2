@@ -16,7 +16,7 @@ export function Footer() {
             </p>
             <div className="flex gap-6">
               <a 
-                href="#" 
+                href="https://www.facebook.com/vu.ngoc.5099" 
                 className="text-sm font-bold tracking-wider uppercase transition-colors duration-300" 
                 style={{ color: 'rgba(253, 250, 246, 0.7)' }} 
                 onMouseEnter={(e) => e.currentTarget.style.color = '#C9A84C'} 
@@ -98,13 +98,13 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Cột 3: Hỗ trợ pháp lý */}
+          {/* Cột 3: Hỗ trợ pháp lý (ĐÃ SỬA LINK Ở ĐÂY) */}
           <div>
             <h4 className="text-xs font-bold text-white mb-6 uppercase tracking-widest">Hỗ trợ khách hàng</h4>
             <ul className="space-y-4">
               <li>
                 <a 
-                  href="#" 
+                  href="/privacy-policy" 
                   className="block text-sm transition-colors duration-300" 
                   style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
                   onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
@@ -115,7 +115,7 @@ export function Footer() {
               </li>
               <li>
                 <a 
-                  href="#" 
+                  href="/terms" 
                   className="block text-sm transition-colors duration-300" 
                   style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
                   onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
@@ -126,7 +126,7 @@ export function Footer() {
               </li>
               <li>
                 <a 
-                  href="#" 
+                  href="/faq" 
                   className="block text-sm transition-colors duration-300" 
                   style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
                   onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
@@ -137,7 +137,7 @@ export function Footer() {
               </li>
               <li>
                 <a 
-                  href="#" 
+                  href="/loan-guide" 
                   className="block text-sm transition-colors duration-300" 
                   style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
                   onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
@@ -155,7 +155,7 @@ export function Footer() {
             <div className="space-y-4">
               <p className="flex items-start gap-3 text-sm" style={{ color: 'rgba(253, 250, 246, 0.75)' }}>
                 <MapPin size={16} className="mt-1 flex-shrink-0" /> 
-                <span>123 Đường Nguyễn Huệ, Quận 1<br/>TP. Hồ Chí Minh, Việt Nam</span>
+                <span>C26, đường D8, KDC Caric, An Khánh<br/>TP. Hồ Chí Minh, Việt Nam</span>
               </p>
               <p className="flex items-center gap-3 text-sm" style={{ color: 'rgba(253, 250, 246, 0.75)' }}>
                 <Phone size={16} /> 
@@ -165,7 +165,7 @@ export function Footer() {
                   onMouseEnter={(e) => e.currentTarget.style.color = '#C9A84C'} 
                   onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'}
                 >
-                  +84 (28) 3821-5555
+                  +84 0986 51 4242
                 </a>
               </p>
               <p className="flex items-center gap-3 text-sm" style={{ color: 'rgba(253, 250, 246, 0.75)' }}>
@@ -176,7 +176,7 @@ export function Footer() {
                   onMouseEnter={(e) => e.currentTarget.style.color = '#C9A84C'} 
                   onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'}
                 >
-                  contact@happyhouse.vn
+                  ngocdiachinh34@gmail.com
                 </a>
               </p>
             </div>
