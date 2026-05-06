@@ -66,15 +66,28 @@ const tagTranslations: { [key: string]: string } = {
   'Smart Home': 'NHÀ THÔNG MINH',
   'Waterfront': 'CĂN HỘ VEN SÔNG',
   'Elite Corner Suite': 'CĂN GÓC CAO CẤP',
+  'Detox & Healthy': 'CĂN HỘ SỨC KHỎE',
 }
 
 const projects = [
   {
-    id: 'ava-center',
+    id: 'du-an-the-peakgarden',
+    name: 'THE PEAK GARDEN',
+    location: 'Quận 7, TP. HCM',
+    price: 'Từ 46.000.000 VND/m²',
+    image: '/the-peak-garden/banner-main-type2.jpg',
+    description: 'Dự án căn hộ Detox & Healthy đầu tiên tại Nam Sài Gòn với hồ Thiên Nga 10.000m³ và mảng xanh bao phủ.',
+    units: '900+ căn',
+    completion: '2026',
+    tag: 'Detox & Healthy',
+    area: '65 - 101 m²',
+  },
+  {
+    id: 'du-an-ava-center',
     name: 'AVA CENTER',
     location: 'Thuận An, Bình Dương',
     price: 'Từ 1.300.000.000 VND',
-    image: '/ava-center/tongquanava.png', // Sử dụng ảnh local theo yêu cầu
+    image: '/ava-center/tongquanava.png',
     description: 'Dự án tiên phong "Touchable Home" với hệ sinh thái tiện ích All-in-one và ba mặt hướng thủy tuyệt đẹp.',
     units: '855 căn',
     completion: '2027',
@@ -86,7 +99,7 @@ const projects = [
     name: 'THE PEARL RIVERSIDE',
     location: 'Bến Lức, Long An',
     price: 'Đang cập nhật',
-    image: '/pearlriverside.png', // Sử dụng ảnh local theo yêu cầu
+    image: '/pearlriverside.png',
     description: 'Khu đô thị sinh thái khép kín ven sông Vàm Cỏ Đông, sở hữu bến du thuyền và công viên ven sông đẳng cấp.',
     units: '250 căn',
     completion: 'Đã hoàn thiện',
@@ -136,7 +149,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           transition: 'transform 0.4s ease, box-shadow 0.4s ease',
         }}
       >
-        {/* Hình ảnh & Overlay */}
         <div className="relative h-64 overflow-hidden shrink-0">
           <img 
             src={project.image} 
@@ -147,7 +159,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             }}
           />
           
-          {/* Tag */}
           <div
             style={{
               position: 'absolute',
@@ -166,7 +177,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             {tagTranslations[project.tag] || project.tag}
           </div>
 
-          {/* Nút Xem chi tiết (Overlay) */}
           <Link 
             href={`/projects/${project.id}`} 
             className="absolute inset-0 flex items-center justify-center transition-all duration-300"
@@ -187,7 +197,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           </Link>
         </div>
 
-        {/* Nội dung */}
         <div className="p-6 flex flex-col flex-grow">
           <div className="mb-4 shrink-0">
             <h3 className="text-xl font-extrabold mb-2 tracking-tight" style={{ color: '#2C1A1A' }}>
@@ -259,8 +268,8 @@ export function FeaturedProjects() {
           </div>
         </Reveal>
 
-        {/* Lưới dự án */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
+        {/* Lưới dự án - Chỉnh lại grid thành 3 cột cho đẹp */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

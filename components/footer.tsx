@@ -4,32 +4,28 @@ import { Home, Building2, Newspaper, Info, Phone, Mail, MapPin } from 'lucide-re
 
 export function Footer() {
   return (
-    <footer className="py-20" style={{ backgroundColor: '#7B241C' }}>
+    <footer className="py-20 bg-[#7B241C] font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           
           {/* Cột 1: Thông tin thương hiệu */}
-          <div>
-            <h3 className="text-3xl font-black text-white mb-6 tracking-tight">HappyHouse</h3>
-            <p className="text-sm leading-loose mb-8" style={{ color: '#FDFAF6', opacity: 0.85 }}>
+          <div className="lg:pr-6">
+            <h3 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight drop-shadow-sm">
+              HappyHouse
+            </h3>
+            <p className="text-sm leading-relaxed mb-8 text-[#FDFAF6]/80 text-pretty">
               Tìm ngôi nhà của bạn với HappyHouse – nơi ước mơ an cư và đầu tư sinh lời của bạn trở thành hiện thực.
             </p>
             <div className="flex gap-6">
               <a 
                 href="https://www.facebook.com/vu.ngoc.5099" 
-                className="text-sm font-bold tracking-wider uppercase transition-colors duration-300" 
-                style={{ color: 'rgba(253, 250, 246, 0.7)' }} 
-                onMouseEnter={(e) => e.currentTarget.style.color = '#C9A84C'} 
-                onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(253, 250, 246, 0.7)'}
+                className="text-xs font-bold tracking-[0.15em] uppercase text-[#FDFAF6]/70 hover:text-[#C9A84C] hover:-translate-y-0.5 transition-all duration-300" 
               >
                 Facebook
               </a>
               <a 
                 href="#" 
-                className="text-sm font-bold tracking-wider uppercase transition-colors duration-300" 
-                style={{ color: 'rgba(253, 250, 246, 0.7)' }} 
-                onMouseEnter={(e) => e.currentTarget.style.color = '#C9A84C'} 
-                onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(253, 250, 246, 0.7)'}
+                className="text-xs font-bold tracking-[0.15em] uppercase text-[#FDFAF6]/70 hover:text-[#C9A84C] hover:-translate-y-0.5 transition-all duration-300" 
               >
                 Instagram
               </a>
@@ -38,159 +34,96 @@ export function Footer() {
 
           {/* Cột 2: Liên kết nhanh */}
           <div>
-            <h4 className="text-xs font-bold text-white mb-6 uppercase tracking-widest">Liên kết nhanh</h4>
+            <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-[0.15em] border-b border-white/20 pb-3 inline-block">
+              Liên kết nhanh
+            </h4>
             <ul className="space-y-4">
-              <li>
-                <a 
-                  href="/" 
-                  className="flex items-center gap-3 text-sm transition-colors duration-300" 
-                  style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'; e.currentTarget.style.transform = 'translateX(0)' }}
-                >
-                  <Home size={16} /> Trang chủ
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/projects" 
-                  className="flex items-center gap-3 text-sm transition-colors duration-300" 
-                  style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'; e.currentTarget.style.transform = 'translateX(0)' }}
-                >
-                  <Building2 size={16} /> Danh sách Dự án
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/news" 
-                  className="flex items-center gap-3 text-sm transition-colors duration-300" 
-                  style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'; e.currentTarget.style.transform = 'translateX(0)' }}
-                >
-                  <Newspaper size={16} /> Tin tức & Sự kiện
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/about" 
-                  className="flex items-center gap-3 text-sm transition-colors duration-300" 
-                  style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'; e.currentTarget.style.transform = 'translateX(0)' }}
-                >
-                  <Info size={16} /> Giới thiệu
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/contact" 
-                  className="flex items-center gap-3 text-sm transition-colors duration-300" 
-                  style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'; e.currentTarget.style.transform = 'translateX(0)' }}
-                >
-                  <Phone size={16} /> Liên hệ Tư vấn
-                </a>
-              </li>
+              {[
+                { name: 'Trang chủ', icon: Home, href: '/' },
+                { name: 'Danh sách Dự án', icon: Building2, href: '/projects' },
+                { name: 'Tin tức & Sự kiện', icon: Newspaper, href: '/news' },
+                { name: 'Giới thiệu', icon: Info, href: '/about' },
+                { name: 'Liên hệ Tư vấn', icon: Phone, href: '/contact' },
+              ].map((item) => (
+                <li key={item.name}>
+                  <a 
+                    href={item.href} 
+                    className="group flex items-center gap-3 text-sm text-[#FDFAF6]/80 hover:text-[#C9A84C] transition-all duration-300 hover:translate-x-1.5" 
+                  >
+                    <item.icon size={16} className="text-[#FDFAF6]/60 group-hover:text-[#C9A84C] transition-colors" /> 
+                    {item.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Cột 3: Hỗ trợ pháp lý (ĐÃ SỬA LINK Ở ĐÂY) */}
+          {/* Cột 3: Hỗ trợ khách hàng */}
           <div>
-            <h4 className="text-xs font-bold text-white mb-6 uppercase tracking-widest">Hỗ trợ khách hàng</h4>
+            <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-[0.15em] border-b border-white/20 pb-3 inline-block">
+              Hỗ trợ khách hàng
+            </h4>
             <ul className="space-y-4">
-              <li>
-                <a 
-                  href="/privacy-policy" 
-                  className="block text-sm transition-colors duration-300" 
-                  style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'; e.currentTarget.style.transform = 'translateX(0)' }}
-                >
-                  Chính sách bảo mật
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/terms" 
-                  className="block text-sm transition-colors duration-300" 
-                  style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'; e.currentTarget.style.transform = 'translateX(0)' }}
-                >
-                  Điều khoản dịch vụ
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/faq" 
-                  className="block text-sm transition-colors duration-300" 
-                  style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'; e.currentTarget.style.transform = 'translateX(0)' }}
-                >
-                  Câu hỏi thường gặp (FAQ)
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/loan-guide" 
-                  className="block text-sm transition-colors duration-300" 
-                  style={{ color: 'rgba(253, 250, 246, 0.75)' }} 
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C'; e.currentTarget.style.transform = 'translateX(4px)' }} 
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'; e.currentTarget.style.transform = 'translateX(0)' }}
-                >
-                  Hướng dẫn thủ tục vay vốn
-                </a>
-              </li>
+              {[
+                { name: 'Chính sách bảo mật', href: '/privacy-policy' },
+                { name: 'Điều khoản dịch vụ', href: '/terms' },
+                { name: 'Câu hỏi thường gặp (FAQ)', href: '/faq' },
+                { name: 'Hướng dẫn thủ tục vay vốn', href: '/loan-guide' },
+              ].map((item) => (
+                <li key={item.name}>
+                  <a 
+                    href={item.href} 
+                    className="inline-block text-sm text-[#FDFAF6]/80 hover:text-[#C9A84C] transition-all duration-300 hover:translate-x-1.5" 
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Cột 4: Liên hệ */}
           <div>
-            <h4 className="text-xs font-bold text-white mb-6 uppercase tracking-widest">Trụ sở chính</h4>
-            <div className="space-y-4">
-              <p className="flex items-start gap-3 text-sm" style={{ color: 'rgba(253, 250, 246, 0.75)' }}>
-                <MapPin size={16} className="mt-1 flex-shrink-0" /> 
-                <span>C26, đường D8, KDC Caric, An Khánh<br/>TP. Hồ Chí Minh, Việt Nam</span>
-              </p>
-              <p className="flex items-center gap-3 text-sm" style={{ color: 'rgba(253, 250, 246, 0.75)' }}>
-                <Phone size={16} /> 
+            <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-[0.15em] border-b border-white/20 pb-3 inline-block">
+              Trụ sở chính
+            </h4>
+            <div className="space-y-5">
+              <div className="flex items-start gap-3 text-sm text-[#FDFAF6]/80 leading-relaxed">
+                <MapPin size={18} className="mt-0.5 shrink-0 text-[#C9A84C]" /> 
+                <p>C26, đường D8, KDC Caric, An Khánh<br/>TP. Hồ Chí Minh, Việt Nam</p>
+              </div>
+              
+              <div className="flex items-center gap-3 text-sm text-[#FDFAF6]/80">
+                <Phone size={18} className="shrink-0 text-[#C9A84C]" /> 
                 <a 
-                  href="tel:+842838215555" 
-                  className="transition-colors duration-300" 
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#C9A84C'} 
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'}
+                  href="tel:+84986514242" 
+                  className="hover:text-[#C9A84C] transition-colors duration-300 font-medium tracking-wide" 
                 >
                   +84 0986 51 4242
                 </a>
-              </p>
-              <p className="flex items-center gap-3 text-sm" style={{ color: 'rgba(253, 250, 246, 0.75)' }}>
-                <Mail size={16} /> 
+              </div>
+              
+              <div className="flex items-center gap-3 text-sm text-[#FDFAF6]/80">
+                <Mail size={18} className="shrink-0 text-[#C9A84C]" /> 
                 <a 
-                  href="mailto:contact@happyhouse.vn" 
-                  className="transition-colors duration-300" 
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#C9A84C'} 
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(253, 250, 246, 0.75)'}
+                  href="mailto:ngocdiachinh34@gmail.com" 
+                  className="hover:text-[#C9A84C] transition-colors duration-300 tracking-wide" 
                 >
                   ngocdiachinh34@gmail.com
                 </a>
-              </p>
+              </div>
             </div>
           </div>
           
         </div>
 
         {/* Dòng Copyright */}
-        <div className="border-t pt-8" style={{ borderColor: 'rgba(253, 250, 246, 0.15)' }}>
+        <div className="border-t border-[#FDFAF6]/15 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs font-medium tracking-wide uppercase" style={{ color: 'rgba(253, 250, 246, 0.5)' }}>
+            <p className="text-xs font-medium tracking-wider uppercase text-[#FDFAF6]/50 text-center md:text-left">
               © {new Date().getFullYear()} HappyHouse Vietnam. Bản quyền đã được bảo hộ.
             </p>
-            <p className="text-xs font-medium tracking-widest uppercase" style={{ color: 'rgba(253, 250, 246, 0.5)' }}>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#C9A84C]/80 text-center md:text-right">
               Kiến tạo không gian • Nâng tầm giá trị
             </p>
           </div>

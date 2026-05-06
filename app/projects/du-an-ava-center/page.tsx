@@ -17,7 +17,7 @@ import {
   Car, Clock, Building, Check, Waves, Dumbbell, ShoppingBag, Trees,
   GraduationCap, Coffee, BookOpen, Utensils, Baby, Hammer, Home,
   Mail, Send, BarChart2, ArrowRight, ArrowLeft, Star, Maximize2, X,
-  Film, Stethoscope
+  Film, Stethoscope, Download, Gift
 } from "lucide-react"
 
 /* ─── Scroll Reveal Hook ─── */
@@ -76,7 +76,6 @@ function CoverflowCarousel({ items, imageFit = "cover", isDark = false, showText
     <div className={cn("relative w-full flex flex-col items-center justify-center overflow-hidden py-10 group/carousel", 
       showTextOutside ? "h-[400px] sm:h-[500px] md:h-[600px] lg:h-[650px]" : "h-[350px] sm:h-[450px] md:h-[550px] lg:h-[600px]"
     )}>
-      {/* Container chứa hình ảnh */}
       <div className="relative w-full h-full flex items-center justify-center">
         {displayItems.map((item, idx) => {
           let diff = idx - currentIndex
@@ -128,7 +127,6 @@ function CoverflowCarousel({ items, imageFit = "cover", isDark = false, showText
               )}
               style={{ transform: transformStr, opacity, zIndex }}
             >
-              {/* Hình ảnh */}
               <div className="relative w-full flex-grow group bg-white">
                 <Image 
                   src={item.src} 
@@ -388,7 +386,8 @@ export default function AVACenterLandingPage() {
     e.preventDefault()
     setIsSubmitting(true)
     try {
-      const response = await fetch('/api/send', {
+      // Đổi thành /api/contact cho đúng cấu hình file bạn đang có
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -400,7 +399,7 @@ export default function AVACenterLandingPage() {
           setFormData({ name: '', email: '', phone: '', product: '', message: '', subject: 'Đăng ký tư vấn dự án AVA Center' })
           setIsSubmitted(false)
         }, 4000)
-      } else { alert("Có lỗi từ máy chủ. Vui lòng thử lại!") }
+      } else { alert("Có lỗi từ máy chủ: " + (result.error || "Vui lòng thử lại!")) }
     } catch (error) { alert("Lỗi kết nối. Không thể đăng ký lúc này.") }
     finally { setIsSubmitting(false) }
   }
@@ -641,12 +640,11 @@ export default function AVACenterLandingPage() {
             </div>
           </Reveal>
       
-          {/* Grid 2 cột cân bằng 50/50 - Thêm items-start để tự động căn bằng */}
+          {/* Grid 2 cột cân bằng 50/50 */}
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
       
             {/* ══ CỘT TRÁI: ẢNH ══ */}
             <Reveal direction="left" className="relative h-full flex flex-col justify-center">
-              {/* Padding tạo khoảng cho floating cards không bị clip */}
               <div className="relative mx-auto w-full max-w-[460px] lg:max-w-none pt-4 pb-10 px-8 lg:pl-4 lg:pr-10">
       
                 {/* Ảnh chính */}
@@ -660,20 +658,18 @@ export default function AVACenterLandingPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1C0F0F]/75 via-[#1C0F0F]/10 to-transparent" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-[#B03A2E]/15 to-transparent mix-blend-overlay" />
       
-                  {/* Badge Resort trong ảnh */}
                   <div className="absolute top-5 left-5 flex items-center gap-1.5 bg-white/15 backdrop-blur-md rounded-full px-3.5 py-1.5 border border-white/25">
                     <Star className="w-3 h-3 text-[#C9A84C] fill-[#C9A84C]" />
                     <span className="text-white text-[10px] font-bold tracking-widest uppercase font-sans">Resort 5 Sao</span>
                   </div>
       
-                  {/* Địa chỉ dưới ảnh */}
                   <div className="absolute bottom-0 inset-x-0 p-6">
                     <p className="text-white/55 text-[10px] uppercase tracking-widest font-bold mb-0.5 font-sans">Mặt tiền đường Thủ Khoa Huân</p>
                     <p className="text-white font-bold text-base font-sans">Thuận An, Bình Dương</p>
                   </div>
                 </div>
       
-                {/* Floating: Social proof — trên phải */}
+                {/* Floating labels */}
                 <div className="absolute top-0 right-0 bg-white rounded-2xl px-4 py-3 shadow-xl border border-[#E8D7CF] z-20 flex items-center gap-3">
                   <div className="flex -space-x-2">
                     {[21, 22, 23, 24].map((u) => (
@@ -688,7 +684,6 @@ export default function AVACenterLandingPage() {
                   </div>
                 </div>
       
-                {/* Floating: Giá — dưới phải */}
                 <div className="absolute bottom-0 right-0 bg-[#1C0F0F] rounded-2xl px-6 py-4 shadow-[0_16px_40px_rgba(28,15,15,0.3)] border border-white/10 z-20 text-right">
                   <p className="text-white/45 text-[10px] uppercase tracking-widest mb-0.5 font-sans">Chỉ từ</p>
                   <p className="text-[#C9A84C] text-2xl font-bold leading-none font-sans">5 triệu</p>
@@ -698,7 +693,6 @@ export default function AVACenterLandingPage() {
                   </div>
                 </div>
       
-                {/* Decor blobs */}
                 <div className="absolute -bottom-8 -left-8 w-44 h-44 rounded-full bg-[#C9A84C]/12 blur-3xl -z-10" />
                 <div className="absolute -top-8 -right-8 w-52 h-52 rounded-full bg-[#B03A2E]/6 blur-3xl -z-10" />
               </div>
@@ -706,58 +700,35 @@ export default function AVACenterLandingPage() {
       
             {/* ══ CỘT PHẢI: NỘI DUNG ══ */}
             <Reveal direction="right" className="flex flex-col gap-6 h-full justify-center mt-0 lg:-mt-4">
-      
-              {/* Tiêu đề */}
               <div className="space-y-4">
                 <h2 className="text-3xl md:text-4xl lg:text-[2.5rem] font-bold text-[#2C1A1A] leading-[1.25] md:leading-[1.3] font-sans tracking-tight text-balance">
-                  Đừng mua căn hộ tại <span className="text-[#B03A2E]">Bình Dương</span> <br className="hidden md:block" /> khi chưa xem{" "}
-                  <span className="relative inline-block">
-                    <span className="relative z-10 text-[#B03A2E] italic">siêu phẩm</span>
-                    <span className="absolute left-0 -bottom-0.5 w-full h-[3px] bg-[#C9A84C] rounded-full" />
-                  </span>{" "}này!
+                  Đừng mua căn hộ tại <span className="text-[#B03A2E]">Bình Dương</span> <br className="hidden md:block" /> khi chưa xem <span className="relative inline-block"><span className="relative z-10 text-[#B03A2E] italic">siêu phẩm</span><span className="absolute left-0 -bottom-0.5 w-full h-[3px] bg-[#C9A84C] rounded-full" /></span> này!
                 </h2>
                 <p className="text-[#5D4E4E] text-sm md:text-[15px] leading-relaxed font-sans text-balance mt-2">
-                  Sở hữu ngay căn hộ <strong className="text-[#2C1A1A]">đẳng cấp Resort 5 sao</strong> với mức giá{" "}
-                  <span className="text-[#B03A2E] font-bold">không tưởng</span> <br />
-                  – Chỉ từ <strong className="text-[#2C1A1A]">5 triệu/tháng</strong>.
+                  Sở hữu ngay căn hộ <strong className="text-[#2C1A1A]">đẳng cấp Resort 5 sao</strong> với mức giá <span className="text-[#B03A2E] font-bold">không tưởng</span> – Chỉ từ <strong className="text-[#2C1A1A]">5 triệu/tháng</strong>.
                 </p>
               </div>
       
-              {/* Divider */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-px bg-gradient-to-r from-[#C9A84C]/40 to-transparent" />
                 <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
                 <div className="flex-1 h-px bg-gradient-to-l from-[#C9A84C]/40 to-transparent" />
               </div>
       
-              {/* USP Cards — clickable, smooth scroll */}
               <div className="space-y-2.5">
                 {[
-                  { icon: MapPin, title: "Vị trí Tam Giác Vàng",  desc: "Aeon Mall – Mega Market – Vincom ngay trước thềm nhà.",                                tag: "Vị trí đắc địa", target: "location" },
-                  { icon: Home,   title: "Bàn giao Full nội thất", desc: "Chỉ cần xách vali vào ở ngay, tiết kiệm hàng trăm triệu đồng.",                         tag: "Sẵn ở ngay",    target: "showroom" },
-                  { icon: Leaf,   title: "Gỗ chuẩn E0 an toàn",   desc: "Bảo vệ sức khỏe tuyệt đối theo tiêu chuẩn Châu Âu – Formaldehyde gần bằng 0.",  tag: "Sức khoẻ",       target: "showroom" },
+                  { icon: MapPin, title: "Vị trí Tam Giác Vàng",  desc: "Aeon Mall – Mega Market – Vincom ngay trước thềm nhà.", tag: "Vị trí đắc địa", target: "location" },
+                  { icon: Home,   title: "Bàn giao Full nội thất", desc: "Chỉ cần xách vali vào ở ngay, tiết kiệm hàng trăm triệu đồng.", tag: "Sẵn ở ngay",    target: "showroom" },
+                  { icon: Leaf,   title: "Gỗ chuẩn E0 an toàn",   desc: "Bảo vệ sức khỏe tuyệt đối theo tiêu chuẩn Châu Âu.", tag: "Sức khoẻ",       target: "showroom" },
                 ].map((item, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => {
-                      const el = document.getElementById(item.target)
-                      if (!el) return
-                      const top = el.getBoundingClientRect().top + window.pageYOffset - 90
-                      window.scrollTo({ top, behavior: "smooth" })
-                    }}
-                    className="relative w-full text-left flex items-center gap-4 bg-[#FDFAF6] rounded-xl p-4 border border-[#E8D7CF] hover:border-[#B03A2E]/30 hover:bg-white hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group overflow-hidden"
-                  >
-                    <div className="absolute left-0 inset-y-0 w-[3px] bg-[#B03A2E] rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <button key={i} type="button" onClick={() => { const el = document.getElementById(item.target); if (el) { const top = el.getBoundingClientRect().top + window.pageYOffset - 90; window.scrollTo({ top, behavior: "smooth" }) } }} className="relative w-full text-left flex items-center gap-4 bg-[#FDFAF6] rounded-xl p-4 border border-[#E8D7CF] hover:border-[#B03A2E]/30 hover:bg-white hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group overflow-hidden">
                     <div className="w-10 h-10 rounded-xl bg-[#FFF0EE] group-hover:bg-[#B03A2E] flex items-center justify-center shrink-0 transition-colors duration-300">
                       <item.icon className="w-5 h-5 text-[#B03A2E] group-hover:text-white transition-colors" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-0.5 flex-wrap">
                         <span className="text-[#2C1A1A] font-bold text-sm font-sans uppercase tracking-tight">{item.title}</span>
-                        <span className="text-[9px] bg-[#FFF0EE] text-[#B03A2E] border border-[#B03A2E]/15 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider font-sans shrink-0 group-hover:bg-[#B03A2E]/10">
-                          {item.tag}
-                        </span>
+                        <span className="text-[9px] bg-[#FFF0EE] text-[#B03A2E] border border-[#B03A2E]/15 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider font-sans shrink-0 group-hover:bg-[#B03A2E]/10">{item.tag}</span>
                       </div>
                       <p className="text-[#8A7D7D] text-xs leading-relaxed font-sans">{item.desc}</p>
                     </div>
@@ -766,7 +737,6 @@ export default function AVACenterLandingPage() {
                 ))}
               </div>
       
-              {/* Stats */}
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { value: "0%",      label: "Lãi suất 24 tháng" },
@@ -780,28 +750,18 @@ export default function AVACenterLandingPage() {
                 ))}
               </div>
       
-              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
-                <a
-                  href="#contact"
-                  className="flex-1 flex items-center justify-center gap-2.5 px-7 py-4 bg-[#B03A2E] text-white font-bold rounded-xl shadow-[0_10px_24px_rgba(176,58,46,0.3)] hover:bg-[#2C1A1A] hover:shadow-[0_14px_32px_rgba(44,26,26,0.32)] hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest text-sm font-sans"
-                >
+                <a href="#contact" className="flex-1 flex items-center justify-center gap-2.5 px-7 py-4 bg-[#B03A2E] text-white font-bold rounded-xl shadow-[0_10px_24px_rgba(176,58,46,0.3)] hover:bg-[#2C1A1A] hover:shadow-[0_14px_32px_rgba(44,26,26,0.32)] hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest text-sm font-sans">
                   Nhận ưu đãi độc quyền <ArrowRight className="w-4 h-4" />
                 </a>
-                <a
-                  href="tel:0901234567"
-                  className="flex items-center justify-center gap-2 px-6 py-4 bg-white border border-[#E8D7CF] hover:border-[#B03A2E]/30 text-[#2C1A1A] font-bold rounded-xl hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-sans shrink-0"
-                >
-                  <Phone className="w-4 h-4 text-[#B03A2E]" />
-                  Gọi Ngay
+                <a href="tel:0901234567" className="flex items-center justify-center gap-2 px-6 py-4 bg-white border border-[#E8D7CF] hover:border-[#B03A2E]/30 text-[#2C1A1A] font-bold rounded-xl hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-sans shrink-0">
+                  <Phone className="w-4 h-4 text-[#B03A2E]" /> Gọi Ngay
                 </a>
               </div>
-      
             </Reveal>
           </div>
         </div>
       </section>
-   
 
       {/* ============================================ */}
       {/* LOCATION (ZOOMABLE MAP) */}
@@ -826,26 +786,14 @@ export default function AVACenterLandingPage() {
           </Reveal>
 
           <div className="grid lg:grid-cols-5 gap-8 md:gap-12 mb-12 md:mb-16">
-            {/* Map Clickable */}
             <Reveal direction="left" className="lg:col-span-3">
-              <div 
-                onClick={() => setIsMapZoomed(true)}
-                className="relative rounded-3xl overflow-hidden border border-white/10 group cursor-pointer bg-white shadow-2xl" 
-                style={{ minHeight: '400px' }}
-                role="button"
-                aria-label="Phóng to bản đồ vị trí"
-                tabIndex={0}
-                onKeyDown={(e) => { if (e.key === 'Enter') setIsMapZoomed(true) }}
-              >
+              <div onClick={() => setIsMapZoomed(true)} className="relative rounded-3xl overflow-hidden border border-white/10 group cursor-pointer bg-white shadow-2xl" style={{ minHeight: '400px' }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') setIsMapZoomed(true) }}>
                 <Image src="/ava-center/mapsavacenter.png" alt="Bản đồ vị trí AVA Center" fill className="object-contain p-4 transition-transform duration-700 group-hover:scale-[1.02]" />
-                
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-[#1C0F0F]/15 transition-colors duration-300 flex items-center justify-center">
                   <div className="bg-[#B03A2E] text-white p-5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_40px_rgba(176,58,46,0.6)] scale-75 group-hover:scale-100">
                     <Maximize2 size={32} />
                   </div>
                 </div>
-
-                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#1C0F0F]/90 to-transparent pointer-events-none" />
                 <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-md rounded-2xl px-5 py-4 shadow-xl border border-[#E8D7CF] pointer-events-none flex items-center gap-4">
                   <div className="w-12 h-12 bg-[#FFF0EE] rounded-full flex items-center justify-center shrink-0">
                     <MapPin className="w-6 h-6 text-[#B03A2E]" />
@@ -861,9 +809,9 @@ export default function AVACenterLandingPage() {
             <div className="lg:col-span-2 flex flex-col justify-center space-y-5 md:space-y-6">
               {connections.map((item, idx) => (
                 <Reveal key={item.title} direction="right" delay={idx * 0.1}>
-                  <div className="bg-white/5 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-white/10 hover:bg-white/10 hover:border-[#C9A84C]/40 transition-all duration-300 group">
+                  <div className="bg-white/5 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
                     <div className="flex items-start gap-5">
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[#C9A84C]/15 flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] transition-colors duration-300">
+                      <div className="w-12 h-12 rounded-2xl bg-[#C9A84C]/15 flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] transition-colors duration-300">
                         <item.icon className="w-6 h-6 text-[#C9A84C] group-hover:text-[#1C0F0F] transition-colors" />
                       </div>
                       <div>
@@ -877,14 +825,12 @@ export default function AVACenterLandingPage() {
             </div>
           </div>
           
-          {/* Nearby grid */}
           <Reveal direction="up">
             <div className="bg-gradient-to-b from-white/5 to-transparent rounded-3xl p-8 md:p-12 border border-white/10">
-              <p className="text-[#C9A84C] text-sm font-bold tracking-[0.2em] uppercase text-center mb-8 font-sans">Kết Nối Hoàn Hảo — Ngàn Tiện Ích Xung Quanh</p>
+              <p className="text-[#C9A84C] text-sm font-bold tracking-[0.2em] uppercase font-sans text-center mb-8">Kết Nối Hoàn Hảo — Ngàn Tiện Ích Xung Quanh</p>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
                 {nearbyPlaces.map((place) => (
-                  <div key={place.name}
-                    className="text-center p-5 md:p-6 rounded-2xl bg-white/5 hover:bg-[#B03A2E] border border-white/10 hover:border-[#B03A2E] transition-all duration-300 group cursor-default">
+                  <div key={place.name} className="text-center p-5 md:p-6 rounded-2xl bg-white/5 hover:bg-[#B03A2E] border border-white/10 hover:border-[#B03A2E] transition-all duration-300 group cursor-default">
                     <p className="text-2xl md:text-3xl font-bold text-white mb-2 font-sans">{place.time}</p>
                     <p className="text-white/70 text-xs md:text-sm font-medium group-hover:text-white leading-snug font-sans">{place.name}</p>
                   </div>
@@ -895,9 +841,50 @@ export default function AVACenterLandingPage() {
         </div>
       </section>
 
-      {/* ============================================ */}
+      {/* ADDITIONAL FORM 1: MINI INLINE FORM (SỬA ĐỂ KHÔNG BỊ LỖI THIẾU EMAIL) */}
+      <section className="py-12 bg-white border-y border-[#E8D7CF]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="bg-[#F5EDE8] rounded-[2rem] p-8 md:p-12 flex flex-col lg:flex-row items-center gap-8 shadow-sm">
+            <div className="flex-1 text-center lg:text-left">
+              <h3 className="text-2xl md:text-3xl font-bold text-[#2C1A1A] mb-3 font-sans">Tải Trọn Bộ Tài Liệu Dự Án</h3>
+              <p className="text-[#5D4E4E] font-sans">Nhận ngay mặt bằng chi tiết và bảng giá mới nhất qua Zalo/Email.</p>
+            </div>
+            <form onSubmit={handleSubmit} className="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
+              <Input 
+                required
+                placeholder="Họ tên"
+                value={formData.name}
+                onChange={(e) => setFormData({
+                  ...formData, 
+                  name: e.target.value, 
+                  email: formData.email || "khachhang@form.nho", 
+                  message: "Yêu cầu tải tài liệu dự án (Gửi từ form nhanh)",
+                  subject: "Yêu cầu tải trọn bộ tài liệu AVA Center"
+                })}
+                className="bg-white border-[#E8D7CF] h-14 sm:w-64 rounded-xl focus-visible:ring-[#B03A2E]"
+              />
+              <Input 
+                required
+                type="tel"
+                placeholder="Số điện thoại"
+                value={formData.phone}
+                onChange={(e) => setFormData({
+                  ...formData, 
+                  phone: e.target.value,
+                  email: formData.email || "khachhang@form.nho", 
+                  message: "Yêu cầu tải tài liệu dự án (Gửi từ form nhanh)",
+                })}
+                className="bg-white border-[#E8D7CF] h-14 sm:w-64 rounded-xl focus-visible:ring-[#B03A2E]"
+              />
+              <Button type="submit" disabled={isSubmitting} className="h-14 px-8 bg-[#B03A2E] hover:bg-[#8B2E24] text-white rounded-xl font-bold uppercase transition-all whitespace-nowrap">
+                {isSubmitting ? "Đang gửi..." : "Gửi yêu cầu"} <Download className="ml-2 w-4 h-4" />
+              </Button>
+            </form>
+          </div>
+        </div>
+      </section>
+
       {/* PRODUCTS SECTION */}
-      {/* ============================================ */}
       <section id="products" className="py-20 md:py-32 overflow-hidden scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal direction="up">
@@ -911,7 +898,6 @@ export default function AVACenterLandingPage() {
             </div>
           </Reveal>
 
-          {/* Product tabs - Scrollable on mobile */}
           <Reveal direction="up" delay={0.1}>
             <div className="flex overflow-x-auto hide-scroll w-full justify-start md:justify-center gap-3 px-1 mb-12 md:mb-16 snap-x pb-4">
               {productTypes.map((p) => (
@@ -921,13 +907,11 @@ export default function AVACenterLandingPage() {
                     selectedProduct === p.id ? "bg-[#B03A2E] text-white shadow-[0_8px_20px_rgba(176,58,46,0.3)] scale-105" : "bg-white text-[#5D4E4E] hover:bg-[#F5EDE8] border border-[#E8D7CF]"
                   )}>
                   {p.name}
-                  {p.popular && <span className="absolute -top-1.5 -right-1.5 text-[9px] bg-[#C9A84C] text-[#1A0A08] px-2 py-0.5 rounded-full font-bold font-sans shadow-sm">Hot</span>}
                 </button>
               ))}
             </div>
           </Reveal>
 
-          {/* GALLERY MẶT BẰNG */}
           <Reveal direction="up" delay={0.15}>
             <div className="mb-8">
               <p className="text-center text-[#8A7D7D] text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans">Mặt Bằng Chi Tiết — {activeProduct.name}</p>
@@ -935,23 +919,12 @@ export default function AVACenterLandingPage() {
             </div>
           </Reveal>
 
-          {/* CHI TIẾT CĂN HỘ */}
           <Reveal direction="up" delay={0.2}>
             <div className="bg-white rounded-[2.5rem] p-8 md:p-14 lg:p-16 shadow-2xl shadow-black/5 border border-[#E8D7CF] relative overflow-hidden mb-16 mt-8">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-[#F5EDE8] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 opacity-70 pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#F5EDE8] rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 opacity-70 pointer-events-none" />
-
               <div className="relative z-10 max-w-4xl mx-auto text-center">
-                {activeProduct.popular && (
-                  <span className="inline-flex items-center gap-2 px-5 py-2 bg-[#B03A2E] text-white text-xs font-bold uppercase tracking-widest rounded-full mb-8 shadow-md font-sans">
-                    <Star className="w-4 h-4 fill-white" /> Sản phẩm được săn đón nhất
-                  </span>
-                )}
-
                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-10 font-sans">
                   {activeProduct.id === 'shophouse' ? '' : 'Căn hộ '}{activeProduct.name}
                 </h3>
-
                 <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 mb-10">
                   <div className="flex flex-col items-center">
                     <span className="text-[#8A7D7D] text-xs uppercase tracking-widest font-bold mb-2 font-sans">Diện tích thông thủy</span>
@@ -959,38 +932,21 @@ export default function AVACenterLandingPage() {
                   </div>
                   <div className="w-full h-px md:w-px md:h-16 bg-[#E8D7CF] max-w-[200px]" />
                   <div className="flex flex-col items-center">
-                    <span className="text-[#8A7D7D] text-xs uppercase tracking-widest font-bold mb-2 font-sans">Mức giá tham khảo</span>
+                    <span className="text-[#8A7D7D] text-xs uppercase tracking-widest font-bold mb-2 font-sans">Mức giá từ</span>
                     <span className="text-[#B03A2E] text-3xl md:text-5xl font-bold font-sans">{activeProduct.price}</span>
                   </div>
                 </div>
-
-                <div className="relative py-8 mb-10">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-full border-t border-[#E8D7CF]" />
-                  </div>
-                  <div className="relative flex justify-center">
-                    <span className="bg-white px-8 text-[#5D4E4E] italic text-lg md:text-xl font-medium font-sans text-center">
-                      "{activeProduct.description}"
-                    </span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
-                  {activeProduct.features.map((f) => (
-                    <div key={f} className="flex flex-col items-center justify-center text-center bg-[#F5EDE8]/60 p-5 md:p-6 rounded-3xl border border-[#E8D7CF]/80 hover:bg-[#F5EDE8] transition-colors">
-                      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mb-4 shadow-sm">
-                        <Check className="w-5 h-5 text-[#B03A2E]" />
-                      </div>
-                      <span className="text-[#2C1A1A] text-sm font-bold leading-snug font-sans">{f}</span>
-                    </div>
-                  ))}
-                </div>
-
                 <div className="flex justify-center">
                   <a href="#contact"
-                    onClick={() => setFormData(prev => ({ ...prev, product: activeProduct.id }))}
-                    className="inline-flex items-center gap-3 bg-[#2C1A1A] text-white font-bold text-sm uppercase tracking-widest px-10 py-5 md:py-6 rounded-full hover:bg-[#B03A2E] transition-all shadow-xl hover:shadow-[0_10px_30px_rgba(176,58,46,0.4)] hover:-translate-y-1 font-sans focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B03A2E]">
-                    Đăng Ký Tư Vấn {activeProduct.id === 'shophouse' ? '' : 'Căn '} {activeProduct.name} <ArrowRight size={18} />
+                    onClick={() => setFormData({ 
+                        ...formData, 
+                        product: activeProduct.id, 
+                        subject: `Yêu cầu tư vấn Căn hộ ${activeProduct.name}`,
+                        email: formData.email || "khachhang@form.sanpham",
+                        message: `Khách quan tâm căn hộ ${activeProduct.name}` 
+                    })}
+                    className="inline-flex items-center gap-3 bg-[#2C1A1A] text-white font-bold text-sm uppercase tracking-widest px-10 py-5 md:py-6 rounded-full hover:bg-[#B03A2E] transition-all shadow-xl hover:-translate-y-1 font-sans">
+                    Đăng Ký Tư Vấn {activeProduct.name} <ArrowRight size={18} />
                   </a>
                 </div>
               </div>
@@ -1007,65 +963,38 @@ export default function AVACenterLandingPage() {
             </div>
           </Reveal>
 
-          {/* ============================================ */}
-          {/* KHÔNG GIAN SỐNG / NHÀ MẪU */}
-          {/* ============================================ */}
+          {/* NHÀ MẪU */}
           <Reveal direction="up" delay={0.3} className="mt-24 pt-24 border-t border-[#E8D7CF]" id="showroom">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <div className="inline-flex items-center gap-3 mb-6">
-                <div className="h-px w-12 bg-[#B03A2E]" />
-                <span className="text-[#B03A2E] text-xs font-bold tracking-[0.2em] uppercase font-sans">Không Gian Sống</span>
-                <div className="h-px w-12 bg-[#B03A2E]" />
-              </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans">
                 Hình Ảnh Nhà Mẫu
               </h2>
-              <p className="text-[#5D4E4E] text-base md:text-lg leading-relaxed font-sans">
-                Chiêm ngưỡng không gian sống được thiết kế tỉ mỉ, bàn giao full nội thất cao cấp với tiêu chuẩn vật liệu vì sức khỏe E0.
-              </p>
             </div>
-            
             <CoverflowCarousel items={showroomGallery} imageFit="cover" showTextOutside={true} />
           </Reveal>
         </div>
       </section>
 
-      {/* ============================================ */}
       {/* AMENITIES SECTION */}
-      {/* ============================================ */}
       <section id="amenities" className="py-20 md:py-32 bg-[#1C0F0F] relative overflow-hidden scroll-mt-24">
-        <div className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full bg-[#B03A2E]/10 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[800px] h-[800px] rounded-full bg-[#C9A84C]/10 blur-[120px] pointer-events-none" />
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Reveal direction="up">
             <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-              <div className="inline-flex items-center gap-3 mb-6">
-                <div className="h-px w-12 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.2em] uppercase font-sans">Tiện Ích Nội Khu</span>
-                <div className="h-px w-12 bg-[#C9A84C]" />
-              </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight font-sans">
                 Đẳng Cấp Nghỉ Dưỡng Resort
               </h2>
-              <p className="text-white/70 text-base md:text-lg leading-relaxed font-sans">
-                Hệ sinh thái 36 tiện ích nội khu được đầu tư bài bản, mang đến trải nghiệm sống trọn vẹn và đủ đầy mỗi ngày.
-              </p>
             </div>
           </Reveal>
 
           <Reveal direction="up">
             <div className="relative rounded-3xl overflow-hidden mb-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 group bg-[#1A0A08]">
-              <Image src="/ava-center/tongtienich.png"
-                alt="Tổng quan tiện ích AVA Center" width={1400} height={700}
-                className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]" />
+              <Image src="/ava-center/tongtienich.png" alt="Tổng quan tiện ích AVA Center" width={1400} height={700} className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]" />
             </div>
             <p className="text-center text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-20 font-sans">Sơ đồ bố trí tiện ích tổng thể</p>
           </Reveal>
 
           <Reveal direction="up" delay={0.15}>
             <div className="mb-20">
-              <p className="text-center text-white/60 text-xs md:text-sm font-bold uppercase tracking-[0.2em] mb-4 font-sans">Khám phá không gian tiện ích</p>
               <CoverflowCarousel items={amenitiesGallery} imageFit="cover" isDark={true} showTextOutside={true} />
             </div>
           </Reveal>
@@ -1077,28 +1006,7 @@ export default function AVACenterLandingPage() {
                   <div className="w-12 h-12 md:w-14 md:h-14 mx-auto rounded-xl bg-[#C9A84C]/10 group-hover:bg-[#C9A84C] flex items-center justify-center mb-4 transition-colors duration-300">
                     <item.icon className="w-6 h-6 text-[#C9A84C] group-hover:text-[#1C0F0F] transition-colors" />
                   </div>
-                  <p className="text-white/80 group-hover:text-white text-xs md:text-sm font-bold leading-snug font-sans">{item.label}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {amenityCategories.map((cat, idx) => (
-              <Reveal key={cat.title} direction="up" delay={idx * 0.1}>
-                <div className="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 h-full shadow-2xl hover:bg-white/10 transition-colors group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#C9A84C]/15 flex items-center justify-center mb-6 group-hover:bg-[#C9A84C] transition-colors duration-300">
-                    <cat.icon className="w-7 h-7 text-[#C9A84C] group-hover:text-[#1C0F0F] transition-colors" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-6 font-sans">{cat.title}</h3>
-                  <ul className="space-y-4">
-                    {cat.items.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-white/70 text-sm md:text-base group-hover:text-white/90 transition-colors font-sans">
-                        <Check className="w-5 h-5 text-[#C9A84C] shrink-0" />
-                        <span className="leading-snug">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="text-white/80 group-hover:text-white text-xs md:text-sm font-bold font-sans">{item.label}</p>
                 </div>
               </Reveal>
             ))}
@@ -1106,24 +1014,12 @@ export default function AVACenterLandingPage() {
         </div>
       </section>
 
-      {/* ============================================ */}
       {/* PROGRESS & LEGAL */}
-      {/* ============================================ */}
       <section id="progress" className="py-20 md:py-32 bg-[#F5EDE8] scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal direction="up">
             <div className="text-center max-w-3xl mx-auto mb-20">
-              <div className="inline-flex items-center gap-3 mb-6">
-                <div className="h-px w-12 bg-[#B03A2E]" />
-                <span className="text-[#B03A2E] text-xs font-bold tracking-[0.2em] uppercase font-sans">Bảo Chứng Niềm Tin</span>
-                <div className="h-px w-12 bg-[#B03A2E]" />
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans">
-                Pháp Lý & Tiến Độ
-              </h2>
-              <p className="text-[#5D4E4E] text-base md:text-lg leading-relaxed font-sans">
-                Được bảo chứng bởi các thương hiệu hàng đầu và hành lang pháp lý chuẩn chỉnh, AVA Center mang đến sự an tâm tuyệt đối cho khách hàng và nhà đầu tư.
-              </p>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans">Pháp Lý & Tiến Độ</h2>
             </div>
           </Reveal>
 
@@ -1136,38 +1032,12 @@ export default function AVACenterLandingPage() {
                   </div>
                   <h3 className="text-2xl font-bold text-[#2C1A1A] font-sans">Tiến Độ Xây Dựng</h3>
                 </div>
-
                 <div className="relative pl-6 md:pl-10 space-y-0">
                   {milestones.map((m, idx) => (
                     <div key={m.id} className="relative pb-10 last:pb-0">
-                      {idx < milestones.length - 1 && (
-                        <div className="absolute left-[-27px] md:left-[-35px] top-6 bottom-0 w-1 bg-[#E8D7CF] rounded-full" />
-                      )}
-                      <div className={cn(
-                        "absolute -left-[33px] md:-left-[41px] top-1 w-7 h-7 rounded-full border-4 border-[#F5EDE8] flex items-center justify-center z-10 shadow-sm",
-                        m.status === "completed" ? "bg-[#2C8A4F]"
-                          : m.status === "in-progress" ? "bg-[#B03A2E] ring-4 ring-[#B03A2E]/20"
-                          : "bg-[#E8D7CF]"
-                      )}>
-                        {m.status === "in-progress" && (
-                          <div className="w-2 h-2 rounded-full bg-white animate-ping" />
-                        )}
-                      </div>
-
-                      <div className={cn(
-                        "rounded-3xl p-6 md:p-8 border transition-all duration-300",
-                        m.status === "in-progress" ? "bg-white border-[#B03A2E]/40 shadow-xl scale-[1.02]"
-                          : m.status === "completed" ? "bg-[#F0FBF5] border-[#2C8A4F]/20 shadow-sm"
-                          : "bg-white border-[#E8D7CF] shadow-sm opacity-80"
-                      )}>
-                        <span className={cn(
-                          "inline-block text-[11px] md:text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 font-sans",
-                          m.status === "completed" ? "bg-[#2C8A4F]/15 text-[#2C8A4F]"
-                            : m.status === "in-progress" ? "bg-[#B03A2E]/15 text-[#B03A2E]"
-                            : "bg-[#F5EDE8] text-[#8A7D7D]"
-                        )}>
-                          {m.date}
-                        </span>
+                      <div className={cn("absolute -left-[33px] md:-left-[41px] top-1 w-7 h-7 rounded-full border-4 border-[#F5EDE8] flex items-center justify-center z-10", m.status === "completed" ? "bg-[#2C8A4F]" : m.status === "in-progress" ? "bg-[#B03A2E]" : "bg-[#E8D7CF]")} />
+                      <div className={cn("rounded-3xl p-6 md:p-8 border transition-all duration-300 bg-white", m.status === "in-progress" && "border-[#B03A2E]/40 shadow-xl scale-[1.02]")}>
+                        <span className={cn("inline-block text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 font-sans", m.status === "completed" ? "bg-[#2C8A4F]/15 text-[#2C8A4F]" : m.status === "in-progress" ? "bg-[#B03A2E]/15 text-[#B03A2E]" : "bg-[#F5EDE8] text-[#8A7D7D]")}>{m.date}</span>
                         <h4 className="text-lg md:text-xl font-bold text-[#2C1A1A] mb-2 font-sans">{m.title}</h4>
                         <p className="text-[#5D4E4E] text-sm md:text-base leading-relaxed font-sans">{m.description}</p>
                       </div>
@@ -1178,98 +1048,48 @@ export default function AVACenterLandingPage() {
             </Reveal>
 
             <Reveal direction="right">
-              <div className="space-y-8 md:space-y-10">
-                <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-[#E8D7CF]">
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 bg-[#FFF0EE] rounded-2xl flex items-center justify-center shrink-0">
-                      <Shield className="text-[#B03A2E] w-6 h-6" />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-[#2C1A1A] font-sans">Hồ Sơ Pháp Lý</h3>
+              <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-[#E8D7CF]">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 bg-[#FFF0EE] rounded-2xl flex items-center justify-center shrink-0">
+                    <Shield className="text-[#B03A2E] w-6 h-6" />
                   </div>
-                  <ul className="space-y-4">
-                    {legalDocuments.map((doc) => (
-                      <li key={doc} className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-[#F5EDE8] hover:bg-[#E8D7CF]/50 transition-colors">
-                        <div className="w-6 h-6 rounded-full bg-[#2C8A4F]/20 flex items-center justify-center shrink-0">
-                          <Check className="w-4 h-4 text-[#2C8A4F]" />
-                        </div>
-                        <span className="text-[#2C1A1A] font-semibold text-sm md:text-base leading-relaxed font-sans">{doc}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="text-xl md:text-2xl font-bold text-[#2C1A1A] font-sans">Hồ Sơ Pháp Lý</h3>
                 </div>
-
-                <div className="relative bg-[#1C0F0F] rounded-3xl p-8 md:p-10 shadow-2xl overflow-hidden">
-                  <div className="absolute -top-16 -right-16 w-56 h-56 bg-[#B03A2E] rounded-full blur-[80px] opacity-50 pointer-events-none" />
-                  <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-[#C9A84C] rounded-full blur-[80px] opacity-30 pointer-events-none" />
-
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-4 mb-8">
-                      <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center shrink-0">
-                        <BarChart2 className="text-[#C9A84C] w-6 h-6" />
+                <ul className="space-y-4">
+                  {legalDocuments.map((doc) => (
+                    <li key={doc} className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-[#F5EDE8] transition-colors">
+                      <div className="w-6 h-6 rounded-full bg-[#2C8A4F]/20 flex items-center justify-center shrink-0">
+                        <Check className="w-4 h-4 text-[#2C8A4F]" />
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold text-white font-sans">Chính Sách Tài Chính</h3>
-                    </div>
-
-                    <div className="space-y-5">
-                      {[
-                        { rate: "0%", title: "Lãi suất 0% trong 24 tháng", desc: "Ân hạn nợ gốc và hỗ trợ lãi suất cho đến khi nhận nhà." },
-                        { rate: "70%", title: "Ngân hàng hỗ trợ vay 70%", desc: "Bảo lãnh dự án bởi các ngân hàng uy tín hàng đầu." },
-                      ].map((item) => (
-                        <div key={item.rate} className="flex items-center gap-5 bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-colors">
-                          <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
-                            <span className="text-2xl md:text-3xl font-bold text-[#C9A84C] font-sans">{item.rate}</span>
-                          </div>
-                          <div>
-                            <p className="text-white font-bold text-base md:text-lg mb-1.5 font-sans">{item.title}</p>
-                            <p className="text-white/70 text-sm leading-relaxed font-sans">{item.desc}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                      <span className="text-[#2C1A1A] font-semibold text-sm md:text-base leading-relaxed font-sans">{doc}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ============================================ */}
-      {/* CONTACT */}
-      {/* ============================================ */}
+      {/* CONTACT SECTION (ĐÃ ĐỒNG BỘ ROUTE API) */}
       <section id="contact" className="py-20 md:py-32 bg-[#F5EDE8] border-t border-[#E8D7CF] relative overflow-hidden scroll-mt-24">
-        <div className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full bg-[#B03A2E]/5 blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left */}
             <Reveal direction="left">
               <div>
-                <div className="inline-flex items-center gap-3 mb-6">
-                  <div className="h-px w-12 bg-[#B03A2E]" />
-                  <span className="text-[#B03A2E] text-xs font-bold tracking-[0.2em] uppercase font-sans">Liên Hệ Ngay Hôm Nay</span>
-                </div>
-                <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans text-balance">
-                  Giữ Chỗ Căn Đẹp Nhận Chiết Khấu.
-                </h2>
-                <p className="text-[#5D4E4E] text-base md:text-lg leading-relaxed mb-10 md:mb-12 font-sans max-w-lg">
-                  Đăng ký ngay để nhận trọn bộ tài liệu dự án, mặt bằng chi tiết từng tầng và bảng tính dòng tiền ưu đãi trực tiếp từ đơn vị phát triển AVA Corp.
-                </p>
-
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans text-balance">Giữ Chỗ Căn Đẹp Nhận Chiết Khấu.</h2>
                 <div className="space-y-5">
                   {[
                     { icon: Phone, label: "Hotline CSKH 24/7", value: "0901 234 567", href: "tel:0901234567", isLarge: true },
                     { icon: Mail, label: "Email Hỗ Trợ", value: "info@avacenter.vn", href: "mailto:info@avacenter.vn", isLarge: false },
                   ].map((c) => (
-                    <a key={c.label} href={c.href} className="flex items-center gap-5 bg-white p-6 rounded-3xl border border-[#E8D7CF] hover:border-[#B03A2E]/40 hover:shadow-xl transition-all duration-300 group outline-none focus:ring-2 focus:ring-[#B03A2E]">
-                      <div className="w-14 h-14 bg-[#FFF0EE] group-hover:bg-[#B03A2E] rounded-2xl flex items-center justify-center shrink-0 transition-colors duration-300 shadow-sm">
+                    <a key={c.label} href={c.href} className="flex items-center gap-5 bg-white p-6 rounded-3xl border border-[#E8D7CF] hover:border-[#B03A2E]/40 hover:shadow-xl transition-all duration-300 group outline-none">
+                      <div className="w-14 h-14 bg-[#FFF0EE] group-hover:bg-[#B03A2E] rounded-2xl flex items-center justify-center shrink-0 transition-colors shadow-sm">
                         <c.icon className="w-6 h-6 text-[#B03A2E] group-hover:text-white transition-colors" />
                       </div>
                       <div>
                         <p className="text-[#8A7D7D] text-xs font-bold uppercase tracking-widest mb-1 font-sans">{c.label}</p>
-                        <p className={cn("font-bold text-[#2C1A1A] group-hover:text-[#B03A2E] transition-colors font-sans", c.isLarge ? "text-2xl md:text-3xl" : "text-lg md:text-xl")}>
-                          {c.value}
-                        </p>
+                        <p className={cn("font-bold text-[#2C1A1A] group-hover:text-[#B03A2E] transition-colors font-sans", c.isLarge ? "text-2xl md:text-3xl" : "text-lg md:text-xl")}>{c.value}</p>
                       </div>
                     </a>
                   ))}
@@ -1277,88 +1097,57 @@ export default function AVACenterLandingPage() {
               </div>
             </Reveal>
 
-            {/* Form */}
+            {/* FORM TƯ VẤN CHÍNH */}
             <Reveal direction="right">
               <div className="bg-white rounded-[2.5rem] p-8 sm:p-10 md:p-12 shadow-2xl border border-[#E8D7CF]">
-                <h3 className="text-2xl md:text-3xl font-bold text-[#2C1A1A] mb-8 md:mb-10 text-center font-sans">
-                  Đăng Ký Tư Vấn
-                </h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-[#2C1A1A] mb-8 text-center font-sans">Đăng Ký Tư Vấn</h3>
 
                 {isSubmitted ? (
                   <div className="text-center py-12">
-                    <div className="w-20 h-20 md:w-24 md:h-24 bg-[#2C8A4F]/10 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
-                      <Check className="w-10 h-10 md:w-12 md:h-12 text-[#2C8A4F]" />
-                    </div>
-                    <h4 className="text-xl md:text-2xl font-bold text-[#2C1A1A] mb-3 font-sans">Đăng Ký Thành Công!</h4>
-                    <p className="text-[#5D4E4E] text-base mb-8 leading-relaxed font-sans">Chuyên viên của chúng tôi sẽ gọi lại cho quý khách trong thời gian sớm nhất.</p>
-                    <button onClick={() => setIsSubmitted(false)} className="text-[#B03A2E] font-bold text-base underline underline-offset-4 hover:text-[#8B2E24] transition-colors font-sans focus:outline-none focus:ring-2 focus:ring-[#B03A2E] rounded-md px-2 py-1">
-                      Đăng ký thêm thông tin khác
-                    </button>
+                    <div className="w-20 h-20 bg-[#2C8A4F]/10 rounded-full flex items-center justify-center mx-auto mb-6"><Check className="w-10 h-10 text-[#2C8A4F]" /></div>
+                    <h4 className="text-xl md:text-2xl font-bold text-[#2C1A1A] mb-3 font-sans">Thành Công!</h4>
+                    <p className="text-[#5D4E4E] text-base mb-8 font-sans">Chuyên viên của chúng tôi sẽ gọi lại ngay cho quý khách.</p>
+                    <button onClick={() => setIsSubmitted(false)} className="text-[#B03A2E] font-bold text-base underline font-sans">Đăng ký thêm thông tin</button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5 font-sans">
                     <div>
-                      <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Họ và tên <span className="text-[#B03A2E]">*</span></label>
-                      <Input required placeholder="Nhập họ và tên của bạn..."
-                        value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="bg-[#F5EDE8] border-transparent py-6 focus-visible:ring-[#B03A2E] focus-visible:ring-2 placeholder:text-[#C4B5B5] text-sm md:text-base rounded-xl" />
+                      <label className="block text-xs font-bold text-[#5D4E4E] uppercase mb-2.5">Họ và tên <span className="text-[#B03A2E]">*</span></label>
+                      <Input required placeholder="Nhập họ và tên..." value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="bg-[#F5EDE8] border-transparent py-6 rounded-xl focus-visible:ring-[#B03A2E]" />
                     </div>
-
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Điện thoại <span className="text-[#B03A2E]">*</span></label>
-                        <Input required type="tel" placeholder="09xx..."
-                          value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="bg-[#F5EDE8] border-transparent py-6 focus-visible:ring-[#B03A2E] focus-visible:ring-2 placeholder:text-[#C4B5B5] text-sm md:text-base rounded-xl" />
+                        <label className="block text-xs font-bold text-[#5D4E4E] uppercase mb-2.5">Điện thoại <span className="text-[#B03A2E]">*</span></label>
+                        <Input required type="tel" placeholder="09xx..." value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="bg-[#F5EDE8] border-transparent py-6 rounded-xl focus-visible:ring-[#B03A2E]" />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Sản phẩm quan tâm</label>
+                        <label className="block text-xs font-bold text-[#5D4E4E] uppercase mb-2.5">Sản phẩm</label>
                         <div className="relative">
-                          <select value={formData.product} onChange={(e) => setFormData({ ...formData, product: e.target.value })}
-                            className="w-full h-[50px] rounded-xl bg-[#F5EDE8] border-0 px-4 text-sm md:text-base text-[#2C1A1A] focus:outline-none focus:ring-2 focus:ring-[#B03A2E] appearance-none cursor-pointer">
+                          <select value={formData.product} onChange={(e) => setFormData({ ...formData, product: e.target.value, subject: `Khách quan tâm sản phẩm ${e.target.value}` })} className="w-full h-[50px] rounded-xl bg-[#F5EDE8] border-0 px-4 text-sm md:text-base appearance-none cursor-pointer focus:ring-2 focus:ring-[#B03A2E]">
                             <option value="">Chọn loại căn...</option>
-                            <option value="Studio">Studio (~31m²)</option>
-                            <option value="1PN">1 Phòng ngủ (~45m²)</option>
-                            <option value="2PN">2 Phòng ngủ (~67m²)</option>
-                            <option value="3PN">3 Phòng ngủ (~85-95m²)</option>
+                            <option value="Studio">Studio</option>
+                            <option value="1PN">1 Phòng ngủ</option>
+                            <option value="2PN">2 Phòng ngủ</option>
+                            <option value="3PN">3 Phòng ngủ</option>
                             <option value="Officetel">Officetel</option>
-                            <option value="Shophouse">Shophouse Khối đế</option>
+                            <option value="Shophouse">Shophouse</option>
                           </select>
-                          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A7D7D] pointer-events-none" />
+                          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A7D7D]" />
                         </div>
                       </div>
                     </div>
-
                     <div>
-                      <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Email <span className="text-[#8A7D7D] normal-case tracking-normal font-normal">(Tùy chọn)</span></label>
-                      <Input type="email" placeholder="Để nhận tài liệu qua email..."
-                        value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="bg-[#F5EDE8] border-transparent py-6 focus-visible:ring-[#B03A2E] focus-visible:ring-2 placeholder:text-[#C4B5B5] text-sm md:text-base rounded-xl" />
+                      <label className="block text-xs font-bold text-[#5D4E4E] uppercase mb-2.5">Email <span className="text-[#B03A2E]">*</span></label>
+                      <Input required type="email" placeholder="Địa chỉ email của bạn..." value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="bg-[#F5EDE8] border-transparent py-6 rounded-xl focus-visible:ring-[#B03A2E]" />
                     </div>
-
                     <div>
-                      <label className="block text-xs font-bold text-[#5D4E4E] uppercase tracking-widest mb-2.5">Ghi chú thêm</label>
-                      <textarea rows={3} placeholder="Bạn cần tư vấn vấn đề gì..."
-                        value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full rounded-xl border-0 bg-[#F5EDE8] px-4 py-4 text-sm md:text-base text-[#2C1A1A] placeholder:text-[#C4B5B5] focus:outline-none focus:ring-2 focus:ring-[#B03A2E] resize-none" />
+                      <label className="block text-xs font-bold text-[#5D4E4E] uppercase mb-2.5">Nội dung <span className="text-[#B03A2E]">*</span></label>
+                      <textarea required rows={3} placeholder="Nội dung cần tư vấn..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full rounded-xl border-0 bg-[#F5EDE8] px-4 py-4 text-sm md:text-base resize-none focus:ring-2 focus:ring-[#B03A2E]" />
                     </div>
-
-                    <button type="submit" disabled={isSubmitting}
-                      className={cn(
-                        "w-full py-5 rounded-2xl font-bold text-sm uppercase tracking-widest text-white transition-all flex items-center justify-center gap-3 mt-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B03A2E]",
-                        isSubmitting
-                          ? "bg-[#B03A2E]/50 cursor-not-allowed"
-                          : "bg-[#B03A2E] hover:bg-[#8B2E24] shadow-[0_10px_30px_rgba(176,58,46,0.3)] hover:shadow-[0_15px_40px_rgba(176,58,46,0.4)] hover:-translate-y-1"
-                      )}>
-                      {isSubmitting ? (
-                        <><span className="animate-spin inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full" /> Đang gửi...</>
-                      ) : (
-                        <><Send size={18} /> Nhận Báo Giá Ngay</>
-                      )}
+                    <button type="submit" disabled={isSubmitting} className="w-full py-5 rounded-2xl font-bold text-sm bg-[#B03A2E] hover:bg-[#8B2E24] text-white flex items-center justify-center gap-3 transition-all shadow-lg">
+                      {isSubmitting ? <span className="animate-spin w-5 h-5 border-2 border-white/30 border-t-white rounded-full" /> : <><Send size={18} /> Nhận Báo Giá Ngay</>}
                     </button>
-                    <p className="text-center text-xs text-[#8A7D7D] mt-4 font-sans flex items-center justify-center gap-1.5">
-                      <Shield size={12} /> Thông tin của bạn được bảo mật tuyệt đối.
-                    </p>
+                    <p className="text-center text-xs text-[#8A7D7D] mt-4 flex items-center justify-center gap-1.5"><Shield size={12} /> Bảo mật thông tin tuyệt đối.</p>
                   </form>
                 )}
               </div>
@@ -1372,25 +1161,12 @@ export default function AVACenterLandingPage() {
 
       {/* Modal Phóng To Bản Đồ */}
       {isMapZoomed && (
-        <div className="fixed inset-0 z-[100] bg-[#1A0A08]/95 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300" 
-             onClick={() => setIsMapZoomed(false)}>
-          <button 
-            className="absolute top-4 right-4 md:top-8 md:right-8 bg-white/10 hover:bg-[#B03A2E] text-white rounded-full p-3 transition-colors z-50 shadow-lg focus:outline-none focus:ring-2 focus:ring-white"
-            onClick={(e) => { e.stopPropagation(); setIsMapZoomed(false); }}
-            aria-label="Đóng bản đồ"
-          >
+        <div className="fixed inset-0 z-[100] bg-[#1A0A08]/95 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300" onClick={() => setIsMapZoomed(false)}>
+          <button className="absolute top-4 right-4 md:top-8 md:right-8 bg-white/10 text-white rounded-full p-3 shadow-lg focus:outline-none" onClick={(e) => { e.stopPropagation(); setIsMapZoomed(false); }}>
             <X size={28} />
           </button>
-          <div 
-            className="relative w-full max-w-6xl aspect-[4/3] md:aspect-[16/9] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] animate-in zoom-in-95 duration-300 border border-white/20 bg-white"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image 
-              src="/ava-center/mapsavacenter.png" 
-              alt="Bản đồ AVA Center phóng to" 
-              fill 
-              className="object-contain p-4" 
-            />
+          <div className="relative w-full max-w-6xl aspect-[4/3] md:aspect-[16/9] rounded-3xl overflow-hidden animate-in zoom-in-95 duration-300 bg-white" onClick={(e) => e.stopPropagation()}>
+            <Image src="/ava-center/mapsavacenter.png" alt="Bản đồ AVA Center" fill className="object-contain p-4" />
           </div>
         </div>
       )}

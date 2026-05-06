@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useState, useMemo, useEffect, useRef, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
@@ -61,18 +62,7 @@ function Reveal({
   )
 }
 
-/* ─── Brand Tokens ─────────────────────────────────────
-   Cream bg:    #FDFAF6
-   Sidebar bg:  #F5EDE8
-   Card bg:     #FFFFFF
-   Red primary: #B03A2E
-   Red dark:    #7B241C
-   Gold:        #C9A84C
-   Warm text:   #5D4E4E
-   Muted:       #8A7D7D
-   Border:      #E8D7CF
-────────────────────────────────────────────────────── */
-
+/* ─── Data ───────────────────────────────────── */
 const tagLabels: { [key: string]: string } = {
   'Commercial Suite': 'CĂN HỘ THƯƠNG MẠI',
   'Shophouse': 'NHÀ PHỐ THƯƠNG MẠI',
@@ -80,13 +70,15 @@ const tagLabels: { [key: string]: string } = {
   'Smart Home': 'NHÀ THÔNG MINH',
   'Waterfront': 'CĂN HỘ VEN SÔNG',
   'Elite Corner Suite': 'CĂN GÓC CAO CẤP',
+  'Detox & Healthy': 'CĂN HỘ SỨC KHỎE',
 }
 
 const allProjects = [
   {
     id: 1,
     name: 'AVA CENTER',
-    location: 'THUẬN AN, HỒ CHÍ MINH',
+    slug: 'du-an-ava-center',
+    location: 'THUẬN AN, BÌNH DƯƠNG',
     area: 'THUẬN AN',
     price: 1500000000, 
     priceDisplay: 'ĐANG CẬP NHẬT',
@@ -97,6 +89,22 @@ const allProjects = [
     completion: '2027',
     tag: 'Premium Residence',
     squareMeters: '211 OFFICETEL • 6 TMDV',
+  },
+  {
+    id: 2,
+    name: 'THE PEAK GARDEN',
+    slug: 'du-an-the-peakgarden',
+    location: 'QUẬN 7, HỒ CHÍ MINH',
+    area: 'QUẬN 7',
+    price: 3000000000, 
+    priceDisplay: 'TỪ 46 TRIỆU/M²',
+    image: '/the-peak-garden/banner-main-type2.jpg',
+    description: 'CĂN HỘ CHĂM SÓC SỨC KHỎE & SẮC ĐẸP ĐẦU TIÊN TẠI NAM SÀI GÒN',
+    type: 'CĂN HỘ',
+    units: '900+ CĂN',
+    completion: '2026',
+    tag: 'Detox & Healthy',
+    squareMeters: '39 TIỆN ÍCH • 5.2 HA',
   }
 ]
 
@@ -107,7 +115,7 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
   return (
     <Reveal direction="up" delay={index * 0.1}>
       <Link
-        href={`/projects/du-an-ava-center`} 
+        href={`/projects/${project.slug}`} 
         style={{
           display: 'block',
           transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
@@ -121,7 +129,6 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Image */}
         <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
           <img
             src={project.image}
@@ -134,7 +141,6 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
               transform: isHovered ? 'scale(1.05)' : 'scale(1)',
             }}
           />
-          {/* Tag badge */}
           <div
             style={{
               position: 'absolute',
@@ -153,7 +159,6 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
           </div>
         </div>
 
-        {/* Content */}
         <div style={{ padding: '20px' }}>
           <h3
             style={{
@@ -167,15 +172,12 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
           >
             {project.name}
           </h3>
-
           <p style={{ fontSize: '11px', color: '#8A7D7D', letterSpacing: '0.05em', marginBottom: '10px', fontWeight: 600 }}>
             {project.location}
           </p>
-
           <p style={{ fontSize: '12px', color: '#5D4E4E', lineHeight: 1.6, letterSpacing: '0.03em', marginBottom: '12px' }}>
             {project.description}
           </p>
-
           <div
             style={{
               display: 'flex',
@@ -219,12 +221,14 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
   )
 }
 
-/* ─── Page ────────────────────────────────────────── */
-export default function ProjectsPage() {
+/* ─── Projects Logic Component ────────────────────────────────────────── */
+function ProjectsContent() {
+  const searchParams = useSearchParams()
+
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [selectedArea, setSelectedArea] = useState<string | null>(null)
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000000000])
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000000000])
   const [currentPage, setCurrentPage] = useState(1)
   
   const [showMobileFilters, setShowMobileFilters] = useState(false)
@@ -236,7 +240,32 @@ export default function ProjectsPage() {
     { value: 'NHÀ PHỐ', label: 'NHÀ PHỐ' },
   ]
   
-  const areas = ['THUẬN AN', 'DĨ AN', 'THỦ ĐỨC', 'QUẬN 1', 'QUẬN 2', 'QUẬN 9']
+  const areas = ['THUẬN AN', 'QUẬN 7', 'DĨ AN', 'THỦ ĐỨC', 'QUẬN 1', 'QUẬN 2', 'QUẬN 9']
+
+  // Đọc dữ liệu từ URL khi trang vừa load
+  useEffect(() => {
+    const qParam = searchParams.get('q')
+    if (qParam) setSearchQuery(qParam)
+
+    const typeParam = searchParams.get('type')
+    if (typeParam && typeParam !== 'Tất cả loại') {
+      if (typeParam === 'Căn hộ chung cư') setSelectedType('CĂN HỘ')
+      else if (typeParam === 'Shophouse') setSelectedType('SHOPHOUSE')
+      else if (typeParam === 'Nhà phố') setSelectedType('NHÀ PHỐ')
+    }
+
+    const areaParam = searchParams.get('area')
+    if (areaParam && areaParam !== 'Tất cả khu vực') {
+      setSelectedArea(areaParam.toUpperCase())
+    }
+
+    const priceParam = searchParams.get('price')
+    if (priceParam && priceParam !== 'Tất cả mức giá') {
+      if (priceParam === 'Từ 0.0 - 5.0 Tỷ') setPriceRange([0, 5000000000])
+      else if (priceParam === 'Từ 5.0 - 10.0 Tỷ') setPriceRange([5000000000, 10000000000])
+      else if (priceParam === 'Trên 10 Tỷ') setPriceRange([10000000000, 50000000000]) 
+    }
+  }, [searchParams])
 
   const filteredProjects = useMemo(() => {
     return allProjects.filter((project) => {
@@ -261,7 +290,7 @@ export default function ProjectsPage() {
     setSearchQuery('')
     setSelectedType(null)
     setSelectedArea(null)
-    setPriceRange([0, 5000000000])
+    setPriceRange([0, 10000000000])
     setCurrentPage(1)
   }
 
@@ -309,7 +338,6 @@ export default function ProjectsPage() {
       {/* ── Main Content ── */}
       <div style={{ padding: '0 0 80px', backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          
           <div className="flex flex-col lg:grid lg:grid-cols-[260px_1fr] gap-8 lg:gap-10">
 
             {/* ── Sidebar ── */}
@@ -403,7 +431,6 @@ export default function ProjectsPage() {
                             onChange={() => { setSelectedArea(a.value); setCurrentPage(1) }}
                             style={{ accentColor: '#B03A2E', width: '16px', height: '16px' }}
                           />
-                          {/* ĐÃ FIX LỖI TẠI ĐÂY: Thay {t.label} thành {a.label} */}
                           <span style={{ fontSize: '11px', letterSpacing: '0.06em', color: '#5D4E4E', fontWeight: selectedArea === a.value ? 800 : 500 }}>
                             {a.label}
                           </span>
@@ -423,7 +450,7 @@ export default function ProjectsPage() {
                         <input
                           type="range"
                           min="0"
-                          max="5000000000"
+                          max="10000000000"
                           step="100000000"
                           value={priceRange[0]}
                           onChange={(e) => {
@@ -441,7 +468,7 @@ export default function ProjectsPage() {
                         <input
                           type="range"
                           min="0"
-                          max="5000000000"
+                          max="10000000000"
                           step="100000000"
                           value={priceRange[1]}
                           onChange={(e) => {
@@ -486,7 +513,6 @@ export default function ProjectsPage() {
 
             {/* ── Projects Grid ── */}
             <div className="w-full">
-              {/* Result count */}
               <Reveal direction="up" delay={0.1}>
                 <div
                   style={{
@@ -616,5 +642,14 @@ export default function ProjectsPage() {
       <Footer />
       <ZaloButton />
     </main>
+  )
+}
+
+/* ─── Export Component Bọc Trong Suspense ────────────────────────────────────────── */
+export default function ProjectsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-[#B03A2E] font-bold">Đang tải dữ liệu...</div>}>
+      <ProjectsContent />
+    </Suspense>
   )
 }
