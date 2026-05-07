@@ -497,7 +497,7 @@ export default function ThePeakGardenLandingPage() {
               ))}
               <a href="#contact"
                 className="ml-4 text-xs font-bold bg-[#2E7D32] text-white px-6 py-3 rounded-full tracking-[0.1em] uppercase hover:bg-[#1B5E20] transition-all shadow-md hover:shadow-xl hover:shadow-[#2E7D32]/30 hover:-translate-y-0.5 font-sans">
-                Đăng Ký Ngay
+                Nhận Bảng Giá
               </a>
             </nav>
 
@@ -843,7 +843,7 @@ export default function ThePeakGardenLandingPage() {
                   Nhận ưu đãi độc quyền <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
-                  href="tel:0901234567"
+                  href="tel:0986514242"
                   className="flex items-center justify-center gap-2 px-6 py-4 bg-white border border-[#D4E8D0] hover:border-[#2E7D32]/30 text-[#1A2E1A] font-bold rounded-xl hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-sans shrink-0"
                 >
                   <Phone className="w-4 h-4 text-[#2E7D32]" />
@@ -1407,8 +1407,8 @@ export default function ThePeakGardenLandingPage() {
 
                 <div className="space-y-5">
                   {[
-                    { icon: Phone, label: "Hotline CSKH 24/7", value: "0901 234 567", href: "tel:0901234567", isLarge: true },
-                    { icon: Mail, label: "Email Hỗ Trợ", value: "info@thepeakgarden.vn", href: "mailto:info@thepeakgarden.vn", isLarge: false },
+                    { icon: Phone, label: "Hotline CSKH 24/7", value: "0986 514 242", href: "tel:0986b 51 4242", isLarge: true },
+                    { icon: Mail, label: "Email Hỗ Trợ", value: "ngocdiachinh34@gmail.com", href: "ngocdiachinh34@gmail.com", isLarge: false },
                   ].map((c) => (
                     <a key={c.label} href={c.href} className="flex items-center gap-5 bg-white p-6 rounded-3xl border border-[#D4E8D0] hover:border-[#2E7D32]/40 hover:shadow-xl transition-all duration-300 group outline-none focus:ring-2 focus:ring-[#2E7D32]">
                       <div className="w-14 h-14 bg-[#E8F5E9] group-hover:bg-[#2E7D32] rounded-2xl flex items-center justify-center shrink-0 transition-colors duration-300 shadow-sm">

@@ -754,7 +754,7 @@ export default function AVACenterLandingPage() {
                 <a href="#contact" className="flex-1 flex items-center justify-center gap-2.5 px-7 py-4 bg-[#B03A2E] text-white font-bold rounded-xl shadow-[0_10px_24px_rgba(176,58,46,0.3)] hover:bg-[#2C1A1A] hover:shadow-[0_14px_32px_rgba(44,26,26,0.32)] hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest text-sm font-sans">
                   Nhận ưu đãi độc quyền <ArrowRight className="w-4 h-4" />
                 </a>
-                <a href="tel:0901234567" className="flex items-center justify-center gap-2 px-6 py-4 bg-white border border-[#E8D7CF] hover:border-[#B03A2E]/30 text-[#2C1A1A] font-bold rounded-xl hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-sans shrink-0">
+                <a href="tel:0986 51 4242" className="flex items-center justify-center gap-2 px-6 py-4 bg-white border border-[#E8D7CF] hover:border-[#B03A2E]/30 text-[#2C1A1A] font-bold rounded-xl hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-sans shrink-0">
                   <Phone className="w-4 h-4 text-[#B03A2E]" /> Gọi Ngay
                 </a>
               </div>
@@ -1080,8 +1080,8 @@ export default function AVACenterLandingPage() {
                 <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#2C1A1A] mb-6 leading-tight font-sans text-balance">Giữ Chỗ Căn Đẹp Nhận Chiết Khấu.</h2>
                 <div className="space-y-5">
                   {[
-                    { icon: Phone, label: "Hotline CSKH 24/7", value: "0901 234 567", href: "tel:0901234567", isLarge: true },
-                    { icon: Mail, label: "Email Hỗ Trợ", value: "info@avacenter.vn", href: "mailto:info@avacenter.vn", isLarge: false },
+                    { icon: Phone, label: "Hotline CSKH 24/7", value: "0986 51 4242", href: "tel:0986514242", isLarge: true },
+                    { icon: Mail, label: "Email Hỗ Trợ", value: "ngocdiachinh34@gmail.com", href: "mailto:ngocdiachinh34@gmail.com", isLarge: false },
                   ].map((c) => (
                     <a key={c.label} href={c.href} className="flex items-center gap-5 bg-white p-6 rounded-3xl border border-[#E8D7CF] hover:border-[#B03A2E]/40 hover:shadow-xl transition-all duration-300 group outline-none">
                       <div className="w-14 h-14 bg-[#FFF0EE] group-hover:bg-[#B03A2E] rounded-2xl flex items-center justify-center shrink-0 transition-colors shadow-sm">

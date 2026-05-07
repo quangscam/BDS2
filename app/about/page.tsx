@@ -38,7 +38,6 @@ function useCountUp(target: number, visible: boolean) {
   return count
 }
 
-// ── Wrapper: hiệu ứng fade + slide khi scroll đến ──
 type Direction = 'up' | 'down' | 'left' | 'right' | 'scale'
 
 function Reveal({
@@ -55,7 +54,6 @@ function Reveal({
   style?: React.CSSProperties
 }) {
   const { ref, visible } = useScrollReveal(threshold)
-
   const initialTransform: Record<Direction, string> = {
     up: 'translateY(40px)',
     down: 'translateY(-40px)',
@@ -63,7 +61,6 @@ function Reveal({
     right: 'translateX(40px)',
     scale: 'scale(0.85)',
   }
-
   return (
     <div
       ref={ref}
@@ -71,7 +68,6 @@ function Reveal({
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : initialTransform[direction],
         transition: `opacity 0.65s ease-out ${delay}s, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
-        // Merge styles: Reveal handled animation, pass other styles down
         ...style,
       }}
     >
@@ -80,7 +76,6 @@ function Reveal({
   )
 }
 
-// ── StatCard ──
 function StatCard({ icon, number, suffix, label, delay = 0 }: {
   icon: string; number: number; suffix: string; label: string; delay?: number
 }) {
@@ -94,7 +89,6 @@ function StatCard({ icon, number, suffix, label, delay = 0 }: {
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.92)',
         transition: `opacity 0.6s ease-out ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
-        // Mobile UX optimization: basis logic handled in parent loop
       }}
     >
       <p style={{ fontSize: 'clamp(32px, 4vw, 48px)', marginBottom: '16px' }}>{icon}</p>
@@ -114,15 +108,6 @@ export default function AboutPage() {
     { icon: '👥', number: 500, suffix: '+', label: 'KHÁCH HÀNG HÀI LÒNG' },
     { icon: '🏗️', number: 50, suffix: '+', label: 'DỰ ÁN THÀNH CÔNG' },
     { icon: '😊', number: 98, suffix: '%', label: 'TỶ LỆ HÀI LÒNG' },
-  ]
-
-  const teamMembers = [
-       {
-      name: 'Vũ Thị Ngọc',
-      role: 'CHUYÊN VIÊN TƯ VẤN CẤP CAO',
-      bio: 'Phân tích đầu tư dựa trên giá trị thực & an toàn pháp lý.',
-      image: '/avatarvuthingoc2.png',
-    },
   ]
 
   const values = [
@@ -153,26 +138,358 @@ export default function AboutPage() {
     },
   ]
 
-  const milestones = [
-    { year: '2009', title: 'THÀNH LẬP HAPPYHOUSE', desc: 'Bắt đầu hành trình với dự án nhỏ đầu tiên tại TP.HCM.' },
-    { year: '2012', title: 'MỞ RỘNG THỊ TRƯỜNG', desc: 'Phát triển sang nhiều quận huyện trọng điểm.' },
-    { year: '2016', title: 'DỰ ÁN CAO CẤP ĐẦU TIÊN', desc: 'Khởi động dự án căn hộ cao cấp hạng sang.' },
-    { year: '2020', title: '500+ KHÁCH HÀNG', desc: 'Đạt mốc 500 gia đình tin tưởng HappyHouse.' },
-    { year: '2025', title: 'TẦM NHÌN MỚI', desc: 'Mở rộng danh mục dự án toàn quốc.' },
+  const certificates = [
+    {
+      title: 'CHỨNG CHỈ HÀNH NGHỀ MÔI GIỚI BẤT ĐỘNG SẢN',
+      issuer: 'Bộ Xây dựng Việt Nam',
+      number: 'Số: 123456/BXD-QLHĐXD',
+      year: '2026',
+      icon: '🏛️',
+      color: '#B03A2E',
+    },
+    {
+      title: 'CHỨNG CHỈ ĐỊNH GIÁ BẤT ĐỘNG SẢN',
+      issuer: 'Hội Thẩm định giá Việt Nam',
+      number: 'Số: 78901/HTĐGVN',
+      year: '2026',
+      icon: '📋',
+      color: '#C9A84C',
+    },
+    {
+      title: 'CHỨNG NHẬN HOÀN THÀNH ĐÀO TẠO MÔI GIỚI BĐS QUỐC TẾ',
+      issuer: 'National Association of Realtors® (NAR)',
+      number: 'Member ID: NAR-2019-VN-0582',
+      year: '2026',
+      icon: '🌐',
+      color: '#2C6E8A',
+    },
   ]
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#FDFAF6' }}>
       <Header />
 
-      {/* ── Hero Section ── (Added pt-24 to offset Header on Mobile) */}
-      <div className="pt-24 lg:pt-32 pb-16 lg:pb-20 border-b border-[#E8D7CF]" style={{ backgroundColor: '#FDFAF6' }}>
+      {/* ══════════════════════════════════════════
+          ── HERO: CHUYÊN VIÊN TƯ VẤN (ĐẶT LÊN ĐẦU) ──
+          ══════════════════════════════════════════ */}
+      <div
+        className="pt-24 lg:pt-32 pb-16 lg:pb-20"
+        style={{
+          background: 'linear-gradient(135deg, #2C1A1A 0%, #4A2020 50%, #3A1818 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Decorative background pattern */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(176,58,46,0.25) 0%, transparent 60%), radial-gradient(circle at 80% 20%, rgba(201,168,76,0.15) 0%, transparent 50%)',
+            pointerEvents: 'none',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 80px)',
+            pointerEvents: 'none',
+          }}
+        />
+
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
+
+          {/* Badge tiêu đề section */}
+          <Reveal direction="up">
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <span style={{
+                display: 'inline-block',
+                padding: '6px 20px',
+                borderRadius: '100px',
+                backgroundColor: 'rgba(176,58,46,0.3)',
+                border: '1px solid rgba(176,58,46,0.5)',
+                color: '#F5A99A',
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '0.15em',
+                marginBottom: '16px',
+              }}>
+                CHUYÊN VIÊN TƯ VẤN CỦA BẠN
+              </span>
+              <h2 style={{
+                fontSize: 'clamp(26px, 3.5vw, 40px)',
+                fontWeight: 900,
+                color: '#FDFAF6',
+                letterSpacing: '0.02em',
+              }}>
+                GẶP GỠ <span style={{ color: '#C9A84C' }}>CHUYÊN GIA</span> CỦA CHÚNG TÔI
+              </h2>
+            </div>
+          </Reveal>
+
+          {/* Profile Card: ảnh lớn + thông tin chuyên nghiệp */}
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '48px',
+            alignItems: 'stretch',
+            justifyContent: 'center',
+          }}>
+
+            {/* ── Ảnh lớn bên trái ── */}
+            <Reveal direction="left" delay={0.1} style={{ flex: '1 1 320px', maxWidth: '420px' }}>
+              <div style={{ position: 'relative', height: '100%', minHeight: '480px' }}>
+                {/* Gold frame decoration */}
+                <div style={{
+                  position: 'absolute',
+                  top: '-12px', left: '-12px',
+                  width: '100%', height: '100%',
+                  border: '2px solid rgba(201,168,76,0.4)',
+                  borderRadius: '16px',
+                  zIndex: 0,
+                }} />
+                <div style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  width: '100%',
+                  height: '100%',
+                  minHeight: '480px',
+                  borderRadius: '14px',
+                  overflow: 'hidden',
+                  boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
+                }}>
+                  <img
+                    src="/avatarvuthingoc2.png"
+                    alt="Vũ Thị Ngọc – Chuyên viên tư vấn cấp cao"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'top center',
+                      display: 'block',
+                    }}
+                  />
+                  {/* Gradient overlay bottom */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0, left: 0, right: 0,
+                    height: '120px',
+                    background: 'linear-gradient(to top, rgba(44,26,26,0.85), transparent)',
+                  }} />
+                  {/* Name tag at bottom of image */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '20px', left: '20px', right: '20px',
+                  }}>
+                    <p style={{ fontSize: '11px', color: '#C9A84C', letterSpacing: '0.12em', fontWeight: 700, marginBottom: '4px' }}>
+                      CHUYÊN VIÊN TƯ VẤN CẤP CAO
+                    </p>
+                    <p style={{ fontSize: '22px', fontWeight: 900, color: '#FDFAF6', letterSpacing: '0.01em' }}>
+                      Vũ Thị Ngọc
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* ── Thông tin bên phải ── */}
+            <Reveal direction="right" delay={0.2} style={{ flex: '1 1 340px', maxWidth: '560px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div>
+
+                {/* Tagline */}
+                <p style={{
+                  fontSize: '15px',
+                  fontStyle: 'italic',
+                  color: 'rgba(245,237,232,0.7)',
+                  marginBottom: '28px',
+                  lineHeight: 1.7,
+                  borderLeft: '3px solid #C9A84C',
+                  paddingLeft: '16px',
+                }}>
+                  "Mỗi giao dịch bất động sản là một quyết định quan trọng trong cuộc đời — tôi ở đây để đồng hành cùng bạn, từ những câu hỏi đầu tiên đến ngày bàn giao chìa khóa."
+                </p>
+
+                {/* Chuyên môn & nổi bật */}
+                <div style={{ marginBottom: '28px' }}>
+                  <h3 style={{ fontSize: '11px', fontWeight: 800, color: '#C9A84C', letterSpacing: '0.15em', marginBottom: '16px' }}>
+                    CHUYÊN MÔN NỔI BẬT
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {[
+                      { label: 'Phân tích đầu tư bất động sản', detail: 'Định giá theo giá trị thực, cân bằng lợi nhuận & rủi ro' },
+                      { label: 'Tư vấn pháp lý giao dịch', detail: 'Kiểm tra pháp lý dự án, an toàn 100% trước khi ký kết' },
+                      { label: 'Bất động sản cao cấp & thương mại', detail: 'Căn hộ hạng sang, shophouse, officetel tại TP.HCM' },
+                      { label: 'Lập kế hoạch tài chính mua nhà', detail: 'Tối ưu vay ngân hàng, hỗ trợ hồ sơ từ A–Z' },
+                    ].map((item, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                        <span style={{
+                          width: '20px', height: '20px',
+                          borderRadius: '50%',
+                          backgroundColor: 'rgba(176,58,46,0.8)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          flexShrink: 0,
+                          marginTop: '2px',
+                        }}>
+                          <span style={{ color: '#fff', fontSize: '10px', fontWeight: 800 }}>✓</span>
+                        </span>
+                        <div>
+                          <p style={{ fontSize: '13px', fontWeight: 700, color: '#FDFAF6', marginBottom: '2px' }}>{item.label}</p>
+                          <p style={{ fontSize: '12px', color: 'rgba(253,250,246,0.55)', lineHeight: 1.5 }}>{item.detail}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Số liệu nhanh */}
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '12px',
+                  marginBottom: '28px',
+                }}>
+                  {[
+                    { num: '10+', label: 'Năm kinh nghiệm' },
+                    { num: '93', label: 'Giao dịch thành công' },
+                    { num: '98%', label: 'Khách hàng hài lòng' },
+                  ].map((s, i) => (
+                    <div key={i} style={{
+                      flex: '1 1 90px',
+                      padding: '14px 16px',
+                      borderRadius: '10px',
+                      backgroundColor: 'rgba(255,255,255,0.07)',
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      textAlign: 'center',
+                    }}>
+                      <p style={{ fontSize: '22px', fontWeight: 900, color: '#C9A84C', marginBottom: '2px' }}>{s.num}</p>
+                      <p style={{ fontSize: '10px', color: 'rgba(253,250,246,0.6)', letterSpacing: '0.06em' }}>{s.label.toUpperCase()}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA liên hệ */}
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <a
+                    href="/contact"
+                    style={{
+                      display: 'inline-block',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontWeight: 700,
+                      fontSize: '12px',
+                      letterSpacing: '0.1em',
+                      backgroundColor: '#B03A2E',
+                      color: '#FDFAF6',
+                      textDecoration: 'none',
+                      transition: 'background 0.2s, transform 0.15s',
+                      boxShadow: '0 4px 16px rgba(176,58,46,0.4)',
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor = '#8E2D24'
+                      ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor = '#B03A2E'
+                      ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+                    }}
+                  >
+                    TƯ VẤN NGAY
+                  </a>
+                  <a
+                    href="tel:+840986514242"
+                    style={{
+                      display: 'inline-block',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontWeight: 700,
+                      fontSize: '12px',
+                      letterSpacing: '0.1em',
+                      backgroundColor: 'transparent',
+                      color: '#C9A84C',
+                      textDecoration: 'none',
+                      border: '1px solid rgba(201,168,76,0.5)',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(201,168,76,0.15)'
+                      ;(e.currentTarget as HTMLElement).style.borderColor = '#C9A84C'
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent'
+                      ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,76,0.5)'
+                    }}
+                  >
+                    📞 GỌI ĐIỆN TRAO ĐỔI
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* ── Chứng chỉ hành nghề ── */}
+          <Reveal direction="up" delay={0.3}>
+            <div style={{ marginTop: '56px' }}>
+              <div style={{
+                textAlign: 'center',
+                marginBottom: '28px',
+              }}>
+                <p style={{ fontSize: '11px', fontWeight: 700, color: '#C9A84C', letterSpacing: '0.15em', marginBottom: '8px' }}>
+                  CHỨNG CHỈ & NĂNG LỰC HÀNH NGHỀ
+                </p>
+                <div style={{ width: '48px', height: '2px', backgroundColor: '#C9A84C', margin: '0 auto' }} />
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
+                {certificates.map((cert, idx) => (
+                  <Reveal key={idx} direction="up" delay={0.1 * idx}>
+                    <div style={{
+                      flex: '1 1 260px',
+                      maxWidth: '360px',
+                      padding: '20px 24px',
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(255,255,255,0.06)',
+                      border: `1px solid rgba(255,255,255,0.1)`,
+                      borderLeft: `3px solid ${cert.color}`,
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '16px',
+                      backdropFilter: 'blur(4px)',
+                    }}>
+                      <span style={{ fontSize: '28px', flexShrink: 0, marginTop: '2px' }}>{cert.icon}</span>
+                      <div>
+                        <p style={{
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          color: '#FDFAF6',
+                          letterSpacing: '0.05em',
+                          marginBottom: '6px',
+                          lineHeight: 1.4,
+                        }}>
+                          {cert.title}
+                        </p>
+                        <p style={{ fontSize: '11px', color: 'rgba(253,250,246,0.55)', marginBottom: '2px' }}>
+                          {cert.issuer}
+                        </p>
+                        <p style={{ fontSize: '10px', color: 'rgba(253,250,246,0.35)', letterSpacing: '0.04em' }}>
+                          {cert.number} &nbsp;·&nbsp; Cấp năm {cert.year}
+                        </p>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════
+          ── VỀ HAPPYHOUSE HERO ──
+          ══════════════════════════════════════════ */}
+      <div className="py-16 lg:py-20 border-b border-[#E8D7CF]" style={{ backgroundColor: '#FDFAF6' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          
-          {/* TỐI ƯU UX/UI MOBILE: Xóa hoàn toàn grid-cols, dùng Flex Wrap để tự động xếp dọc khi hẹp */}
           <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: '64px', rowGap: '40px', alignItems: 'center' }}>
-            
-            {/* 1. Text bên trái: Tự động chiếm 100% trên Mobile, chia đôi trên Desktop */}
             <Reveal direction="left" style={{ flex: '1 1 320px', minWidth: 0, maxWidth: '100%' }}>
               <div>
                 <Reveal delay={0.1}>
@@ -197,7 +514,6 @@ export default function AboutPage() {
               </div>
             </Reveal>
 
-            {/* 2. Ảnh bên phải */}
             <Reveal direction="right" delay={0.2} style={{ flex: '1 1 320px', minWidth: 0, maxWidth: '100%' }}>
               <div style={{ position: 'relative', height: '400px', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(176,58,46,0.15)' }}>
                 <img
@@ -215,10 +531,9 @@ export default function AboutPage() {
       {/* ── Sứ mệnh & Tầm nhìn ── */}
       <div className="py-16 lg:py-20" style={{ backgroundColor: '#F5EDE8' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          {/* TỐI ƯU UX/UI MOBILE: Xếp dọc trên mobile (flex-col), 2 cột trên Desktop (lg:grid-cols-2) */}
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12">
             <Reveal direction="left" delay={0} style={{ display: 'flex' }}>
-              <div style={{ padding: '32px lg:48px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderLeft: '4px solid #B03A2E', flex: 1 }} className="p-8 lg:p-12">
+              <div style={{ padding: '32px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderLeft: '4px solid #B03A2E', flex: 1 }} className="p-8 lg:p-12">
                 <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#B03A2E', marginBottom: '20px', letterSpacing: '0.04em' }}>SỨ MỆNH</h2>
                 <p style={{ fontSize: '15px', lineHeight: 1.8, color: '#5D4E4E' }}>
                   Phát triển những dự án bất động sản chất lượng cao, tạo ra những không gian sống và làm việc lý tưởng cho mọi gia đình Việt Nam. Mỗi dự án là một cơ hội để nâng cao chất lượng cuộc sống cộng đồng.
@@ -226,7 +541,7 @@ export default function AboutPage() {
               </div>
             </Reveal>
             <Reveal direction="right" delay={0.15} style={{ display: 'flex' }}>
-              <div style={{ padding: '32px lg:48px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderLeft: '4px solid #C9A84C', flex: 1 }} className="p-8 lg:p-12">
+              <div style={{ padding: '32px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderLeft: '4px solid #C9A84C', flex: 1 }} className="p-8 lg:p-12">
                 <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#C9A84C', marginBottom: '20px', letterSpacing: '0.04em' }}>TẦM NHÌN</h2>
                 <p style={{ fontSize: '15px', lineHeight: 1.8, color: '#5D4E4E' }}>
                   Trở thành nhà phát triển bất động sản được tin tưởng nhất tại Việt Nam, được công nhận vì cam kết với chất lượng, đổi mới và sự hài lòng của khách hàng. Hướng tới sự bền vững và tác động xã hội tích cực.
@@ -245,11 +560,10 @@ export default function AboutPage() {
               CON SỐ <span style={{ color: '#B03A2E' }}>NỔI BẬT</span>
             </h2>
           </Reveal>
-          {/* TỐI ƯU UX/UI MOBILE: Dùng flex-wrap and basis logic */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center' }}>
             {stats.map((stat, idx) => (
               <div key={idx} style={{ flex: '1 1 140px', maxWidth: '300px' }}>
-                 <StatCard {...stat} delay={idx * 0.12} />
+                <StatCard {...stat} delay={idx * 0.12} />
               </div>
             ))}
           </div>
@@ -264,13 +578,10 @@ export default function AboutPage() {
               KHÁCH HÀNG <span style={{ color: '#B03A2E' }}>NÓI GÌ</span>
             </h2>
           </Reveal>
-          {/* TỐI ƯU UX/UI MOBILE: Xếp dọc trên mobile (flex-col), 3 cột trên Desktop (lg:grid-cols-3) */}
           <div className="flex flex-col md:grid md:grid-cols-3 gap-8">
             {testimonials.map((t, idx) => (
               <Reveal key={idx} direction="up" delay={idx * 0.15}>
-                <div
-                  style={{ padding: '32px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderTop: '4px solid #B03A2E', height: '100%' }}
-                >
+                <div style={{ padding: '32px', borderRadius: '12px', backgroundColor: '#FDFAF6', borderTop: '4px solid #B03A2E', height: '100%' }}>
                   <p style={{ fontSize: '15px', lineHeight: 1.8, color: '#5D4E4E', fontStyle: 'italic', marginBottom: '24px' }}>
                     "{t.text}"
                   </p>
@@ -296,7 +607,6 @@ export default function AboutPage() {
               GIÁ TRỊ <span style={{ color: '#B03A2E' }}>CỐT LÕI</span>
             </h2>
           </Reveal>
-          {/* TỐI ƯU UX/UI MOBILE: Dùng flex-wrap and basis logic */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {values.map((value, idx) => (
               <Reveal key={idx} direction={idx % 2 === 0 ? 'left' : 'right'} delay={idx * 0.1} style={{ flex: '1 1 300px', minWidth: 0 }}>
@@ -317,50 +627,6 @@ export default function AboutPage() {
                       <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#2C1A1A', marginBottom: '10px', letterSpacing: '0.06em' }}>{value.title}</h3>
                       <p style={{ fontSize: '14px', lineHeight: 1.7, color: '#5D4E4E' }}>{value.description}</p>
                     </div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Đội ngũ ── */}
-      <div className="py-16 lg:py-20" style={{ backgroundColor: '#F5EDE8' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <Reveal direction="up">
-            <h2 style={{ fontSize: '36px', fontWeight: 900, textAlign: 'center', color: '#2C1A1A', marginBottom: '60px', letterSpacing: '0.02em' }}>
-              ĐỘI NGŨ <span style={{ color: '#B03A2E' }}>CỦA CHÚNG TÔI</span>
-            </h2>
-          </Reveal>
-          {/* TỐI ƯU UX/UI MOBILE: Dùng flex-wrap and basis logic */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
-            {teamMembers.map((member, idx) => (
-              <Reveal key={idx} direction="up" delay={idx * 0.12} style={{ flex: '1 1 260px', maxWidth: '300px' }}>
-                <div
-                  style={{ borderRadius: '12px', overflow: 'hidden', backgroundColor: '#FDFAF6', transition: 'transform 0.2s, box-shadow 0.2s', height: '100%' }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.transform = 'translateY(-6px)'
-                    e.currentTarget.style.boxShadow = '0 12px 32px rgba(176,58,46,0.15)'
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
-                >
-                  <div style={{ height: '260px', overflow: 'hidden' }}>
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }}
-                      onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)' }}
-                      onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)' }}
-                    />
-                  </div>
-                  <div style={{ padding: '20px' }}>
-                    <h3 style={{ fontSize: '13px', fontWeight: 800, color: '#2C1A1A', marginBottom: '4px', letterSpacing: '0.05em' }}>{member.name}</h3>
-                    <p style={{ fontSize: '11px', fontWeight: 700, color: '#B03A2E', marginBottom: '10px', letterSpacing: '0.07em' }}>{member.role}</p>
-                    <p style={{ fontSize: '12px', color: '#5D4E4E', lineHeight: 1.6 }}>{member.bio}</p>
                   </div>
                 </div>
               </Reveal>
