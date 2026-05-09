@@ -68,7 +68,7 @@ export function Header() {
               className="hidden sm:inline-block text-white px-6 py-2 rounded font-semibold transition-colors hover:opacity-90"
               style={{ backgroundColor: '#B03A2E' }}
             >
-              Đăng ký
+              Tư Vấn
             </Link>
 
             {/* Mobile Menu Button */}

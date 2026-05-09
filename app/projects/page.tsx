@@ -71,6 +71,8 @@ const tagLabels: { [key: string]: string } = {
   'Waterfront': 'CĂN HỘ VEN SÔNG',
   'Elite Corner Suite': 'CĂN GÓC CAO CẤP',
   'Detox & Healthy': 'CĂN HỘ SỨC KHỎE',
+  'Riverside Town': 'NHÀ PHỐ VEN SÔNG',
+  'Center Point': 'TRUNG TÂM THƯƠNG MẠI',
 }
 
 const allProjects = [
@@ -105,6 +107,38 @@ const allProjects = [
     completion: '2026',
     tag: 'Detox & Healthy',
     squareMeters: '39 TIỆN ÍCH • 5.2 HA',
+  },
+  {
+    id: 3,
+    name: 'THANH PHÚ CENTRE POINT',
+    slug: 'du-an-thanh-phu-centre-point',
+    location: 'BẾN LỨC, LONG AN',
+    area: 'BẾN LỨC',
+    price: 2500000000,
+    priceDisplay: 'LIÊN HỆ BÁO GIÁ',
+    image: '/thanh-phu-centre-point/tongquan.jpg',
+    description: 'KHU DÂN CƯ THƯƠNG MẠI TRUNG TÂM VỚI HẠ TẦNG ĐỒNG BỘ',
+    type: 'NHÀ PHỐ',
+    units: 'ĐANG CẬP NHẬT',
+    completion: '2026',
+    tag: 'Center Point',
+    squareMeters: 'TIỆN ÍCH ĐA NĂNG',
+  },
+  {
+    id: 4,
+    name: 'PEARL RIVERSIDE',
+    slug: 'du-an-pearl-riverside',
+    location: 'QUẬN 8, HỒ CHÍ MINH',
+    area: 'QUẬN 8',
+    price: 6390000000,
+    priceDisplay: 'TỪ 6.39 TỶ/CĂN',
+    image: '/pearl-riverside/tongquan.jpg',
+    description: 'NHÀ PHỐ THƯƠNG MẠI VEN SÔNG PHONG CÁCH TÂN CỔ ĐIỂN SANG TRỌNG',
+    type: 'NHÀ PHỐ',
+    units: '50 CĂN',
+    completion: '2025',
+    tag: 'Waterfront',
+    squareMeters: '1 TRỆT 1 LỬNG 2 LẦU',
   }
 ]
 
@@ -240,7 +274,7 @@ function ProjectsContent() {
     { value: 'NHÀ PHỐ', label: 'NHÀ PHỐ' },
   ]
   
-  const areas = ['THUẬN AN', 'QUẬN 7', 'DĨ AN', 'THỦ ĐỨC', 'QUẬN 1', 'QUẬN 2', 'QUẬN 9']
+  const areas = ['THUẬN AN', 'QUẬN 7', 'DĨ AN', 'THỦ ĐỨC', 'QUẬN 1', 'QUẬN 2', 'QUẬN 9', 'QUẬN 8', 'BẾN LỨC']
 
   // Đọc dữ liệu từ URL khi trang vừa load
   useEffect(() => {

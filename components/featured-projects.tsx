@@ -95,7 +95,7 @@ const projects = [
     area: '28 - 80 m²',
   },
   {
-    id: 'the-pearl-riverside',
+    id: 'du-an-pearl-riverside',
     name: 'THE PEARL RIVERSIDE',
     location: 'Bến Lức, Long An',
     price: 'Đang cập nhật',
@@ -107,7 +107,7 @@ const projects = [
     area: 'Nhà phố liền kề',
   },
   {
-    id: 'arcadia-lavila',
+    id: '#',
     name: 'ARCADIA AT LAVILA',
     location: 'Phước Kiển, Nhà Bè',
     price: 'Đang cập nhật',
@@ -119,7 +119,7 @@ const projects = [
     area: 'Căn hộ cao cấp',
   },
   {
-    id: 'thanh-phu-centre-point',
+    id: 'du-an-thanh-phu-centre-point',
     name: 'THANH PHÚ CENTRE POINT',
     location: 'Bến Lức, Long An',
     price: 'Đang cập nhật',

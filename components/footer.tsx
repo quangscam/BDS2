@@ -24,10 +24,10 @@ export function Footer() {
                 Facebook
               </a>
               <a 
-                href="#" 
+                href="https://zalo.me/0986514242" 
                 className="text-xs font-bold tracking-[0.15em] uppercase text-[#FDFAF6]/70 hover:text-[#C9A84C] hover:-translate-y-0.5 transition-all duration-300" 
               >
-                Instagram
+                Zalo
               </a>
             </div>
           </div>

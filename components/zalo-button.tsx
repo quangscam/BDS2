@@ -10,7 +10,7 @@ export default function ZaloButton() {
         Chat Zalo
       </span>
       <a
-        href="https://zalo.me/yourphonenumber"
+        href="https://zalo.me/0986514242"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform duration-200 hover:scale-110"

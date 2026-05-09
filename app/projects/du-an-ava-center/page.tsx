@@ -358,19 +358,23 @@ export default function AVACenterLandingPage() {
   useEffect(() => {
     setIsHeroLoaded(true)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e: Event) {
-        e.preventDefault()
-        const targetId = (this as HTMLAnchorElement).getAttribute('href')
-        if (targetId && targetId !== '#') {
-          const el = document.querySelector(targetId)
-          if (el) {
-            const offset = el.getBoundingClientRect().top + window.pageYOffset - 90
-            window.scrollTo({ top: offset, behavior: "smooth" })
-            setMobileMenuOpen(false) 
-          }
-        }
-      })
-    })
+     anchor.addEventListener('click', function (e) { // Sửa thành function thường để có context 'this' hoặc dùng tham số
+    e.preventDefault()
+    // Sử dụng currentTarget để lấy đúng thẻ <a> đang được gắn sự kiện
+    const targetId = e.currentTarget instanceof HTMLAnchorElement 
+                     ? e.currentTarget.getAttribute('href') 
+                     : null;
+
+    if (targetId && targetId !== '#') {
+      const el = document.querySelector(targetId)
+      if (el) {
+        const offset = el.getBoundingClientRect().top + window.pageYOffset - 90
+        window.scrollTo({ top: offset, behavior: "smooth" })
+        setMobileMenuOpen(false)
+      }
+    }
+  })
+})
   }, [])
 
   useEffect(() => {
