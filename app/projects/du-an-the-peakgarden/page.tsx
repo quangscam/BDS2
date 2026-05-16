@@ -283,7 +283,7 @@ const nearbyPlaces = [
 
 const productTypes = [
   {
-    id: "2pn", name: "2 Phòng Ngủ", area: "~65–73m²", price: "Từ 46 triệu/m²",
+    id: "2pn", name: "2 Phòng Ngủ", area: "~65–73m²", price: "Từ 65 triệu/m²",
     description: "Lý tưởng cho cặp đôi và gia đình nhỏ hiện đại",
     features: ["100% có logia riêng", "Cửa sổ mọi phòng ngủ", "Nội thất máy lọc khí Ozon", "View thoáng, cửa chống cháy"],
     popular: true,
@@ -296,7 +296,7 @@ const productTypes = [
     ]
   },
   {
-    id: "3pn", name: "3 Phòng Ngủ", area: "~85–101m²", price: "Từ 46 triệu/m²",
+    id: "3pn", name: "3 Phòng Ngủ", area: "~85–101m²", price: "Từ 75 triệu/m²",
     description: "Không gian rộng rãi cho gia đình đa thế hệ",
     features: ["3 phòng ngủ đón gió tự nhiên", "Logia rộng panorama", "Hệ thống cửa lõi thép chống cháy", "Full nội thất máy lọc khí"],
     popular: false,
@@ -545,7 +545,7 @@ export default function ThePeakGardenLandingPage() {
           <h1 className="text-center text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-4 md:mb-6 tracking-tight leading-none font-sans drop-shadow-lg">
             THE PEAK<br className="sm:hidden" /> <span className="text-[#C8A951]">GARDEN</span>
           </h1>
-          <p className="text-center text-white/90 text-base sm:text-xl md:text-2xl max-w-2xl mx-auto mb-4 md:mb-5 font-medium font-sans">Thiên đường sức khỏe & sắc đẹp tại trung tâm Nam Sài Gòn</p>
+          <p className="text-center text-white/90 text-base sm:text-xl md:text-2xl max-w-2xl mx-auto mb-4 md:mb-5 font-medium font-sans">Căn hộ liền kề Phú Mỹ Hưng & sắc đẹp tại trung tâm Nam Sài Gòn</p>
           <div className="flex items-center justify-center gap-2 mb-8 md:mb-12">
             <MapPin size={16} className="text-[#4CAF50] shrink-0" />
             <p className="text-white/70 text-sm sm:text-base font-sans">15B Nguyễn Lương Bằng, Phường Phú Mỹ, Quận 7, TP.HCM</p>
@@ -604,7 +604,7 @@ export default function ThePeakGardenLandingPage() {
             <Reveal direction="left">
               <div 
                 className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#D4E8D0] group cursor-zoom-in"
-                onClick={() => setZoomedImage({ src: "/the-peak-garden/group3.jpg", alt: "Phối cảnh tổng thể The Peak Garden" })}
+                onClick={() => setZoomedImage({ src: "/the-peak-garden/tongquanduanthepeak.jpg", alt: "Phối cảnh tổng thể The Peak Garden" })}
               >
                 <div className="relative aspect-[4/3]">
                   <Image 
@@ -748,7 +748,7 @@ export default function ThePeakGardenLandingPage() {
         
                 <div className="absolute bottom-0 right-0 bg-[#0D1F0D] rounded-2xl px-6 py-4 shadow-[0_16px_40px_rgba(13,31,13,0.3)] border border-white/10 z-20 text-right pointer-events-none">
                   <p className="text-white/45 text-[10px] uppercase tracking-widest mb-0.5 font-sans">Chỉ từ</p>
-                  <p className="text-[#C8A951] text-2xl font-bold leading-none font-sans">46 triệu</p>
+                  <p className="text-[#C8A951] text-2xl font-bold leading-none font-sans">75 triệu</p>
                   <p className="text-white/55 text-[11px] mt-0.5 font-sans">/ m²</p>
                   <div className="absolute -top-2.5 -left-2.5 w-6 h-6 rounded-full bg-[#2E7D32] flex items-center justify-center shadow-md">
                     <Leaf className="w-3 h-3 text-white" />
@@ -771,7 +771,7 @@ export default function ThePeakGardenLandingPage() {
                 </h2>
                 <p className="text-[#3D5A3E] text-sm md:text-[15px] leading-relaxed font-sans text-balance mt-2">
                   Sở hữu ngay căn hộ <strong className="text-[#1A2E1A]">chăm sóc sức khỏe & sắc đẹp</strong> đầu tiên Nam Sài Gòn, liền kề Phú Mỹ Hưng,{" "}
-                  <span className="text-[#2E7D32] font-bold">pháp lý hoàn chỉnh</span> — giá chỉ từ <strong className="text-[#1A2E1A]">46 triệu/m²</strong>.
+                  <span className="text-[#2E7D32] font-bold">pháp lý hoàn chỉnh</span> — giá chỉ từ <strong className="text-[#1A2E1A]">75 triệu/m²</strong>.
                 </p>
               </div>
         

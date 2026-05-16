@@ -15,8 +15,9 @@ export default function PhoneButton() {
         style={{ backgroundColor: '#B03A2E' }}
         aria-label="Gọi điện thoại"
       >
-        <svg viewBox="0 0 48 48" width="28" height="28" fill="white">
-          <path d="M37.3 47H10.7C5.1 47 1 42.9 1 37.3V10.7C1 5.1 5.1 1 10.7 1h26.6C42.9 1 47 5.1 47 10.7v26.6c0 5.6-4.1 9.7-9.7 9.7zm-16.2-8h16.2c4.1 0 7.7-3.5 7.7-7.7V10.7c0-4.1-3.5-7.7-7.7-7.7H10.7c-4.1 0-7.7 3.5-7.7 7.7v26.6c0 4.1 3.5 7.7 7.7 7.7zM24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12 12 5.4 12 12-5.4 12-12 12zm0-20c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z" />
+        {/* Đã cập nhật sang Icon Điện Thoại chuẩn dùng nét vẽ stroke */}
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
         </svg>
       </a>
     </div>
