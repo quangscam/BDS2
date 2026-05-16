@@ -6,6 +6,7 @@ import { NewsSection } from '@/components/news-section'
 import { ConsultationForm } from '@/components/consultation-form'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
+import PhoneButton from '@/components/phone-button'
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <NewsSection />
       <ConsultationForm />
       <Footer />
+      <PhoneButton />
       <ZaloButton />
     </main>
   )

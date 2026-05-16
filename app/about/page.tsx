@@ -3,6 +3,7 @@
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
+import PhoneButton from '@/components/phone-button'
 import { useEffect, useRef, useState } from 'react'
 
 // ── Hook: theo dõi khi element vào viewport ──
@@ -672,6 +673,7 @@ export default function AboutPage() {
       </div>
 
       <Footer />
+      <PhoneButton />
       <ZaloButton />
     </main>
   )

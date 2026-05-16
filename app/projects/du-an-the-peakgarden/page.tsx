@@ -4,9 +4,9 @@ import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 
-import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
+import PhoneButton from '@/components/phone-button'
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -264,12 +264,7 @@ const navLinks = [
   { href: "#amenities", label: "Tiện ÍCH" },
 ]
 
-const features = [
-  { icon: Leaf, title: "Detox & Healthy Living", description: "Dự án tiên phong theo concept chăm sóc sức khỏe & sắc đẹp đầu tiên tại Nam Sài Gòn, với 11.000m² cây xanh và hồ điều hòa." },
-  { icon: Shield, title: "Pháp Lý Hoàn Chỉnh", description: "Đầy đủ 1/500, quyết định giao đất, giấy phép xây dựng. Đã ký HĐMB, sổ hồng sở hữu lâu dài." },
-  { icon: Building2, title: "Vị Trí Kim Cương", description: "Mặt tiền Nguyễn Lương Bằng — trục tài chính 'tỷ đô' sầm uất bậc nhất Nam Sài Gòn, liền kề Phú Mỹ Hưng." },
-  { icon: Sparkles, title: "Tiện Ích 600 Tỷ", description: "Hơn 39 tiện ích đẳng cấp bao quanh hồ Thiên Nga 10.000m³, đầu tư hơn 600 tỷ đồng phục vụ cư dân." },
-]
+const features = []
 
 const connections = [
   { icon: Car, title: "Nguyễn Lương Bằng — Trục Tài Chính Tỷ Đô", description: "Tuyến đường rộng 48m, 6 làn xe thông suốt, là trục thương mại - tài chính sầm uất nhất khu Nam, nối thẳng Phú Mỹ Hưng." },
@@ -484,7 +479,6 @@ export default function ThePeakGardenLandingPage() {
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full",
         isScrolled ? "bg-white/95 backdrop-blur-xl shadow-md border-b border-[#D4E8D0]/60" : "bg-transparent"
       )}>
-        <Header />
         <div className="w-full">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-10 py-4">
@@ -614,7 +608,7 @@ export default function ThePeakGardenLandingPage() {
               >
                 <div className="relative aspect-[4/3]">
                   <Image 
-                    src="/the-peak-garden/group3.jpg" 
+                    src="/the-peak-garden/tongquanduanthepeak.jpg" 
                     alt="Phối cảnh tổng thể The Peak Garden" 
                     fill 
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" 
@@ -1514,6 +1508,7 @@ export default function ThePeakGardenLandingPage() {
       </section>
 
       <Footer />
+      <PhoneButton />
       <ZaloButton />
 
       {/* Modal Phóng To Ảnh Dùng Chung */}

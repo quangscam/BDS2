@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
+import PhoneButton from '@/components/phone-button'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, TrendingUp, Home, BarChart2, Globe, FileText, Scale, CalendarDays } from 'lucide-react'
 
@@ -799,6 +800,7 @@ export default function NewsInsightsPage() {
       </div>
 
       <Footer />
+      <PhoneButton />
       <ZaloButton />
     </main>
   )

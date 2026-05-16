@@ -3,6 +3,7 @@
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
+import PhoneButton from '@/components/phone-button'
 import { Building, CheckCircle2, CreditCard, FileSignature, Wallet } from 'lucide-react'
 
 const steps = [
@@ -112,6 +113,7 @@ export default function LoanGuidePage() {
       </div>
       
       <Footer />
+      <PhoneButton />
       <ZaloButton />
     </main>
   )

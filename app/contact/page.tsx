@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
+import PhoneButton from '@/components/phone-button'
 import { Mail, Send, Phone, MessageSquare, Building2 } from 'lucide-react'
 
 /* ─── Hook & Component Hiệu Ứng (Reveal) ───────────── */
@@ -437,6 +438,7 @@ export default function ContactPage() {
       </div>
 
       <Footer />
+      <PhoneButton />
       <ZaloButton />
     </main>
   )

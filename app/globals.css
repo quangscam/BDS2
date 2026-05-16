@@ -122,6 +122,8 @@
 body {
   color: var(--foreground);
   background: var(--background);
+  font-size: 1.238rem;
+  line-height: 1.75;
 }
 
 /* Scroll reveal animation */
@@ -181,6 +183,20 @@ body {
   transform: translateY(30px);
   animation: scrollReveal 0.5s ease-out forwards;
 }
+
+/* Increase all text sizes by 10% */
+.text-xs { font-size: 0.8125rem !important; }
+.text-sm { font-size: 0.9075rem !important; }
+.text-base { font-size: 1.1rem !important; }
+.text-lg { font-size: 1.265rem !important; }
+.text-xl { font-size: 1.43rem !important; }
+.text-2xl { font-size: 1.65rem !important; }
+.text-3xl { font-size: 1.98rem !important; }
+.text-4xl { font-size: 2.2rem !important; }
+.text-5xl { font-size: 2.64rem !important; }
+.text-6xl { font-size: 3.3rem !important; }
+.text-7xl { font-size: 3.96rem !important; }
+.text-8xl { font-size: 4.62rem !important; }
 
 .card-hover {
   transition: all 0.2s ease-out;

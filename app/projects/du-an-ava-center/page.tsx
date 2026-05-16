@@ -7,6 +7,7 @@ import Image from "next/image"
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
+import PhoneButton from '@/components/phone-button'
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -1161,6 +1162,7 @@ export default function AVACenterLandingPage() {
       </section>
 
       <Footer />
+      <PhoneButton />
       <ZaloButton />
 
       {/* Modal Phóng To Bản Đồ */}

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import ZaloButton from '@/components/zalo-button'
+import PhoneButton from '@/components/phone-button'
 import { ChevronDown, MessageCircleQuestion } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -105,6 +106,7 @@ export default function FAQPage() {
       </div>
       
       <Footer />
+      <PhoneButton />
       <ZaloButton />
     </main>
   )
