@@ -1,6 +1,6 @@
 'use client'
 
-import { Home, Building2, Newspaper, Info, Phone, Mail, MapPin } from 'lucide-react'
+import { Home, Building2, Newspaper, Info, Phone, Mail, MapPin, Briefcase, Hash } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -13,9 +13,20 @@ export function Footer() {
             <h3 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight drop-shadow-sm">
               HappyHouse
             </h3>
-            <p className="text-sm leading-relaxed mb-8 text-[#FDFAF6]/80 text-pretty">
+            <p className="text-sm leading-relaxed mb-6 text-[#FDFAF6]/80 text-pretty">
               Tìm ngôi nhà của bạn với HappyHouse – nơi ước mơ an cư và đầu tư sinh lời của bạn trở thành hiện thực.
             </p>
+            {/* Thông tin pháp lý */}
+            <div className="mb-6 space-y-2 border-l-2 border-[#C9A84C]/50 pl-3">
+              <p className="text-xs text-[#FDFAF6]/60 leading-relaxed">
+                <span className="text-[#FDFAF6]/40 uppercase tracking-wider text-[10px]">Đơn vị vận hành</span><br/>
+                Công ty TNHH Pavilion Housing
+              </p>
+              <p className="text-xs text-[#FDFAF6]/60">
+                <span className="text-[#FDFAF6]/40 uppercase tracking-wider text-[10px]">MST</span>{' '}
+                0319139165
+              </p>
+            </div>
             <div className="flex gap-6">
               <a 
                 href="https://www.facebook.com/vu.ngoc.5099" 
@@ -90,7 +101,7 @@ export function Footer() {
             <div className="space-y-5">
               <div className="flex items-start gap-3 text-sm text-[#FDFAF6]/80 leading-relaxed">
                 <MapPin size={18} className="mt-0.5 shrink-0 text-[#C9A84C]" /> 
-                <p>C26, đường D8, KDC Caric, An Khánh<br/>TP. Hồ Chí Minh, Việt Nam</p>
+                <p>Số C26 Đường D08, KDC Caric,<br/>P. An Khánh, TP. HCM</p>
               </div>
               
               <div className="flex items-center gap-3 text-sm text-[#FDFAF6]/80">
@@ -112,6 +123,16 @@ export function Footer() {
                   ngocdiachinh34@gmail.com
                 </a>
               </div>
+
+              <div className="flex items-center gap-3 text-sm text-[#FDFAF6]/80">
+                <Briefcase size={18} className="shrink-0 text-[#C9A84C]" />
+                <span>Công ty TNHH Pavilion Housing</span>
+              </div>
+
+              <div className="flex items-center gap-3 text-sm text-[#FDFAF6]/80">
+                <Hash size={18} className="shrink-0 text-[#C9A84C]" />
+                <span>MST: 0319139165</span>
+              </div>
             </div>
           </div>
           
@@ -121,9 +142,9 @@ export function Footer() {
         <div className="border-t border-[#FDFAF6]/15 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs font-medium tracking-wider uppercase text-[#FDFAF6]/50 text-center md:text-left">
-              © {new Date().getFullYear()} HappyHouse Vietnam. Bản quyền đã được bảo hộ.
+              © {new Date().getFullYear()} HappyHouse Vietnam — Vận hành bởi Công ty TNHH Pavilion Housing (MST: 0319139165). Bản quyền đã được bảo hộ.
             </p>
-            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#C9A84C]/80 text-center md:text-right">
+            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#C9A84C]/80 text-center md:text-right whitespace-nowrap">
               Kiến tạo không gian • Nâng tầm giá trị
             </p>
           </div>
