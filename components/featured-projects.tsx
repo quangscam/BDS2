@@ -67,6 +67,7 @@ const tagTranslations: { [key: string]: string } = {
   'Waterfront': 'CĂN HỘ VEN SÔNG',
   'Elite Corner Suite': 'CĂN GÓC CAO CẤP',
   'Detox & Healthy': 'CĂN HỘ SỨC KHỎE',
+  'Knowledge Park': 'ĐÔ THỊ TRI THỨC',
 }
 
 const projects = [
@@ -117,6 +118,18 @@ const projects = [
     completion: 'Đang cập nhật',
     tag: 'Premium Residence',
     area: 'Căn hộ cao cấp',
+  },
+  {
+    id: 'du-an-vinhomes-saigon-park',
+    name: 'VINHOMES SÀI GÒN PARK',
+    location: 'Hóc Môn, TP. HCM',
+    price: 'Đang cập nhật',
+    image: '/placeholder.jpg',
+    description: 'Đại đô thị công viên tri thức quy mô khoảng 1.080ha tại cửa ngõ Tây Bắc TP.HCM, định hướng khu đô thị Đại học Quốc tế.',
+    units: '1.080 ha',
+    completion: 'Đang triển khai',
+    tag: 'Knowledge Park',
+    area: 'Thấp tầng, shophouse, biệt thự',
   },
   {
     id: 'du-an-thanh-phu-centre-point',

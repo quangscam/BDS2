@@ -73,6 +73,7 @@ const tagLabels: { [key: string]: string } = {
   'Detox & Healthy': 'CĂN HỘ SỨC KHỎE',
   'Riverside Town': 'NHÀ PHỐ VEN SÔNG',
   'Center Point': 'TRUNG TÂM THƯƠNG MẠI',
+  'Knowledge Park': 'ĐÔ THỊ TRI THỨC',
 }
 
 const allProjects = [
@@ -123,6 +124,22 @@ const allProjects = [
     completion: '2026',
     tag: 'Center Point',
     squareMeters: 'TIỆN ÍCH ĐA NĂNG',
+  },
+  {
+    id: 5,
+    name: 'VINHOMES SÀI GÒN PARK',
+    slug: 'du-an-vinhomes-saigon-park',
+    location: 'HÓC MÔN, HỒ CHÍ MINH',
+    area: 'HÓC MÔN',
+    price: 0,
+    priceDisplay: 'ĐANG CẬP NHẬT',
+    image: '/placeholder.jpg',
+    description: 'ĐẠI ĐÔ THỊ CÔNG VIÊN TRI THỨC QUY MÔ KHOẢNG 1.080HA TẠI CỬA NGÕ TÂY BẮC TP.HCM',
+    type: 'ĐẠI ĐÔ THỊ',
+    units: '1.080 HA',
+    completion: 'ĐANG TRIỂN KHAI',
+    tag: 'Knowledge Park',
+    squareMeters: 'ĐẠI HỌC QUỐC TẾ • CÔNG VIÊN',
   },
   {
     id: 4,
