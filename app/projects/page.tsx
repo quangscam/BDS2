@@ -74,6 +74,7 @@ const tagLabels: { [key: string]: string } = {
   'Riverside Town': 'NHÀ PHỐ VEN SÔNG',
   'Center Point': 'TRUNG TÂM THƯƠNG MẠI',
   'Knowledge Park': 'ĐÔ THỊ TRI THỨC',
+  'French Living': 'CĂN HỘ PHONG CÁCH PHÁP',
 }
 
 const allProjects = [
@@ -127,13 +128,29 @@ const allProjects = [
   },
   {
     id: 5,
+    name: 'ARCADIA AT LAVILA',
+    slug: 'du-an-arcadiaatlavila',
+    location: 'NHÀ BÈ, HỒ CHÍ MINH',
+    area: 'NHÀ BÈ',
+    price: 0,
+    priceDisplay: 'ĐANG CẬP NHẬT',
+    image: '/arcadia-at-lavila/tongquan1.png',
+    description: 'CĂN HỘ CAO CẤP PHONG CÁCH PHÁP TRONG KHU ĐÔ THỊ LAVILA NAM SÀI GÒN',
+    type: 'CĂN HỘ',
+    units: '959 SẢN PHẨM',
+    completion: '2029',
+    tag: 'French Living',
+    squareMeters: '1PN • 2PN • 3PN',
+  },
+  {
+    id: 6,
     name: 'VINHOMES SÀI GÒN PARK',
     slug: 'du-an-vinhomes-saigon-park',
     location: 'HÓC MÔN, HỒ CHÍ MINH',
     area: 'HÓC MÔN',
     price: 0,
     priceDisplay: 'ĐANG CẬP NHẬT',
-    image: '/placeholder.jpg',
+    image: '/vinhomes-saigon-park/tongquan1.jpg',
     description: 'ĐẠI ĐÔ THỊ CÔNG VIÊN TRI THỨC QUY MÔ KHOẢNG 1.080HA TẠI CỬA NGÕ TÂY BẮC TP.HCM',
     type: 'ĐẠI ĐÔ THỊ',
     units: '1.080 HA',
@@ -289,9 +306,10 @@ function ProjectsContent() {
     { value: 'CĂN HỘ', label: 'CĂN HỘ CHUNG CƯ' },
     { value: 'SHOPHOUSE', label: 'SHOPHOUSE' },
     { value: 'NHÀ PHỐ', label: 'NHÀ PHỐ' },
+    { value: 'ĐẠI ĐÔ THỊ', label: 'ĐẠI ĐÔ THỊ' },
   ]
   
-  const areas = ['THUẬN AN', 'QUẬN 7', 'DĨ AN', 'THỦ ĐỨC', 'QUẬN 1', 'QUẬN 2', 'QUẬN 9', 'QUẬN 8', 'BẾN LỨC']
+  const areas = ['THUẬN AN', 'QUẬN 7', 'DĨ AN', 'THỦ ĐỨC', 'QUẬN 1', 'QUẬN 2', 'QUẬN 9', 'QUẬN 8', 'BẾN LỨC', 'NHÀ BÈ', 'HÓC MÔN']
 
   // Đọc dữ liệu từ URL khi trang vừa load
   useEffect(() => {
@@ -303,6 +321,7 @@ function ProjectsContent() {
       if (typeParam === 'Căn hộ chung cư') setSelectedType('CĂN HỘ')
       else if (typeParam === 'Shophouse') setSelectedType('SHOPHOUSE')
       else if (typeParam === 'Nhà phố') setSelectedType('NHÀ PHỐ')
+      else if (typeParam === 'Đại đô thị') setSelectedType('ĐẠI ĐÔ THỊ')
     }
 
     const areaParam = searchParams.get('area')
